@@ -1,148 +1,8 @@
-// script.js
+// script.js (Simplified for Debugging)
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Travel Risk Platform script loaded.');
+    console.log('Travel Risk Platform script loaded. STARTING DEBUG VERSION.');
 
-    // --- Mock Data ---
-    let purchaseHistory = [ { id: 'ORD456', email: 'demo@user.com', country: 'Zones: G-10, A-2, R-0', dates: '2024-08-15 to 2024-08-27', totalPrice: '$75.50', status: 'Completed' } ];
-    let claimsHistory = [ /* Could add mock claims here */ ];
-
-    // --- Helper: Ensure btn-text and spinner spans exist (More Robust) ---
-    function ensureBtnTextSpan(button) {
-        // 1. Check if button exists
-        if (!button) {
-            // console.warn("ensureBtnTextSpan called with null button");
-            return;
-        }
-
-        try {
-            // 2. Check if spans already exist
-            const hasBtnText = button.querySelector('.btn-text');
-            const hasSpinner = button.querySelector('.loading-spinner');
-
-            // If both exist, assume structure is okay
-            if (hasBtnText && hasSpinner) {
-                return;
-            }
-
-            // 3. Get existing text content safely
-            let existingText = '';
-            // Iterate through child nodes to find text, avoiding direct textContent wipe
-            button.childNodes.forEach(node => {
-                if (node.nodeType === Node.TEXT_NODE) {
-                    existingText += node.textContent.trim();
-                }
-            });
-
-            // If we found text but no span, wrap it
-            if (existingText && !hasBtnText) {
-                 // Clear only text nodes before adding span
-                 button.childNodes.forEach(node => {
-                     if (node.nodeType === Node.TEXT_NODE) {
-                         node.remove();
-                     }
-                 });
-                const span = document.createElement('span');
-                span.classList.add('btn-text');
-                span.textContent = existingText;
-                // Prepend the text span
-                button.insertBefore(span, button.firstChild);
-            } else if (!hasBtnText) {
-                 // If no text and no span, create an empty one to be safe
-                const span = document.createElement('span');
-                span.classList.add('btn-text');
-                button.insertBefore(span, button.firstChild);
-            }
-
-
-            // 4. Add spinner if missing
-            if (!hasSpinner) {
-                const spinnerSpan = document.createElement('span');
-                spinnerSpan.classList.add('loading-spinner');
-                spinnerSpan.style.display = 'none';
-                button.appendChild(spinnerSpan);
-            }
-        } catch (error) {
-            console.error("Error in ensureBtnTextSpan for button:", button, error);
-            // Don't let this error stop other scripts
-        }
-    }
-
-
-    // --- Helper: Show Status Message (Unchanged) ---
-    function showStatusMessage(elementId, message, isSuccess = true, duration = 4000) {
-        const statusElement = document.getElementById(elementId);
-        if (!statusElement) { console.warn(`Status element #${elementId} not found.`); return; }
-        statusElement.textContent = message;
-        statusElement.className = 'status-message';
-        statusElement.classList.add(isSuccess ? 'success' : 'error');
-        statusElement.style.display = 'block';
-        if (statusElement.timerId) { clearTimeout(statusElement.timerId); }
-        statusElement.timerId = setTimeout(() => {
-            statusElement.style.display = 'none'; statusElement.className = 'status-message'; statusElement.timerId = null;
-        }, duration);
-    }
-
-    // --- Helper: Simulate Form Submission Visuals (Added checks) ---
-    function simulateFormSubmitVisuals(event, formName, statusElementId, callback) {
-        event.preventDefault();
-        const form = event.target;
-        if (!form) { console.error("simulateFormSubmitVisuals: Event target is not a form?", event); return; }
-
-        // **Find button specifically within the submitted form**
-        const submitButton = form.querySelector('button[type="submit"]');
-
-        if (!submitButton) { console.warn(`${formName}: Could not find submit button inside the form.`); return; } // Stop if no button
-        if (submitButton.disabled || submitButton.classList.contains('loading')) return; // Prevent double submit
-
-        ensureBtnTextSpan(submitButton); // Ensure structure *before* querying sub-elements
-        const spinner = submitButton.querySelector('.loading-spinner');
-        const btnText = submitButton.querySelector('.btn-text');
-        const statusElement = document.getElementById(statusElementId);
-
-        if (!spinner || !btnText) { console.warn(`${formName}: Button structure incorrect (.loading-spinner or .btn-text missing).`); } // Warn if structure failed
-
-        if (statusElement) { statusElement.style.display = 'none'; statusElement.className = 'status-message'; }
-
-        submitButton.classList.add('loading');
-        if(btnText) { btnText.style.visibility = 'hidden'; btnText.style.opacity = '0'; }
-        if(spinner) spinner.style.display = 'inline-block';
-        submitButton.disabled = true;
-        console.log(`${formName} submitting (simulation)...`);
-
-        // Rest of the timeout logic remains the same...
-        setTimeout(() => {
-            let success = true; let message = `${formName.replace(' Data','')} operation successful!`;
-            try {
-                if (typeof callback === 'function') {
-                    const result = callback();
-                    if (typeof result === 'object' && result !== null) { success = result.success !== undefined ? result.success : true; message = result.message || (success ? message : 'An error occurred.'); }
-                    else if (result === false) { success = false; message = `Error during ${formName}.`; }
-                }
-                if (statusElementId) { showStatusMessage(statusElementId, message, success); } else if (!success) { alert(message); }
-                if (success && form.id !== 'login-form') {
-                     form.reset();
-                     const fileInput = form.querySelector('input[type="file"]');
-                     if (fileInput) { const changeEvent = new Event('change', { bubbles: true }); fileInput.dispatchEvent(changeEvent); }
-                     if (form.id === 'travel-plan-form') { calculateMockPrice(); }
-                }
-            } catch (error) {
-                console.error(`Error during ${formName} callback:`, error); success = false; message = 'An unexpected error occurred.';
-                if (statusElementId) { showStatusMessage(statusElementId, message, false); } else { alert(message); }
-            } finally {
-                // Check button still exists before modifying
-                 if (submitButton) {
-                     submitButton.classList.remove('loading');
-                     if(btnText) { btnText.style.visibility = 'visible'; btnText.style.opacity = '1'; }
-                     if(spinner) spinner.style.display = 'none';
-                     submitButton.disabled = false;
-                 }
-                 console.log(`${formName} simulation complete (Success: ${success}).`);
-            }
-        }, 1000 + Math.random() * 1000);
-    }
-
-
-    // --- Sidebar & Header Navigation Logic (Add try-catch) ---
+    // --- 1. Navigation Logic ---
     try {
         const allNavLinks = document.querySelectorAll('.sidebar-link, .header-link');
         const dashboardSections = document.querySelectorAll('.dashboard-section');
@@ -151,54 +11,123 @@ document.addEventListener('DOMContentLoaded', () => {
         const body = document.body;
         const breadcrumbCurrentPage = document.getElementById('breadcrumb-current-page');
 
+        if (!allNavLinks.length) console.warn("No navigation links found.");
+        if (!dashboardSections.length) console.warn("No dashboard sections found.");
+        if (!breadcrumbCurrentPage) console.warn("Breadcrumb element not found.");
+
         function activateSection(targetId) {
-            // ... (function content unchanged) ...
-             let sectionFound = false; let activeLinkText = 'Dashboard';
-             allNavLinks.forEach(link => link.classList.remove('active'));
-             dashboardSections.forEach(section => { section.classList.remove('active', 'is-visible'); section.style.animationDelay = '0s'; });
-             const activeLinks = document.querySelectorAll(`[data-target="${targetId}"]`);
-             const activeSection = document.getElementById(targetId);
-             if (activeSection) {
-                 activeSection.classList.add('active'); const delay = activeSection.dataset.delay || '0s'; activeSection.style.animationDelay = delay;
-                 setTimeout(() => { activeSection.classList.add('is-visible'); }, 10);
-                 activeLinks.forEach(link => { link.classList.add('active'); if (link.classList.contains('sidebar-link')) { activeLinkText = link.textContent.trim(); } });
-                 sectionFound = true;
-             } else {
-                 console.warn(`Target section #${targetId} not found. Falling back.`);
-                 const firstSection = document.querySelector('.dashboard-section');
-                 if (firstSection) { const firstTargetId = firstSection.id; activateSection(firstTargetId); return; }
-                 else { console.error("No sections found to activate."); activeLinkText = 'Error'; }
-             }
-             if (breadcrumbCurrentPage) { breadcrumbCurrentPage.textContent = activeLinkText; }
-             if (sidebar && sidebar.classList.contains('open')) { sidebar.classList.remove('open'); mobileMenuToggle.setAttribute('aria-expanded', 'false'); body.classList.remove('sidebar-open'); }
-             document.querySelector('.content-area')?.scrollTo(0, 0);
+            console.log(`Attempting to activate section: ${targetId}`);
+            let sectionFound = false;
+            let activeLinkText = 'Dashboard';
+
+            // Deactivate all
+            allNavLinks.forEach(link => link?.classList.remove('active')); // Add null check
+            dashboardSections.forEach(section => section?.classList.remove('active', 'is-visible')); // Add null check
+
+            const activeSection = document.getElementById(targetId);
+            const activeLinks = document.querySelectorAll(`[data-target="${targetId}"]`); // Find links targeting this ID
+
+            if (activeSection) {
+                console.log(`Found section: #${targetId}`);
+                activeSection.classList.add('active');
+                // Use minimal delay for visibility transition
+                setTimeout(() => { activeSection.classList.add('is-visible'); }, 10);
+
+                activeLinks.forEach(link => {
+                    if(link) {
+                        link.classList.add('active');
+                        // Prefer sidebar link text for breadcrumb
+                        if (link.classList.contains('sidebar-link')) {
+                            activeLinkText = link.textContent.trim();
+                        }
+                    }
+                });
+                sectionFound = true;
+            } else {
+                console.warn(`Target section #${targetId} NOT FOUND.`);
+                // Minimal fallback: try activating the very first section if target fails
+                if (targetId !== dashboardSections[0]?.id) { // Avoid infinite loop if first section is missing
+                    console.log("Falling back to first section...");
+                    activateSection(dashboardSections[0]?.id); // Try activating the first one
+                    return; // Exit current attempt
+                }
+            }
+
+            // Update Breadcrumb
+            if (breadcrumbCurrentPage) {
+                breadcrumbCurrentPage.textContent = activeLinkText;
+            } else {
+                // console.warn("Cannot update breadcrumb - element not found.");
+            }
+
+            // Close mobile sidebar
+            if (sidebar && sidebar.classList.contains('open')) {
+                sidebar.classList.remove('open');
+                if(mobileMenuToggle) mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                body.classList.remove('sidebar-open');
+            }
+            // Scroll content area to top
+            document.querySelector('.content-area')?.scrollTo(0, 0);
         }
 
-        allNavLinks.forEach(link => {
-             if (link) { // Add null check
+        // Attach navigation listeners
+        allNavLinks.forEach((link, index) => {
+            if (link) {
                 link.addEventListener('click', (e) => {
+                    console.log(`Link clicked: ${link.textContent.trim()}`);
                     const targetId = e.currentTarget.dataset.target;
-                    if (targetId && (e.currentTarget.classList.contains('sidebar-link') || e.currentTarget.getAttribute('href')?.startsWith('#'))) { e.preventDefault(); activateSection(targetId); }
+                    // Basic check: Does the target element exist?
+                    if (targetId && document.getElementById(targetId)) {
+                        e.preventDefault(); // Prevent default only if it's a valid internal link
+                        activateSection(targetId);
+                    } else if (targetId) {
+                        console.warn(`Target #${targetId} not found for link click.`);
+                        // Maybe allow default if it's not found (could be an external link)
+                    } else {
+                         console.warn(`Link ${index} has no data-target.`);
+                    }
                 });
+            } else {
+                 console.warn(`Link at index ${index} is null.`);
             }
         });
 
+        // Mobile Menu Toggle Listener
         if (mobileMenuToggle && sidebar) {
-            mobileMenuToggle.addEventListener('click', () => { const isOpen = sidebar.classList.toggle('open'); mobileMenuToggle.setAttribute('aria-expanded', isOpen); body.classList.toggle('sidebar-open', isOpen); });
-            document.addEventListener('click', (e) => { if (sidebar.classList.contains('open') && !sidebar.contains(e.target) && !mobileMenuToggle.contains(e.target)) { sidebar.classList.remove('open'); mobileMenuToggle.setAttribute('aria-expanded', 'false'); body.classList.remove('sidebar-open'); } });
+            mobileMenuToggle.addEventListener('click', () => {
+                const isOpen = sidebar.classList.toggle('open');
+                mobileMenuToggle.setAttribute('aria-expanded', isOpen);
+                body.classList.toggle('sidebar-open', isOpen);
+            });
+            // Optional: Close on outside click (keep simple for now)
+        } else {
+             console.warn("Mobile menu toggle or sidebar not found.");
         }
 
+        // Initial Activation
         let initialTarget = window.location.hash ? window.location.hash.substring(1) : 'map-section';
-        const validInitialTarget = document.getElementById(initialTarget) ? initialTarget : 'map-section';
-        if (validInitialTarget) { activateSection(validInitialTarget); }
-        else { const firstAvailableSection = document.querySelector('.dashboard-section'); if(firstAvailableSection) { activateSection(firstAvailableSection.id); } }
+        console.log(`Initial target check: ${initialTarget}`);
+        if (!document.getElementById(initialTarget)) {
+            console.warn(`Initial target #${initialTarget} not found, defaulting to map-section.`);
+            initialTarget = 'map-section';
+        }
+        if (document.getElementById(initialTarget)) {
+             activateSection(initialTarget);
+        } else if (dashboardSections.length > 0) {
+            console.warn("Default 'map-section' not found, activating first available section.");
+             activateSection(dashboardSections[0].id); // Activate the very first section if map-section is missing
+        } else {
+            console.error("No dashboard sections found to activate initially.");
+        }
+
     } catch (error) {
-        console.error("Error during Navigation Logic setup:", error);
+        console.error("CRITICAL ERROR during Navigation Logic setup:", error);
     }
 
-
-    // --- Plan Customization Logic (Add try-catch wrapper) ---
+    // --- 2. Plan Customization Logic ---
     try {
+        console.log("Setting up Plan Customization...");
+        // Select elements INSIDE this block to ensure navigation ran first
         const startDateInput = document.getElementById('start-date');
         const endDateInput = document.getElementById('end-date');
         const totalDaysInput = document.getElementById('total-days');
@@ -212,118 +141,134 @@ document.addEventListener('DOMContentLoaded', () => {
         const evacCheckbox = document.getElementById('evac-coverage');
         const priceDisplay = document.getElementById('estimated-price');
         const planForm = document.getElementById('travel-plan-form');
+
         const planFormInputs = [ startDateInput, endDateInput, daysAmberInput, daysRedInput, medicalCoverageSelect, accidentCoverageSelect, transitCheckbox, krCheckbox, evacCheckbox ];
 
-        function calculateMockPrice() { /* ... function content unchanged ... */ }
-
-        let listenerAttachedCount = 0;
-        planFormInputs.forEach(input => {
-            if (input) {
-                const eventType = (input.type === 'date' || input.tagName === 'SELECT' || input.type === 'checkbox') ? 'change' : 'input';
-                input.addEventListener(eventType, calculateMockPrice);
-                listenerAttachedCount++;
-            } else {
-                console.warn("A plan customization input element was not found.");
+        // Verify elements were found
+        let allPlanElementsFound = true;
+        planFormInputs.forEach((el, index) => {
+            if (!el) {
+                 console.error(`Plan input element at index ${index} NOT FOUND.`);
+                 allPlanElementsFound = false;
             }
         });
-        console.log(`Attached ${listenerAttachedCount} listeners for plan calculation.`);
+         if (!priceDisplay) { console.error("Price display element NOT FOUND."); allPlanElementsFound = false; }
+         if (!totalDaysInput) { console.error("Total days input element NOT FOUND."); allPlanElementsFound = false; } // totalDaysInput is separate but crucial
 
-        // Use the already determined validInitialTarget from navigation setup
-        const currentActiveSectionId = document.querySelector('.dashboard-section.active')?.id;
-        if (currentActiveSectionId === 'plan-section') {
-            calculateMockPrice(); // Initial calculation if starting on plan section
-        }
-    } catch (error) {
-        console.error("Error during Plan Customization Logic setup:", error);
-    }
+        // Only proceed if all essential elements are found
+        if (allPlanElementsFound && totalDaysInput && priceDisplay) {
 
+            function calculateMockPrice() {
+                 // console.log("Calculating price..."); // Uncomment for intense debugging
+                // Pricing Configuration
+                const dailyRateGreen = 2.50, dailyRateAmber = 5.00, dailyRateRed = 10.00;
+                const medicalCoverageBaseCost = { 50000: 5, 100000: 10, 150000: 15, 200000: 20, 250000: 25 };
+                const accidentCoverageBaseCost = { 50000: 3, 100000: 6, 150000: 9, 200000: 12, 250000: 15 };
+                const transitCost = 30.00; const krAddonCost = 150.00; const evacAddonCost = 75.00;
 
-    // --- Login/Register Form Simulation (Add try-catch) ---
-    try {
-        const loginForm = document.getElementById('login-form');
-        const registerForm = document.getElementById('register-form');
-        if (loginForm) {
-            const loginButton = loginForm.querySelector('button[type="submit"]');
-            if(loginButton) ensureBtnTextSpan(loginButton); else console.warn("Login button not found in form");
-            loginForm.addEventListener('submit', (event) => { simulateFormSubmitVisuals(event, 'Login', null, () => { console.log('Login attempt:', loginForm.querySelector('#login-email').value); alert('Login successful! (Simulated)'); return { success: true }; }); });
-        }
-        if (registerForm) {
-            const regButton = registerForm.querySelector('button[type="submit"]');
-             if(regButton) ensureBtnTextSpan(regButton); else console.warn("Register button not found in form");
-            registerForm.addEventListener('submit', (event) => { simulateFormSubmitVisuals(event, 'Register', null, () => { console.log('Register attempt:', registerForm.querySelector('#reg-email').value); alert('Registration successful! Please check your email for verification (Simulated).'); return { success: true }; }); });
-        }
-    } catch (error) {
-        console.error("Error during Login/Register Logic setup:", error);
-    }
+                // Date Calculation
+                let totalDays = 0;
+                const startDate = startDateInput.value ? new Date(startDateInput.value) : null;
+                const endDate = endDateInput.value ? new Date(endDateInput.value) : null;
+                endDateInput.style.borderColor = '';
+                if (startDate && endDate) {
+                    if (endDate >= startDate) { totalDays = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24)) + 1; }
+                    else { totalDays = 0; endDateInput.style.borderColor = 'red'; }
+                }
+                totalDaysInput.value = totalDays > 0 ? totalDays : 0;
 
-    // --- Admin Section Logic (Add try-catch wrappers) ---
-    try {
-        const updateRiskForm = document.getElementById('update-risk-form');
-        const bulkUploadForm = document.getElementById('bulk-upload-form');
-        const updatePricingForm = document.getElementById('update-pricing-form');
-        const purchasesTableBody = document.querySelector('#purchases-table tbody');
-        const fileInput = bulkUploadForm?.querySelector('#risk-file-upload');
-        const fileNameSpan = bulkUploadForm?.querySelector('.file-name');
+                // Zone Days Calculation
+                let daysAmber = parseInt(daysAmberInput.value) || 0; let daysRed = parseInt(daysRedInput.value) || 0;
+                if (daysAmber < 0) { daysAmber = 0; daysAmberInput.value = 0; } if (daysRed < 0) { daysRed = 0; daysRedInput.value = 0; }
+                let daysGreen = 0; daysAmberInput.style.borderColor = ''; daysRedInput.style.borderColor = '';
+                if (totalDays > 0) {
+                    if ((daysAmber + daysRed) > totalDays) { daysAmberInput.style.borderColor = 'orange'; daysRedInput.style.borderColor = 'orange'; daysGreen = 0; }
+                    else { daysGreen = totalDays - daysAmber - daysRed; }
+                }
+                daysGreenInput.value = daysGreen >= 0 ? daysGreen : 0;
 
-        function addPurchaseToTable(purchase) { /* ... unchanged ... */ }
-        function renderInitialPurchases() { /* ... unchanged ... */ }
-        function simulatePurchase(planDetails) { /* ... unchanged ... */ }
+                // Coverage Calculation
+                const medicalCoverageLevel = parseInt(medicalCoverageSelect.value) || 0;
+                const accidentCoverageLevel = parseInt(accidentCoverageSelect.value) || 0;
+                const hasTransitCoverage = transitCheckbox.checked;
+                const hasKrCoverage = krCheckbox.checked;
+                const hasEvacCoverage = evacCheckbox.checked;
 
-        const proceedButton = document.querySelector('#plan-section .cta-button');
-        if (proceedButton) {
-            ensureBtnTextSpan(proceedButton);
-            proceedButton.addEventListener('click', (event) => { /* ... unchanged ... */ });
-        }
+                // Price Calculation
+                let basePrice = 0;
+                if (totalDays > 0 && (daysAmber + daysRed) <= totalDays) { const effectiveGreen = Math.max(0, daysGreen); basePrice = (effectiveGreen * dailyRateGreen) + (daysAmber * dailyRateAmber) + (daysRed * dailyRateRed); }
+                const medicalCost = medicalCoverageBaseCost[medicalCoverageLevel] || 0; const accidentCost = accidentCoverageBaseCost[accidentCoverageLevel] || 0; const transitPrice = hasTransitCoverage ? transitCost : 0; const krCost = hasKrCoverage ? krAddonCost : 0; const evacCost = hasEvacCoverage ? evacAddonCost : 0;
 
-        if (updateRiskForm) {
-             const btn = updateRiskForm.querySelector('button[type="submit"]'); if(btn) ensureBtnTextSpan(btn);
-             updateRiskForm.addEventListener('submit', (event) => { /* ... unchanged ... */ });
-        }
-        if (bulkUploadForm && fileInput && fileNameSpan) {
-             const btn = bulkUploadForm.querySelector('button[type="submit"]'); if(btn) ensureBtnTextSpan(btn);
-             fileInput.addEventListener('change', () => { /* ... unchanged ... */ });
-             bulkUploadForm.addEventListener('submit', (event) => { /* ... unchanged ... */ });
-        } else if (bulkUploadForm) { console.warn("File input or file name span not found for bulk upload form."); }
-        if (updatePricingForm) {
-             const btn = updatePricingForm.querySelector('button[type="submit"]'); if(btn) ensureBtnTextSpan(btn);
-             updatePricingForm.addEventListener('submit', (event) => { /* ... unchanged ... */ });
-        }
+                // Final Price
+                let finalPrice = 0;
+                if (totalDays > 0 && (daysAmber + daysRed) <= totalDays) { finalPrice = basePrice + medicalCost + accidentCost + transitPrice + krCost + evacCost; }
+                else { finalPrice = 0; }
 
-        // Initial Data Rendering for Admin
-        if(purchasesTableBody) {
-            renderInitialPurchases();
+                // Display Logic
+                if (finalPrice > 0) { priceDisplay.textContent = `$${finalPrice.toFixed(2)}`; }
+                else if (totalDays > 0 && (daysAmber + daysRed) > totalDays){ priceDisplay.textContent = '$ ---'; }
+                else if (totalDays === 0 && (startDateInput.value || endDateInput.value)) { priceDisplay.textContent = '$ ---'; }
+                else { priceDisplay.textContent = '$0.00'; }
+            } // End calculateMockPrice
+
+            // Attach listeners ONLY if all elements were found
+            planFormInputs.forEach(input => {
+                const eventType = (input.type === 'date' || input.tagName === 'SELECT' || input.type === 'checkbox') ? 'change' : 'input';
+                input.addEventListener(eventType, calculateMockPrice);
+            });
+            console.log("Attached listeners for plan calculation.");
+
+            // Initial Calculation Check
+            const currentActiveSectionId = document.querySelector('.dashboard-section.active')?.id;
+            if (currentActiveSectionId === 'plan-section') {
+                 console.log("Calculating initial price for plan section.");
+                 calculateMockPrice();
+            }
         } else {
-            console.warn("Purchases table body not found for initial render.");
+             console.error("Skipping Plan Customization setup due to missing elements.");
         }
-
-    } catch(error) {
-         console.error("Error during Admin Logic setup:", error);
-    }
-
-
-    // --- Fade-in Animation Trigger (Unchanged) ---
-    try {
-        const fadeInElements = document.querySelectorAll('.fade-in');
-        // ... (rest of observer logic unchanged) ...
-         const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
-         const observerCallback = (entries, observer) => { entries.forEach(entry => { if (entry.isIntersecting) { const target = entry.target; const delay = target.dataset.delay || '0s'; target.style.animationDelay = delay; target.classList.add('is-visible'); observer.unobserve(target); } }); };
-         const observer = new IntersectionObserver(observerCallback, observerOptions);
-         fadeInElements.forEach(el => { if(el) { el.style.opacity = 0; observer.observe(el); } });
     } catch (error) {
-        console.error("Error setting up fade-in animations:", error);
+        console.error("CRITICAL ERROR during Plan Customization Logic setup:", error);
     }
 
-    // --- Ensure all *other* buttons have spans initially (Run last, wrap in try-catch) ---
-    try {
-        console.log("Running final ensureBtnTextSpan on all .btn elements...");
-        document.querySelectorAll('.btn').forEach(btn => {
-             // Avoid re-processing buttons already handled within specific listeners if possible
-             // This is a broad sweep, ensureBtnTextSpan should handle redundancy
-             ensureBtnTextSpan(btn);
+    // --- 3. Other Button/Form Logic (Keep SIMPLE for now) ---
+    // We are temporarily skipping ensureBtnTextSpan and simulateFormSubmitVisuals
+    // Just attach basic alert listeners to check if buttons are clickable
+
+    // Login/Register Forms
+    const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('register-form');
+    if(loginForm) {
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault(); // Still prevent form submission
+            alert('Login Submit Clicked (Simulation Inactive)');
         });
-    } catch (error) {
-         console.error("Error during final ensureBtnTextSpan sweep:", error);
-    }
+    } else { console.warn("Login form not found."); }
+    if(registerForm) {
+        registerForm.addEventListener('submit', (e) => {
+             e.preventDefault();
+             alert('Register Submit Clicked (Simulation Inactive)');
+        });
+    } else { console.warn("Register form not found."); }
 
-    console.log('Travel Risk Platform script finished executing.');
+    // Proceed to Checkout Button
+     const proceedButton = document.querySelector('#plan-section .cta-button');
+     if (proceedButton) {
+         proceedButton.addEventListener('click', (event) => {
+              alert('Proceed to Checkout Clicked (Simulation Inactive)');
+         });
+     } else { console.warn("Proceed button not found."); }
+
+     // Admin Form Buttons (Example: Update Risk)
+      const updateRiskForm = document.getElementById('update-risk-form');
+      if (updateRiskForm) {
+          updateRiskForm.addEventListener('submit', (event) => {
+               event.preventDefault();
+               alert('Update Risk Submit Clicked (Simulation Inactive)');
+          });
+      } else { console.warn("Update Risk form not found."); }
+
+     // Add similar basic listeners for other Admin buttons/forms if needed for testing
+
+    console.log('Travel Risk Platform script finished executing DEBUG VERSION.');
 }); // End DOMContentLoaded

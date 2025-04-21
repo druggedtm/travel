@@ -21,7 +21,10 @@
 <body>
     <header>
         <div class="container">
-            <div class="logo">Compass Point Assist</div>
+            <!-- Use an image tag for the logo -->
+            <a href="#" class="logo"> <!-- Make logo clickable (links to home usually) -->
+                <img src="compass-point-assist-logo.png" alt="Compass Point Assist Logo">
+            </a>
             <nav>
                 <ul>
                     <li><a href="#map-section">Risk Map</a></li>
@@ -132,9 +135,10 @@
                         <div id="estimated-price">$0.00</div>
                         <p class="price-note">(Price updates based on your selections)</p>
                          <!-- Changed button text and action -->
-                         <button type="button" class="btn btn-accent btn-large cta-button" onclick="alert('Proceed to Checkout - Integration with payment gateway (e.g., Stripe) would happen here.')">
+                         <button type="button" class="btn btn-accent btn-large cta-button">
                             <span class="btn-text">Proceed to Checkout</span>
                             <!-- Add spinner if needed for form submission later -->
+                             <span class="loading-spinner" style="display: none;"></span>
                          </button>
                     </div>
                 </form>

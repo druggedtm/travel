@@ -263,11 +263,24 @@ document.addEventListener('DOMContentLoaded', () => {
      // Add listener to the main plan button to simulate purchase
      const proceedButton = document.querySelector('#plan-section .cta-button');
      if (proceedButton) {
-         proceedButton.addEventListener('click', () => {
+         ensureBtnTextSpan(proceedButton); // Setup button structure
+         proceedButton.addEventListener('click', (event) => {
              // In a real scenario, this would happen *after* successful payment
-             alert('Proceeding to checkout (simulation)... Payment would be handled here.');
+             console.log('Proceed to Checkout button clicked.');
 
-             // Simulate purchase completion after a short delay
+             const button = event.currentTarget;
+             const spinner = button.querySelector('.loading-spinner');
+             const btnText = button.querySelector('.btn-text');
+
+             button.classList.add('loading');
+             if(btnText) {
+                 btnText.style.visibility = 'hidden';
+                 btnText.style.opacity = '0';
+             }
+             if(spinner) spinner.style.display = 'inline-block';
+             button.disabled = true;
+
+             // Simulate checkout process
              setTimeout(() => {
                  const planData = {
                      start: startDateInput.value,
@@ -278,7 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
                      price: priceDisplay.textContent
                  };
                  // Basic validation before simulating purchase
-                 if(planData.start && planData.end && parseFloat(totalDaysInput.value) > 0 && planData.price !== '$0.00') {
+                 if(planData.start && planData.end && parseFloat(totalDaysInput.value) > 0 && planData.price !== '$0.00' && planData.price !== '$ ---') {
                      simulatePurchase(planData);
                      alert('Mock Payment Successful! Purchase recorded in Admin panel.');
                      // Optionally reset the form
@@ -287,7 +300,17 @@ document.addEventListener('DOMContentLoaded', () => {
                  } else {
                      alert('Please complete the plan details before proceeding.');
                  }
-             }, 1000); // Delay to mimic checkout process
+
+                 // Reset button state
+                 button.classList.remove('loading');
+                 if(btnText) {
+                     btnText.style.visibility = 'visible';
+                     btnText.style.opacity = '1';
+                 }
+                 if(spinner) spinner.style.display = 'none';
+                 button.disabled = false;
+
+             }, 2000); // Delay to mimic checkout process
          });
      }
 

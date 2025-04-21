@@ -1,281 +1,302 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travel Risk Platform</title>
-    <!-- Google Fonts: Poppins -->
+    <title>Compass Point Assist - Travel Risk Platform</title>
+
+    <!-- Google Fonts - Updated to Roboto -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome for icons (optional, but good practice for UI elements) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Our Stylesheet -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- Google Maps API Script (Optional for Mockup - can be removed if not needed yet) -->
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY_HERE&callback=initMap&libraries=drawing,places&v=weekly" defer></script> -->
+    <!-- NOTE: Replaced API key with placeholder -->
+
 </head>
 <body>
-    <a href="#main-content" class="skip-link">Skip to main content</a>
-
     <header>
         <div class="container">
-            <div class="logo">TravelGuard Pro</div>
+            <div class="logo">Compass Point Assist</div>
             <nav>
                 <ul>
-                    <li><a href="#risk-assessment">Risk Assessment</a></li>
-                    <li><a href="#plan-builder">Build Plan</a></li>
-                    <li><a href="#login-register">Account</a></li>
-                    <li><a href="#admin">Admin</a></li>
+                    <li><a href="#map-section">Risk Map</a></li>
+                    <li><a href="#plan-section">Customize Plan</a></li>
+                    <li><a href="#login-section">Login/Register</a></li>
+                    <li><a href="#admin-section">Admin</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <main id="main-content" class="container">
-
-        <!-- Welcome/Intro Section -->
-        <section class="card fade-in" id="intro-section">
-            <h2>Welcome to TravelGuard Pro</h2>
-            <p>Your comprehensive platform for assessing, planning, and managing travel risks. Stay informed and prepared for your next journey.</p>
-            <p>Explore risk assessments, build custom travel plans, and access important resources.</p>
-            <div class="form-actions">
-                <button class="btn btn-primary btn-large" onclick="location.href='#risk-assessment'">Get Started</button>
-            </div>
-        </section>
-
-        <!-- Travel Risk Assessment Section -->
-        <section class="card fade-in" id="risk-assessment">
-            <h2>Global Travel Risk Assessment</h2>
-            <p>Select a destination to view its current risk level and advisories.</p>
-            <div class="form-group">
-                <label for="country-select">Select Country:</label>
-                <select id="country-select" name="country">
-                    <option value="">-- Select a Country --</option>
-                    <option value="usa">United States</option>
-                    <option value="canada">Canada</option>
-                    <option value="uk">United Kingdom</option>
-                    <option value="germany">Germany</option>
-                    <option value="japan">Japan</option>
-                    <option value="brazil">Brazil</option>
-                    <option value="india">India</option>
-                    <!-- Add more countries as needed -->
-                </select>
-            </div>
-            <div id="map">Map Placeholder</div>
-            <div id="risk-output" class="info-box" style="display: none;">
-                <h3>Risk Assessment for <span id="selected-country-name"></span></h3>
-                <p>Risk Level: <span id="risk-level"></span></p>
-                <p>Advisory: <span id="advisory-text"></span></p>
-            </div>
-        </section>
-
-        <!-- Plan Builder Section -->
-        <section class="card fade-in" id="plan-builder">
-            <h2>Build Your Travel Safety Plan</h2>
-            <p>Customize your plan by selecting destinations, dates, and adding essential components.</p>
-            <div class="form-grid">
-                 <div class="form-group">
-                    <label for="plan-country">Destination Country:</label>
-                    <select id="plan-country" name="plan-country">
-                        <option value="">-- Select Country --</option>
-                         <option value="usa">United States</option>
-                        <option value="canada">Canada</option>
-                        <option value="uk">United Kingdom</option>
-                        <option value="germany">Germany</option>
-                        <option value="japan">Japan</option>
-                        <option value="brazil">Brazil</option>
-                        <option value="india">India</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="start-date">Start Date:</label>
-                    <input type="date" id="start-date" name="start-date">
-                </div>
-                 <div class="form-group">
-                    <label for="end-date">End Date:</label>
-                    <input type="date" id="end-date" name="end-date">
-                </div>
-                <div class="form-group">
-                    <label for="travelers">Number of Travelers:</label>
-                    <input type="number" id="travelers" name="travelers" value="1" min="1">
-                </div>
-            </div>
-
-            <div class="checkbox-container">
-                 <div class="form-group">
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="medical-insurance" value="medical" data-price="50">
-                        <span>Comprehensive Medical Insurance ($50 per traveler)</span>
-                    </label>
-                </div>
-                 <div class="form-group">
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="evacuation-plan" value="evacuation" data-price="100">
-                        <span>Emergency Evacuation Plan ($100 per traveler)</span>
-                    </label>
-                </div>
-                 <div class="form-group">
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="security-briefing" value="security" data-price="75">
-                        <span>Pre-travel Security Briefing ($75 total)</span>
-                    </label>
-                </div>
-                 <div class="form-group">
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="alert-notifications" value="alerts" data-price="20">
-                        <span>Real-time Alert Notifications ($20 total)</span>
-                    </label>
-                </div>
-            </div>
-
-            <hr class="summary-divider">
-
-            <div id="plan-summary" class="info-box highlight-box">
-                <h3>Plan Summary</h3>
-                 <p>Destination: <span id="summary-country">N/A</span></p>
-                <p>Dates: <span id="summary-dates">N/A</span></p>
-                <p>Travelers: <span id="summary-travelers">N/A</span></p>
-                <p>Selected Options: <span id="summary-options">None</span></p>
-                <div class="total-price-container">
-                    <span>Estimated Total Cost:</span> <span id="total-price">$0.00</span>
-                </div>
-            </div>
-
-            <div class="form-actions">
-                <button id="generate-plan-btn" class="btn btn-accent">Generate Plan</button>
-            </div>
-        </section>
-
-        <!-- Login / Register Section -->
-         <section class="login-register-grid fade-in" id="login-register">
-            <div class="form-box">
-                <h3>Login</h3>
-                <form id="login-form">
-                    <div class="form-group">
-                        <label for="login-email">Email Address:</label>
-                        <input type="email" id="login-email" name="email" required>
+    <main class="container">
+        <!-- Section 1: The Map -->
+        <section id="map-section" class="card fade-in">
+            <h2>Global Risk Map</h2>
+             <!-- Map Placeholder Div -->
+            <div id="map" class="risk-map-placeholder">
+                 <!-- Legend for the map -->
+                <div class="map-legend">
+                    <div class="legend-item">
+                        <span class="legend-color legend-green"></span> Low Risk (Green Zone)
                     </div>
-                    <div class="form-group">
-                        <label for="login-password">Password:</label>
-                        <input type="password" id="login-password" name="password" required>
+                    <div class="legend-item">
+                        <span class="legend-color legend-amber"></span> Medium Risk (Amber Zone)
                     </div>
-                     <a href="#" class="forgot-password">Forgot Password?</a>
-                    <div class="form-actions">
-                         <button type="submit" class="btn btn-primary">Login <span class="loading-spinner" style="display: none;"></span></button>
+                    <div class="legend-item">
+                        <span class="legend-color legend-red"></span> High Risk (Red Zone)
+                    </div>
+                </div>
+                 <!-- Placeholder text or actual map div -->
+                 <div class="map-loading-message">
+                     Interactive Global Risk Map Placeholder
+                 </div>
+                 <!-- Note about Ukraine specific map -->
+                 <p class="map-ukraine-note">Ukraine-specific details available</p>
+            </div>
+             <!-- Removed old Ukraine brief box as it wasn't in SOW -->
+        </section>
+
+        <!-- Section 3: Plan Builder (REPLACED CONTENT) -->
+        <section id="plan-section" class="card fade-in" data-delay="0.1">
+            <h2>Customize Your Travel Plan</h2>
+             <!-- Removed old plan-form, replaced with new one -->
+            <div class="plan-customizer">
+                <form id="travel-plan-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="start-date">Trip Start Date</label>
+                            <input type="date" id="start-date" name="start-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="end-date">Trip End Date</label>
+                            <input type="date" id="end-date" name="end-date" required>
+                        </div>
+                         <div class="form-group">
+                            <label for="total-days">Total Trip Days</label>
+                            <input type="number" id="total-days" name="total-days" value="0" readonly class="readonly-input">
+                        </div>
+                    </div>
+
+                     <div class="form-grid">
+                         <div class="form-group">
+                            <label for="days-amber">Days in Amber Zone(s)</label>
+                            <input type="number" id="days-amber" name="days-amber" min="0" value="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="days-red">Days in Red Zone(s)</label>
+                            <input type="number" id="days-red" name="days-red" min="0" value="0" required>
+                        </div>
+                         <div class="form-group">
+                            <label for="days-green">Days in Green Zone(s)</label>
+                            <input type="number" id="days-green" name="days-green" min="0" value="0" readonly class="readonly-input">
+                         </div>
+                    </div>
+
+                    <div class="coverage-options">
+                        <h3>Select Coverage Levels</h3>
+                        <div class="form-grid">
+                             <div class="form-group">
+                                <label for="medical-coverage">Emergency Medical Coverage</label>
+                                <select id="medical-coverage" name="medical-coverage">
+                                    <option value="50000">$50,000</option>
+                                    <option value="100000">$100,000</option>
+                                    <option value="150000">$150,000</option>
+                                    <option value="200000">$200,000</option>
+                                    <option value="250000">$250,000</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="accident-coverage">Personal Accident Coverage</label>
+                                <select id="accident-coverage" name="accident-coverage">
+                                     <option value="50000">$50,000</option>
+                                    <option value="100000">$100,000</option>
+                                    <option value="150000">$150,000</option>
+                                    <option value="200000">$200,000</option>
+                                    <option value="250000">$250,000</option>
+                                </select>
+                            </div>
+                        </div>
+                         <div class="checkbox-group"> <!-- Use SOW structure -->
+                            <input type="checkbox" id="transit-coverage" name="transit-coverage">
+                            <label for="transit-coverage">Add Optional Transit Coverage (up to 10 days in Europe)?</label>
+                        </div>
+                    </div>
+
+                    <div class="price-summary"> <!-- Use SOW structure -->
+                        <h3>Your Estimated Plan Cost</h3>
+                        <div id="estimated-price">$0.00</div>
+                        <p class="price-note">(Price updates based on your selections)</p>
+                         <!-- Changed button text and action -->
+                         <button type="button" class="btn btn-accent btn-large cta-button" onclick="alert('Proceed to Checkout - Integration with payment gateway (e.g., Stripe) would happen here.')">
+                            <span class="btn-text">Proceed to Checkout</span>
+                            <!-- Add spinner if needed for form submission later -->
+                         </button>
                     </div>
                 </form>
             </div>
+        </section>
 
-            <div class="form-box">
-                <h3>Register</h3>
-                <form id="register-form">
+
+        <!-- Section 2: Login and Sign Up -->
+        <section id="login-section" class="card fade-in" data-delay="0.2">
+            <h2>Login / Register</h2>
+             <div class="login-register-grid">
+                <form id="register-form" class="form-box">
+                    <h3>Register</h3>
                     <div class="form-group">
-                        <label for="register-name">Full Name:</label>
-                        <input type="text" id="register-name" name="name" required>
+                        <label for="reg-email">Your Email:</label>
+                        <input type="email" id="reg-email" required placeholder="you@example.com">
                     </div>
                     <div class="form-group">
-                        <label for="register-email">Email Address:</label>
-                        <input type="email" id="register-email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="register-password">Password:</label>
-                        <input type="password" id="register-password" name="password" required>
-                    </div>
+                        <label for="reg-password">Choose Password:</label>
+                        <input type="password" id="reg-password" required placeholder="••••••••">
+                     </div>
+                    <!-- Added spinner structure -->
+                    <button type="submit" class="btn btn-success">
+                        <span class="btn-text">Register Now</span>
+                        <span class="loading-spinner" style="display: none;"></span>
+                    </button>
+                </form>
+
+                <form id="login-form" class="form-box">
+                    <h3>Login</h3>
                      <div class="form-group">
-                        <label for="confirm-password">Confirm Password:</label>
-                        <input type="password" id="confirm-password" name="confirm-password" required>
+                        <label for="login-email">Your Email:</label>
+                        <input type="email" id="login-email" required placeholder="you@example.com">
+                     </div>
+                     <div class="form-group">
+                        <label for="login-password">Your Password:</label>
+                        <input type="password" id="login-password" required placeholder="••••••••">
                     </div>
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn-secondary">Register <span class="loading-spinner" style="display: none;"></span></button>
-                    </div>
+                     <!-- Added spinner structure -->
+                    <button type="submit" class="btn btn-primary">
+                         <span class="btn-text">Login</span>
+                         <span class="loading-spinner" style="display: none;"></span>
+                    </button>
+                    <p><a href="#" class="forgot-password" onclick="alert('Forgot Password action placeholder'); return false;">Forgot Password?</a></p>
                 </form>
             </div>
         </section>
 
 
-        <!-- Admin Section -->
-        <section class="card admin-card fade-in" id="admin">
-            <h2>Admin Dashboard</h2>
-            <p>Manage platform data, users, and settings.</p>
-
+        <!-- Section 4: Admin Stuff -->
+        <section id="admin-section" class="card admin-card fade-in" data-delay="0.3">
+            <h2>Admin Portal</h2>
             <div class="admin-grid">
+                <!-- Update Risk Widget -->
                 <div class="admin-widget">
-                    <h3>Update Risk Data</h3>
-                    <form id="update-risk-form">
-                        <div class="form-group">
-                            <label for="update-country">Country:</label>
-                             <select id="update-country" name="country">
-                                <option value="">-- Select a Country --</option>
-                                <option value="usa">United States</option>
-                                <option value="canada">Canada</option>
-                                <option value="uk">United Kingdom</option>
-                                <option value="germany">Germany</option>
-                                <option value="japan">Japan</option>
-                                <option value="brazil">Brazil</option>
-                                <option value="india">India</option>
-                                <!-- Add more countries -->
+                    <h3>Update Country Risk</h3>
+                     <form id="update-risk-form">
+                         <div class="form-group">
+                            <label for="admin-country">Country Name:</label>
+                            <input type="text" id="admin-country" placeholder="e.g., Germany">
+                        </div>
+                         <div class="form-group">
+                            <label for="admin-risk">Set Risk Level:</label>
+                            <select id="admin-risk">
+                                <option value="Green">Green</option>
+                                <option value="Amber">Amber</option>
+                                <option value="Red">Red</option>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label for="update-risk-level">Risk Level:</label>
-                            <select id="update-risk-level" name="riskLevel">
-                                <option value="low">Low</option>
-                                <option value="medium">Medium</option>
-                                <option value="high">High</option>
-                                <option value="critical">Critical</option>
-                            </select>
+                         <div class="form-group">
+                            <button type="submit" class="btn btn-secondary">
+                                 <span class="btn-text">Update Risk</span>
+                                 <span class="loading-spinner" style="display: none;"></span>
+                            </button>
                         </div>
-                        <div class="form-group">
-                            <label for="update-advisory">Advisory:</label>
-                            <input type="text" id="update-advisory" name="advisory" placeholder="Enter advisory text">
-                        </div>
-                        <div class="form-actions">
-                            <button type="submit" class="btn btn-small btn-primary">Update Data <span class="loading-spinner" style="display: none;"></span></button>
-                        </div>
-                    </form>
-                </div>
-
-                 <div class="admin-widget">
-                    <h3>Upload Bulk Data</h3>
+                     </form>
+                    <hr>
                     <form id="bulk-upload-form">
-                        <div class="form-group">
-                            <label for="bulk-data-file" class="file-upload-label">Select CSV or JSON file:</label>
-                            <input type="file" id="bulk-data-file" name="data-file" accept=".csv, .json">
+                         <div class="form-group">
+                            <label for="risk-file-upload" class="file-upload-label">Or Upload Risk File:</label>
+                            <input type="file" id="risk-file-upload" accept=".csv,.json"> <!-- Specify accepted types -->
                         </div>
-                        <div class="form-actions">
-                            <button type="submit" class="btn btn-small btn-secondary">Upload File <span class="loading-spinner" style="display: none;"></span></button>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-secondary">
+                                 <span class="btn-text">Upload File</span>
+                                 <span class="loading-spinner" style="display: none;"></span>
+                            </button>
                         </div>
                     </form>
                 </div>
 
-                <div class="admin-widget full-width">
-                    <h3>Recent Plan Purchases</h3>
+                <!-- View Purchases Widget -->
+                <div class="admin-widget">
+                    <h3>View Purchases</h3>
+                    <div class="form-actions">
+                        <button id="download-purchases-btn" class="btn btn-secondary btn-small" onclick="alert('Download Purchases CSV (Simulated)')">Download List (CSV)</button>
+                    </div>
                     <div class="table-wrapper">
-                         <table id="purchases-table">
+                        <table id="purchases-table">
                             <thead>
+                                <!-- Updated Headers -->
                                 <tr>
                                     <th>Order ID</th>
                                     <th>User Email</th>
-                                    <th>Country</th>
+                                    <th>Country/Zones</th>
                                     <th>Dates</th>
                                     <th>Total Price</th>
                                     <th>Status</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- Purchase rows will be populated by script.js -->
-                                <tr><td colspan="6" style="text-align: center; color: var(--text-muted);">No purchases yet.</td></tr>
+                                <!-- Example Row (will be populated by JS) -->
+                                <tr>
+                                    <td colspan="7" style="text-align: center; color: var(--text-muted);">No purchases yet.</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
-            </div>
-        </section>
 
+                 <!-- Change Prices Widget -->
+                 <div class="admin-widget">
+                    <h3>Manage Pricing</h3>
+                    <form id="update-pricing-form">
+                        <div class="form-group">
+                            <label for="price-zone">Zone:</label>
+                            <select id="price-zone">
+                                <option value="green">Green</option>
+                                <option value="amber">Amber</option>
+                                <option value="red">Red</option>
+                                <option value="transit">Transit</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="price-value">Price (€ per day/flat):</label>
+                            <input type="number" id="price-value" step="0.01" placeholder="e.g., 2.50">
+                        </div>
+                        <div class="form-group">
+                             <label for="coverage-level">Coverage Level (if applicable):</label>
+                             <select id="coverage-level">
+                                 <option value="base">Base/Zone Cost</option>
+                                 <option value="medical-50">Medical $50k</option>
+                                 <option value="accident-50">Accident $50k</option>
+                                 <!-- Add other tiers as needed -->
+                             </select>
+                         </div>
+                         <div class="form-actions">
+                            <button type="submit" class="btn btn-secondary">
+                                 <span class="btn-text">Update Pricing</span>
+                                 <span class="loading-spinner" style="display: none;"></span>
+                            </button>
+                         </div>
+                    </form>
+                 </div>
+             </div>
+        </section>
     </main>
 
     <footer>
         <div class="container">
-            <p>© 2023 TravelGuard Pro. All rights reserved.</p>
+            <p>© 2024 Compass Point Assist | Travel Risk Management</p>
         </div>
     </footer>
 

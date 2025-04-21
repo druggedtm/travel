@@ -113,11 +113,16 @@ header .logo {
 }
 
 header .logo img {
-    max-height: 45px; /* <<< REDUCED LOGO HEIGHT - Adjust if needed */
-    width: auto;      /* Maintain aspect ratio */
-    display: block;   /* Treat image as block to prevent extra space */
-    vertical-align: middle; /* Although block, this can help in some browsers */
+    max-height: 45px;       /* Control the size */
+    width: auto;            /* Maintain aspect ratio */
+    display: block;         /* Prevent extra space below */
+    vertical-align: middle;
+    background-color: var(--cpa-weiss); /* ADDED: Sets the background to white */
+    padding: 4px;           /* ADDED: Adds a small white border around the logo content */
+    border-radius: 4px;     /* ADDED: Slightly rounds the corners of the white background */
+    box-sizing: border-box; /* ADDED: Ensures padding doesn't increase the max-height */
 }
+
 
 header nav {
     /* Ensures nav aligns nicely with the centered logo */

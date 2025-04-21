@@ -84,29 +84,82 @@ a:hover { color: var(--secondary-color); text-decoration: underline; }
 
 /* === Header === */
 header {
-    background: var(--primary-color); color: var(--light-color);
-    padding: var(--spacing-unit) 0;
+    background: var(--primary-color);
+    color: var(--light-color);
+    /* Removed padding here, moved to container for better control */
     box-shadow: var(--box-shadow);
-    position: sticky; top: 0; z-index: 1000;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
-header .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
-header .logo { font-size: 1.8rem; font-weight: var(--font-weight-bold); color: var(--light-color); margin-right: var(--spacing-unit); padding: 0.25rem 0; }
-header nav ul { list-style: none; display: flex; margin: 0; padding: 0; }
-header nav ul li { margin-left: calc(var(--spacing-unit) * 1.75); }
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Key for vertical alignment */
+    flex-wrap: wrap;
+    /* Added explicit padding for consistent header height */
+    padding-top: calc(var(--spacing-unit) * 0.75);
+    padding-bottom: calc(var(--spacing-unit) * 0.75);
+    /* You might add a min-height if needed, but padding is usually better */
+    /* min-height: 70px; */
+}
+
+header .logo {
+    display: block; /* Treat the link as a block */
+    margin-right: var(--spacing-unit);
+    line-height: 0; /* Important to remove extra space from line height */
+    flex-shrink: 0; /* Prevent logo link from shrinking if space is tight */
+}
+
+header .logo img {
+    max-height: 45px; /* <<< REDUCED LOGO HEIGHT - Adjust if needed */
+    width: auto;      /* Maintain aspect ratio */
+    display: block;   /* Treat image as block to prevent extra space */
+    vertical-align: middle; /* Although block, this can help in some browsers */
+}
+
+header nav {
+    /* Ensures nav aligns nicely with the centered logo */
+    margin-left: auto; /* Pushes nav to the right */
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center; /* Align nav items vertically */
+    margin: 0;
+    padding: 0;
+}
+
+header nav ul li {
+    margin-left: calc(var(--spacing-unit) * 1.75);
+}
+
 header nav ul li a {
     color: rgba(252, 252, 252, 0.9); /* Use Weiss with opacity */
-    text-decoration: none; font-weight: var(--font-weight-medium);
-    padding: 0.5rem 0.1rem; position: relative;
+    text-decoration: none;
+    font-weight: var(--font-weight-medium);
+    padding: 0.5rem 0.1rem;
+    position: relative;
     transition: color var(--transition-speed) var(--transition-timing), opacity var(--transition-speed) var(--transition-timing);
+    display: inline-block; /* Helps with positioning the underline */
 }
+
 header nav ul li a::after {
-    content: ''; position: absolute; width: 0; height: 2px;
-    bottom: -3px; left: 50%; background-color: var(--accent-color); /* Use Mint */
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -3px;
+    left: 50%;
+    background-color: var(--accent-color); /* Use Mint */
     transition: all var(--transition-speed) var(--transition-timing);
     transform: translateX(-50%);
 }
 header nav ul li a:hover { color: var(--light-color); opacity: 1; }
 header nav ul li a:hover::after { width: 100%; left: 0; transform: translateX(0%);}
+
 
 /* === Main Content & Cards === */
 main.container { padding-top: calc(var(--spacing-unit) * 2.5); padding-bottom: calc(var(--spacing-unit) * 3); }
@@ -212,10 +265,6 @@ hr.summary-divider { margin: var(--spacing-unit) 0; }
     align-self: flex-end; /* Position note to the bottom right */
     margin-top: calc(var(--spacing-unit) * 0.5);
 }
-
-/* REMOVED: Old #map styles if they conflict */
-/* REMOVED: Old #ukraine-brief styles */
-
 
 /* === Login / Register Section === */
 #login-section h2 { text-align: center; } /* Center the title */
@@ -338,8 +387,6 @@ form select {
      flex-grow: 1;
 }
 
-/* REMOVED: Old #plan-section .checkbox-container styles if any */
-
 /* NEW Price Summary Styling from SOW Mockup */
 #plan-section .price-summary {
     margin-top: calc(var(--spacing-unit) * 2);
@@ -378,8 +425,6 @@ form select {
     margin-top: var(--spacing-unit);
     /* Styling comes from .btn, .btn-accent, .btn-large */
 }
-
-/* REMOVED: Old #plan-summary styles */
 
 
 .form-actions { margin-top: calc(var(--spacing-unit) * 2); text-align: center; }
@@ -474,6 +519,22 @@ input[type="file"]::file-selector-button:hover { background-color: #e9ecef; } /*
 #purchases-table tbody tr:last-child td { border-bottom: none; }
 #purchases-table .btn-small { padding: 0.3rem 0.75rem; font-size: 0.8rem; }
 
+/* Status Badge Styling for Admin Table */
+.status-completed, .status-pending, .status-failed, .status-unknown {
+    padding: 0.2em 0.6em;
+    border-radius: 0.25rem;
+    font-size: 0.85em;
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: inline-block; /* Allows padding and margins */
+}
+
+.status-completed { background-color: hsla(185, 100%, 35%, 0.15); color: #006f7a; } /* Mint based */
+.status-pending { background-color: hsla(45, 100%, 51%, 0.15); color: #997400; } /* Amber based */
+.status-failed { background-color: hsla(354, 70%, 54%, 0.1); color: var(--danger-color); }
+.status-unknown { background-color: var(--border-color); color: var(--text-muted); }
+
 
 /* === Footer === */
 footer {
@@ -498,10 +559,29 @@ footer p { margin: 0; }
 
 @media (max-width: 768px) {
     .container { max-width: 540px; }
-    header .container { justify-content: center; text-align: center; }
-    header .logo { margin-bottom: 0.75rem; width: 100%; }
-    header nav ul { justify-content: center; flex-wrap: wrap; margin-top: 0.5rem; }
-    header nav ul li { margin: 0.2rem 0.75rem; }
+    header .container {
+        justify-content: center;
+        text-align: center;
+        flex-direction: column; /* Stack header items */
+        padding-top: var(--spacing-unit); /* Slightly more padding when stacked */
+        padding-bottom: var(--spacing-unit);
+     }
+     header .logo {
+         margin-bottom: 0.75rem;
+         margin-right: 0; /* Remove right margin when stacked */
+     }
+     header .logo img {
+        max-height: 40px; /* Slightly smaller logo on mobile */
+     }
+     header nav {
+         margin-left: 0; /* Reset margin */
+         width: 100%; /* Allow nav to take full width */
+     }
+     header nav ul {
+         justify-content: center;
+         flex-wrap: wrap;
+         margin-top: 0.5rem;
+     }
 
     .card { padding: calc(var(--spacing-unit) * 1.5); }
     .card h2 { font-size: 1.4rem; } .card h3 { font-size: 1.1rem; }
@@ -523,7 +603,10 @@ footer p { margin: 0; }
 @media (max-width: 576px) {
     :root { --font-size-base: 0.9rem; } /* Smaller base font */
     .container { padding-left: var(--spacing-unit); padding-right: var(--spacing-unit); }
-    header .logo { font-size: 1.6rem; }
+    /* header .logo { font-size: 1.6rem; } /* Logo font size was here, now it's controlled by image height */
+     header .logo img {
+        max-height: 35px; /* Even smaller logo on very small screens */
+     }
      /* Ensure nav items wrap better if needed */
     header nav ul li { margin: 0.1rem 0.5rem; }
 

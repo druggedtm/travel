@@ -4,278 +4,150 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Compass Point Assist - Travel Risk Platform</title>
-
-    <!-- Google Fonts - Updated to Roboto -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-
-    <!-- Our Stylesheet -->
     <link rel="stylesheet" href="style.css">
-
-    <!-- Google Maps API Script (Optional for Mockup - can be removed if not needed yet) -->
-    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY_HERE&callback=initMap&libraries=drawing,places&v=weekly" defer></script> -->
-    <!-- NOTE: Replaced API key with placeholder -->
-
 </head>
 <body>
-    <header>
-        <div class="container">
-            <!-- Logo -->
-            <a href="#" class="logo">
-                <img src="compass-point-assist-logo.png" alt="Compass Point Assist Logo">
-            </a>
-            <!-- Navigation -->
-            <nav>
-                <ul>
-                    <li><a href="#map-section">Risk Map</a></li>
-                    <li><a href="#plan-section">Customize Plan</a></li>
-                    <li><a href="#login-section">Login/Register</a></li>
-                    <li><a href="#admin-section">Admin</a></li>
-                </ul>
-            </nav>
+    <header class="main-header">
+        <div class="container header-container">
+            <div class="header-left">
+                 <button id="mobile-menu-toggle" aria-label="Toggle Menu" aria-expanded="false">
+                    <span class="hamburger-icon"></span>
+                </button>
+            </div>
+            <div class="header-actions">
+                <a href="#login-section" class="header-link login-link" data-target="login-section">Login</a>
+                <a href="#login-section" class="header-link register-link" data-target="login-section">Register</a>
+            </div>
         </div>
     </header>
 
-    <main class="container">
-        <!-- Section 1: The Map (Unchanged) -->
-        <section id="map-section" class="card fade-in">
-            <h2>Global Risk Map</h2>
-            <div id="map" class="risk-map-placeholder">
-                <div class="map-legend">
-                    <div class="legend-item">
-                        <span class="legend-color legend-green"></span> Low Risk (Green Zone)
-                    </div>
-                    <div class="legend-item">
-                        <span class="legend-color legend-amber"></span> Medium Risk (Amber Zone)
-                    </div>
-                    <div class="legend-item">
-                        <span class="legend-color legend-red"></span> High Risk (Red Zone)
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+             <div class="sidebar-header">
+                 <a href="#" class="sidebar-logo">
+                    <img src="compass-point-assist-logo.png" alt="Compass Point Assist Logo">
+                </a>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="#map-section" class="sidebar-link active" data-target="map-section">Risk Map</a></li>
+                    <li><a href="#plan-section" class="sidebar-link" data-target="plan-section">Customize Plan</a></li>
+                    <li><a href="#account-section" class="sidebar-link" data-target="account-section">My Account</a></li>
+                    <li><a href="#claims-section" class="sidebar-link" data-target="claims-section">Claims</a></li>
+                    <li><a href="#briefs-section" class="sidebar-link" data-target="briefs-section">Travel Briefs</a></li>
+                    <li><a href="#admin-section" class="sidebar-link" data-target="admin-section">Admin Portal</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer-graphic"></div>
+        </aside>
+
+        <main class="content-area">
+            <div class="breadcrumb-bar">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page" id="breadcrumb-current-page">Risk Map</li>
+                    </ol>
+                </nav>
+            </div>
+
+            <section id="map-section" class="dashboard-section active fade-in">
+                 <h2>Global Risk Map</h2>
+                <div class="section-content">
+                    <div id="map" class="risk-map-placeholder">
+                        <div class="map-legend">
+                            <div class="legend-item"><span class="legend-color legend-green"></span> Low Risk (Green)</div>
+                            <div class="legend-item"><span class="legend-color legend-amber"></span> Medium Risk (Amber)</div>
+                            <div class="legend-item"><span class="legend-color legend-red"></span> High Risk (Red)</div>
+                        </div>
+                        <div class="map-loading-message">Interactive Global Risk Map Placeholder</div>
+                        <p class="map-ukraine-note">Ukraine-specific details available</p>
                     </div>
                 </div>
-                 <div class="map-loading-message">
-                     Interactive Global Risk Map Placeholder
-                 </div>
-                 <p class="map-ukraine-note">Ukraine-specific details available</p>
-            </div>
-        </section>
+            </section>
 
-        <!-- Section 3: Plan Builder (Unchanged) -->
-        <section id="plan-section" class="card fade-in" data-delay="0.1">
-            <h2>Customize Your Travel Plan</h2>
-            <div class="plan-customizer">
-                <form id="travel-plan-form">
-                    {/* Content Unchanged */}
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="start-date">Trip Start Date</label>
-                            <input type="date" id="start-date" name="start-date" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="end-date">Trip End Date</label>
-                            <input type="date" id="end-date" name="end-date" required>
-                        </div>
-                         <div class="form-group">
-                            <label for="total-days">Total Trip Days</label>
-                            <input type="number" id="total-days" name="total-days" value="0" readonly class="readonly-input">
-                        </div>
-                    </div>
-                     <div class="form-grid">
-                         <div class="form-group">
-                            <label for="days-amber">Days in Amber Zone(s)</label>
-                            <input type="number" id="days-amber" name="days-amber" min="0" value="0" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="days-red">Days in Red Zone(s)</label>
-                            <input type="number" id="days-red" name="days-red" min="0" value="0" required>
-                        </div>
-                         <div class="form-group">
-                            <label for="days-green">Days in Green Zone(s)</label>
-                            <input type="number" id="days-green" name="days-green" min="0" value="0" readonly class="readonly-input">
-                         </div>
-                    </div>
-                    <div class="coverage-options">
-                        <h3>Select Coverage Levels</h3>
-                        <div class="form-grid">
-                             <div class="form-group">
-                                <label for="medical-coverage">Emergency Medical Coverage</label>
-                                <select id="medical-coverage" name="medical-coverage">
-                                    <option value="50000">$50,000</option>
-                                    <option value="100000">$100,000</option>
-                                    <option value="150000">$150,000</option>
-                                    <option value="200000">$200,000</option>
-                                    <option value="250000">$250,000</option>
-                                </select>
+            <section id="plan-section" class="dashboard-section card fade-in" data-delay="0.1">
+                <h2>Customize Your Travel Plan</h2>
+                 <div class="section-content">
+                    <div class="plan-customizer">
+                        <form id="travel-plan-form">
+                             <div class="form-row">
+                                <div class="form-group"> <label for="start-date">Trip Start Date</label> <input type="date" id="start-date" name="start-date" required> </div>
+                                <div class="form-group"> <label for="end-date">Trip End Date</label> <input type="date" id="end-date" name="end-date" required> </div>
+                                <div class="form-group"> <label for="total-days">Total Trip Days</label> <input type="number" id="total-days" name="total-days" value="0" readonly class="readonly-input"> </div>
                             </div>
-                            <div class="form-group">
-                                <label for="accident-coverage">Personal Accident Coverage</label>
-                                <select id="accident-coverage" name="accident-coverage">
-                                     <option value="50000">$50,000</option>
-                                    <option value="100000">$100,000</option>
-                                    <option value="150000">$150,000</option>
-                                    <option value="200000">$200,000</option>
-                                    <option value="250000">$250,000</option>
-                                </select>
+                            <div class="form-row">
+                                <div class="form-group"> <label for="days-amber">Days in Amber Zone(s)</label> <input type="number" id="days-amber" name="days-amber" min="0" value="0" required> </div>
+                                <div class="form-group"> <label for="days-red">Days in Red Zone(s)</label> <input type="number" id="days-red" name="days-red" min="0" value="0" required> </div>
+                                <div class="form-group"> <label for="days-green">Days in Green Zone(s)</label> <input type="number" id="days-green" name="days-green" min="0" value="0" readonly class="readonly-input"> </div>
                             </div>
-                        </div>
-                         <div class="checkbox-group">
-                            <input type="checkbox" id="transit-coverage" name="transit-coverage">
-                            <label for="transit-coverage">Add Optional Transit Coverage (up to 10 days in Europe)?</label>
-                        </div>
-                    </div>
-                    <div class="price-summary">
-                        <h3>Your Estimated Plan Cost</h3>
-                        <div id="estimated-price">$0.00</div>
-                        <p class="price-note">(Price updates based on your selections)</p>
-                         <button type="button" class="btn btn-accent btn-large cta-button">
-                            <span class="btn-text">Proceed to Checkout</span>
-                             <span class="loading-spinner" style="display: none;"></span>
-                         </button>
-                    </div>
-                </form>
-            </div>
-        </section>
 
-        <!-- Section 2: Login and Sign Up (Unchanged) -->
-        <section id="login-section" class="card fade-in" data-delay="0.2">
-            <h2>Login / Register</h2>
-             <div class="login-register-grid">
-                <form id="register-form" class="form-box">
-                    <h3>Register</h3>
-                    {/* Content Unchanged */}
-                    <div class="form-group"> <label for="reg-email">Your Email:</label> <input type="email" id="reg-email" required placeholder="you@example.com"> </div>
-                    <div class="form-group"> <label for="reg-password">Choose Password:</label> <input type="password" id="reg-password" required placeholder="••••••••"> </div>
-                    <button type="submit" class="btn btn-success"> <span class="btn-text">Register Now</span> <span class="loading-spinner" style="display: none;"></span> </button>
-                </form>
-                <form id="login-form" class="form-box">
-                    <h3>Login</h3>
-                    {/* Content Unchanged */}
-                     <div class="form-group"> <label for="login-email">Your Email:</label> <input type="email" id="login-email" required placeholder="you@example.com"> </div>
-                     <div class="form-group"> <label for="login-password">Your Password:</label> <input type="password" id="login-password" required placeholder="••••••••"> </div>
-                     <button type="submit" class="btn btn-primary"> <span class="btn-text">Login</span> <span class="loading-spinner" style="display: none;"></span> </button>
-                    <p><a href="#" class="forgot-password" onclick="alert('Forgot Password action placeholder'); return false;">Forgot Password?</a></p>
-                </form>
-            </div>
-        </section>
+                            <div class="coverage-options">
+                                <h3>Standard Coverage</h3>
+                                <div class="form-row">
+                                    <div class="form-group"> <label for="medical-coverage">Emergency Medical Coverage</label> <select id="medical-coverage" name="medical-coverage"> <option value="50000">$50,000</option> <option value="100000">$100,000</option> <option value="150000">$150,000</option> <option value="200000">$200,000</option> <option value="250000">$250,000</option> </select> </div>
+                                    <div class="form-group"> <label for="accident-coverage">Personal Accident Coverage</label> <select id="accident-coverage" name="accident-coverage"> <option value="50000">$50,000</option> <option value="100000">$100,000</option> <option value="150000">$150,000</option> <option value="200000">$200,000</option> <option value="250000">$250,000</option> </select> </div>
+                                </div>
+                                <div class="checkbox-group form-group"> <input type="checkbox" id="transit-coverage" name="transit-coverage"> <label for="transit-coverage">Add Optional Transit Coverage (up to 10 days in Europe)?</label> </div>
+                            </div>
 
-        <!-- Section 4: Admin Stuff (UPDATED) -->
-        <section id="admin-section" class="admin-card fade-in" data-delay="0.3"> {/* Removed card class, added admin-card */}
-            <h2>Admin Portal</h2> {/* Main title for the section */}
-            <div class="admin-grid">
-                <!-- Update Risk Widget -->
-                <div class="admin-widget">
-                    <h3>Update Country Risk</h3> {/* Widget Title */}
-                    <div class="widget-content"> {/* Content Wrapper */}
-                        <form id="update-risk-form">
-                            <div class="form-group">
-                                <label for="admin-country">Country Name:</label>
-                                <input type="text" id="admin-country" placeholder="e.g., Germany" required> {/* Added required */}
-                            </div>
-                            <div class="form-group">
-                                <label for="admin-risk">Set Risk Level:</label>
-                                <select id="admin-risk" required>
-                                    <option value="Green">Green</option>
-                                    <option value="Amber">Amber</option>
-                                    <option value="Red">Red</option>
-                                </select>
-                            </div>
-                            <div class="form-actions text-left"> {/* Align button left */}
-                                <button type="submit" class="btn btn-primary"> {/* Changed to primary */}
-                                     <span class="btn-text">Update Risk</span>
-                                     <span class="loading-spinner" style="display: none;"></span>
-                                </button>
-                            </div>
-                            <div class="status-message" id="update-risk-status"></div> {/* Status message placeholder */}
-                        </form>
-                        <hr class="widget-divider"> {/* Distinct divider */}
-                        <form id="bulk-upload-form">
-                            <div class="form-group">
-                                <label class="file-upload-label">Or Upload Risk File:</label> {/* Changed label slightly */}
-                                <div class="file-upload-wrapper"> {/* Wrapper for styling */}
-                                    <input type="file" id="risk-file-upload" name="risk-file-upload" accept=".csv,.json" required> {/* Added name */}
-                                    <label for="risk-file-upload" class="btn btn-secondary file-input-button">Choose file</label>
-                                    <span class="file-name">No file chosen</span>
+                             <div class="optional-addons">
+                                 <h3>Optional Add-ons</h3>
+                                 <div class="checkbox-group form-group">
+                                     <input type="checkbox" id="kr-coverage" name="kr-coverage">
+                                     <label for="kr-coverage">Add Kidnap, Ransom & Crisis Cover?</label>
+                                 </div>
+                                 <div class="checkbox-group form-group">
+                                     <input type="checkbox" id="evac-coverage" name="evac-coverage">
+                                     <label for="evac-coverage">Add Political Evacuation & Relocation Cover?</label>
+                                 </div>
+                             </div>
+
+                            <div class="price-summary">
+                                <h3>Your Estimated Plan Cost</h3>
+                                <div id="estimated-price">$0.00</div>
+                                <p class="price-note">(Price updates based on your selections)</p>
+                                <div class="form-actions">
+                                    <button type="button" class="btn btn-accent btn-large cta-button">
+                                        <span class="btn-text">Proceed to Checkout</span>
+                                        <span class="loading-spinner" style="display: none;"></span>
+                                     </button>
                                 </div>
                             </div>
-                            <div class="form-actions text-left"> {/* Align button left */}
-                                <button type="submit" class="btn btn-secondary">
-                                     <span class="btn-text">Upload File</span>
-                                     <span class="loading-spinner" style="display: none;"></span>
-                                </button>
-                            </div>
-                            <div class="status-message" id="bulk-upload-status"></div> {/* Status message placeholder */}
                         </form>
-                    </div> {/* End widget-content */}
-                </div> {/* End admin-widget */}
+                    </div>
+                 </div>
+            </section>
 
-                <!-- View Purchases Widget -->
-                <div class="admin-widget">
-                    <h3>View Purchases</h3> {/* Widget Title */}
-                    <div class="widget-content"> {/* Content Wrapper */}
-                        <div class="form-actions text-right"> {/* Button at top right */}
-                            <button id="download-purchases-btn" class="btn btn-secondary btn-small" onclick="alert('Download Purchases CSV (Simulated)')">Download List (CSV)</button>
-                        </div>
-                        <div class="table-wrapper">
-                            <table id="purchases-table">
-                                <thead>
-                                    <tr> {/* Headers unchanged */}
-                                        <th>Order ID</th> <th>User Email</th> <th>Country/Zones</th> <th>Dates</th> <th>Total Price</th> <th>Status</th> <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr> {/* Updated placeholder row */}
-                                        <td colspan="7" class="no-data-row">No purchases yet.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div> {/* End widget-content */}
-                </div> {/* End admin-widget */}
-
-                 <!-- Change Prices Widget -->
-                 <div class="admin-widget">
-                    <h3>Manage Pricing</h3> {/* Widget Title */}
-                    <div class="widget-content"> {/* Content Wrapper */}
-                        <form id="update-pricing-form">
-                            <div class="form-group">
-                                <label for="price-zone">Zone:</label>
-                                <select id="price-zone" required>
-                                    <option value="green">Green</option>
-                                    <option value="amber">Amber</option>
-                                    <option value="red">Red</option>
-                                    <option value="transit">Transit</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="price-value">Price (€ per day/flat):</label>
-                                <input type="number" id="price-value" step="0.01" placeholder="e.g., 2.50" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="coverage-level">Coverage Level (if applicable):</label>
-                                <select id="coverage-level" required>
-                                    <option value="base">Base/Zone Cost</option>
-                                    <option value="medical-50">Medical $50k Factor</option> {/* Clarified */}
-                                    <option value="accident-50">Accident $50k Factor</option> {/* Clarified */}
-                                    {/* Add other tiers as needed */}
-                                </select>
-                             </div>
-                             <div class="form-actions text-left"> {/* Align button left */}
-                                <button type="submit" class="btn btn-primary"> {/* Changed to primary */}
-                                     <span class="btn-text">Update Pricing</span>
-                                     <span class="loading-spinner" style="display: none;"></span>
-                                </button>
-                             </div>
-                             <div class="status-message" id="update-pricing-status"></div> {/* Status message placeholder */}
+            <section id="login-section" class="dashboard-section card fade-in" data-delay="0.2">
+                 <h2>Login / Register</h2>
+                 <div class="section-content">
+                    <div class="login-register-grid">
+                        <form id="register-form" class="form-box">
+                            <h3>Register</h3>
+                            <div class="form-group"> <label for="reg-email">Your Email:</label> <input type="email" id="reg-email" required placeholder="you@example.com"> </div>
+                            <div class="form-group"> <label for="reg-password">Choose Password:</label> <input type="password" id="reg-password" required placeholder="••••••••"> </div>
+                            <div class="form-actions"> <button type="submit" class="btn btn-success"> <span class="btn-text">Register Now</span> <span class="loading-spinner" style="display: none;"></span> </button> </div>
                         </form>
-                    </div> {/* End widget-content */}
-                 </div> {/* End admin-widget */}
-             </div> {/* End admin-grid */}
-        </section>
-    </main>
+                        <form id="login-form" class="form-box">
+                            <h3>Login</h3>
+                            <div class="form-group"> <label for="login-email">Your Email:</label> <input type="email" id="login-email" required placeholder="you@example.com"> </div>
+                            <div class="form-group"> <label for="login-password">Your Password:</label> <input type="password" id="login-password" required placeholder="••••••••"> </div>
+                            <div class="form-actions"> <button type="submit" class="btn btn-primary"> <span class="btn-text">Login</span> <span class="loading-spinner" style="display: none;"></span> </button> </div>
+                            <p class="forgot-password-link"><a href="#" class="forgot-password" onclick="alert('Forgot Password action placeholder'); return false;">Forgot Password?</a></p>
+                        </form>
+                    </div>
+                 </div>
+            </section>
+        </main>
+    </div>
 
-    <footer class="footer"> {/* Changed footer class for clarity */}
+    <footer class="footer">
         <div class="container">
-            <p>© 2024 Compass Point Assist | Travel Risk Management</p>
+            <p>© 2024 Compass Point Assist | Travel Risk Management Tool</p>
         </div>
     </footer>
 

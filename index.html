@@ -21,10 +21,11 @@
 <body>
     <header>
         <div class="container">
-            <!-- Use an image tag for the logo -->
-            <a href="#" class="logo"> <!-- Make logo clickable (links to home usually) -->
+            <!-- Logo -->
+            <a href="#" class="logo">
                 <img src="compass-point-assist-logo.png" alt="Compass Point Assist Logo">
             </a>
+            <!-- Navigation -->
             <nav>
                 <ul>
                     <li><a href="#map-section">Risk Map</a></li>
@@ -37,12 +38,10 @@
     </header>
 
     <main class="container">
-        <!-- Section 1: The Map -->
+        <!-- Section 1: The Map (Unchanged) -->
         <section id="map-section" class="card fade-in">
             <h2>Global Risk Map</h2>
-             <!-- Map Placeholder Div -->
             <div id="map" class="risk-map-placeholder">
-                 <!-- Legend for the map -->
                 <div class="map-legend">
                     <div class="legend-item">
                         <span class="legend-color legend-green"></span> Low Risk (Green Zone)
@@ -54,22 +53,19 @@
                         <span class="legend-color legend-red"></span> High Risk (Red Zone)
                     </div>
                 </div>
-                 <!-- Placeholder text or actual map div -->
                  <div class="map-loading-message">
                      Interactive Global Risk Map Placeholder
                  </div>
-                 <!-- Note about Ukraine specific map -->
                  <p class="map-ukraine-note">Ukraine-specific details available</p>
             </div>
-             <!-- Removed old Ukraine brief box as it wasn't in SOW -->
         </section>
 
-        <!-- Section 3: Plan Builder (REPLACED CONTENT) -->
+        <!-- Section 3: Plan Builder (Unchanged) -->
         <section id="plan-section" class="card fade-in" data-delay="0.1">
             <h2>Customize Your Travel Plan</h2>
-             <!-- Removed old plan-form, replaced with new one -->
             <div class="plan-customizer">
                 <form id="travel-plan-form">
+                    {/* Content Unchanged */}
                     <div class="form-grid">
                         <div class="form-group">
                             <label for="start-date">Trip Start Date</label>
@@ -84,7 +80,6 @@
                             <input type="number" id="total-days" name="total-days" value="0" readonly class="readonly-input">
                         </div>
                     </div>
-
                      <div class="form-grid">
                          <div class="form-group">
                             <label for="days-amber">Days in Amber Zone(s)</label>
@@ -99,7 +94,6 @@
                             <input type="number" id="days-green" name="days-green" min="0" value="0" readonly class="readonly-input">
                          </div>
                     </div>
-
                     <div class="coverage-options">
                         <h3>Select Coverage Levels</h3>
                         <div class="form-grid">
@@ -124,20 +118,17 @@
                                 </select>
                             </div>
                         </div>
-                         <div class="checkbox-group"> <!-- Use SOW structure -->
+                         <div class="checkbox-group">
                             <input type="checkbox" id="transit-coverage" name="transit-coverage">
                             <label for="transit-coverage">Add Optional Transit Coverage (up to 10 days in Europe)?</label>
                         </div>
                     </div>
-
-                    <div class="price-summary"> <!-- Use SOW structure -->
+                    <div class="price-summary">
                         <h3>Your Estimated Plan Cost</h3>
                         <div id="estimated-price">$0.00</div>
                         <p class="price-note">(Price updates based on your selections)</p>
-                         <!-- Changed button text and action -->
                          <button type="button" class="btn btn-accent btn-large cta-button">
                             <span class="btn-text">Proceed to Checkout</span>
-                            <!-- Add spinner if needed for form submission later -->
                              <span class="loading-spinner" style="display: none;"></span>
                          </button>
                     </div>
@@ -145,160 +136,144 @@
             </div>
         </section>
 
-
-        <!-- Section 2: Login and Sign Up -->
+        <!-- Section 2: Login and Sign Up (Unchanged) -->
         <section id="login-section" class="card fade-in" data-delay="0.2">
             <h2>Login / Register</h2>
              <div class="login-register-grid">
                 <form id="register-form" class="form-box">
                     <h3>Register</h3>
-                    <div class="form-group">
-                        <label for="reg-email">Your Email:</label>
-                        <input type="email" id="reg-email" required placeholder="you@example.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="reg-password">Choose Password:</label>
-                        <input type="password" id="reg-password" required placeholder="••••••••">
-                     </div>
-                    <!-- Added spinner structure -->
-                    <button type="submit" class="btn btn-success">
-                        <span class="btn-text">Register Now</span>
-                        <span class="loading-spinner" style="display: none;"></span>
-                    </button>
+                    {/* Content Unchanged */}
+                    <div class="form-group"> <label for="reg-email">Your Email:</label> <input type="email" id="reg-email" required placeholder="you@example.com"> </div>
+                    <div class="form-group"> <label for="reg-password">Choose Password:</label> <input type="password" id="reg-password" required placeholder="••••••••"> </div>
+                    <button type="submit" class="btn btn-success"> <span class="btn-text">Register Now</span> <span class="loading-spinner" style="display: none;"></span> </button>
                 </form>
-
                 <form id="login-form" class="form-box">
                     <h3>Login</h3>
-                     <div class="form-group">
-                        <label for="login-email">Your Email:</label>
-                        <input type="email" id="login-email" required placeholder="you@example.com">
-                     </div>
-                     <div class="form-group">
-                        <label for="login-password">Your Password:</label>
-                        <input type="password" id="login-password" required placeholder="••••••••">
-                    </div>
-                     <!-- Added spinner structure -->
-                    <button type="submit" class="btn btn-primary">
-                         <span class="btn-text">Login</span>
-                         <span class="loading-spinner" style="display: none;"></span>
-                    </button>
+                    {/* Content Unchanged */}
+                     <div class="form-group"> <label for="login-email">Your Email:</label> <input type="email" id="login-email" required placeholder="you@example.com"> </div>
+                     <div class="form-group"> <label for="login-password">Your Password:</label> <input type="password" id="login-password" required placeholder="••••••••"> </div>
+                     <button type="submit" class="btn btn-primary"> <span class="btn-text">Login</span> <span class="loading-spinner" style="display: none;"></span> </button>
                     <p><a href="#" class="forgot-password" onclick="alert('Forgot Password action placeholder'); return false;">Forgot Password?</a></p>
                 </form>
             </div>
         </section>
 
-
-        <!-- Section 4: Admin Stuff -->
-        <section id="admin-section" class="card admin-card fade-in" data-delay="0.3">
-            <h2>Admin Portal</h2>
+        <!-- Section 4: Admin Stuff (UPDATED) -->
+        <section id="admin-section" class="admin-card fade-in" data-delay="0.3"> {/* Removed card class, added admin-card */}
+            <h2>Admin Portal</h2> {/* Main title for the section */}
             <div class="admin-grid">
                 <!-- Update Risk Widget -->
                 <div class="admin-widget">
-                    <h3>Update Country Risk</h3>
-                     <form id="update-risk-form">
-                         <div class="form-group">
-                            <label for="admin-country">Country Name:</label>
-                            <input type="text" id="admin-country" placeholder="e.g., Germany">
-                        </div>
-                         <div class="form-group">
-                            <label for="admin-risk">Set Risk Level:</label>
-                            <select id="admin-risk">
-                                <option value="Green">Green</option>
-                                <option value="Amber">Amber</option>
-                                <option value="Red">Red</option>
-                            </select>
-                        </div>
-                         <div class="form-group">
-                            <button type="submit" class="btn btn-secondary">
-                                 <span class="btn-text">Update Risk</span>
-                                 <span class="loading-spinner" style="display: none;"></span>
-                            </button>
-                        </div>
-                     </form>
-                    <hr>
-                    <form id="bulk-upload-form">
-                         <div class="form-group">
-                            <label for="risk-file-upload" class="file-upload-label">Or Upload Risk File:</label>
-                            <input type="file" id="risk-file-upload" accept=".csv,.json"> <!-- Specify accepted types -->
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-secondary">
-                                 <span class="btn-text">Upload File</span>
-                                 <span class="loading-spinner" style="display: none;"></span>
-                            </button>
-                        </div>
-                    </form>
-                </div>
+                    <h3>Update Country Risk</h3> {/* Widget Title */}
+                    <div class="widget-content"> {/* Content Wrapper */}
+                        <form id="update-risk-form">
+                            <div class="form-group">
+                                <label for="admin-country">Country Name:</label>
+                                <input type="text" id="admin-country" placeholder="e.g., Germany" required> {/* Added required */}
+                            </div>
+                            <div class="form-group">
+                                <label for="admin-risk">Set Risk Level:</label>
+                                <select id="admin-risk" required>
+                                    <option value="Green">Green</option>
+                                    <option value="Amber">Amber</option>
+                                    <option value="Red">Red</option>
+                                </select>
+                            </div>
+                            <div class="form-actions text-left"> {/* Align button left */}
+                                <button type="submit" class="btn btn-primary"> {/* Changed to primary */}
+                                     <span class="btn-text">Update Risk</span>
+                                     <span class="loading-spinner" style="display: none;"></span>
+                                </button>
+                            </div>
+                            <div class="status-message" id="update-risk-status"></div> {/* Status message placeholder */}
+                        </form>
+                        <hr class="widget-divider"> {/* Distinct divider */}
+                        <form id="bulk-upload-form">
+                            <div class="form-group">
+                                <label class="file-upload-label">Or Upload Risk File:</label> {/* Changed label slightly */}
+                                <div class="file-upload-wrapper"> {/* Wrapper for styling */}
+                                    <input type="file" id="risk-file-upload" name="risk-file-upload" accept=".csv,.json" required> {/* Added name */}
+                                    <label for="risk-file-upload" class="btn btn-secondary file-input-button">Choose file</label>
+                                    <span class="file-name">No file chosen</span>
+                                </div>
+                            </div>
+                            <div class="form-actions text-left"> {/* Align button left */}
+                                <button type="submit" class="btn btn-secondary">
+                                     <span class="btn-text">Upload File</span>
+                                     <span class="loading-spinner" style="display: none;"></span>
+                                </button>
+                            </div>
+                            <div class="status-message" id="bulk-upload-status"></div> {/* Status message placeholder */}
+                        </form>
+                    </div> {/* End widget-content */}
+                </div> {/* End admin-widget */}
 
                 <!-- View Purchases Widget -->
                 <div class="admin-widget">
-                    <h3>View Purchases</h3>
-                    <div class="form-actions">
-                        <button id="download-purchases-btn" class="btn btn-secondary btn-small" onclick="alert('Download Purchases CSV (Simulated)')">Download List (CSV)</button>
-                    </div>
-                    <div class="table-wrapper">
-                        <table id="purchases-table">
-                            <thead>
-                                <!-- Updated Headers -->
-                                <tr>
-                                    <th>Order ID</th>
-                                    <th>User Email</th>
-                                    <th>Country/Zones</th>
-                                    <th>Dates</th>
-                                    <th>Total Price</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Example Row (will be populated by JS) -->
-                                <tr>
-                                    <td colspan="7" style="text-align: center; color: var(--text-muted);">No purchases yet.</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                    <h3>View Purchases</h3> {/* Widget Title */}
+                    <div class="widget-content"> {/* Content Wrapper */}
+                        <div class="form-actions text-right"> {/* Button at top right */}
+                            <button id="download-purchases-btn" class="btn btn-secondary btn-small" onclick="alert('Download Purchases CSV (Simulated)')">Download List (CSV)</button>
+                        </div>
+                        <div class="table-wrapper">
+                            <table id="purchases-table">
+                                <thead>
+                                    <tr> {/* Headers unchanged */}
+                                        <th>Order ID</th> <th>User Email</th> <th>Country/Zones</th> <th>Dates</th> <th>Total Price</th> <th>Status</th> <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr> {/* Updated placeholder row */}
+                                        <td colspan="7" class="no-data-row">No purchases yet.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> {/* End widget-content */}
+                </div> {/* End admin-widget */}
 
                  <!-- Change Prices Widget -->
                  <div class="admin-widget">
-                    <h3>Manage Pricing</h3>
-                    <form id="update-pricing-form">
-                        <div class="form-group">
-                            <label for="price-zone">Zone:</label>
-                            <select id="price-zone">
-                                <option value="green">Green</option>
-                                <option value="amber">Amber</option>
-                                <option value="red">Red</option>
-                                <option value="transit">Transit</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="price-value">Price (€ per day/flat):</label>
-                            <input type="number" id="price-value" step="0.01" placeholder="e.g., 2.50">
-                        </div>
-                        <div class="form-group">
-                             <label for="coverage-level">Coverage Level (if applicable):</label>
-                             <select id="coverage-level">
-                                 <option value="base">Base/Zone Cost</option>
-                                 <option value="medical-50">Medical $50k</option>
-                                 <option value="accident-50">Accident $50k</option>
-                                 <!-- Add other tiers as needed -->
-                             </select>
-                         </div>
-                         <div class="form-actions">
-                            <button type="submit" class="btn btn-secondary">
-                                 <span class="btn-text">Update Pricing</span>
-                                 <span class="loading-spinner" style="display: none;"></span>
-                            </button>
-                         </div>
-                    </form>
-                 </div>
-             </div>
+                    <h3>Manage Pricing</h3> {/* Widget Title */}
+                    <div class="widget-content"> {/* Content Wrapper */}
+                        <form id="update-pricing-form">
+                            <div class="form-group">
+                                <label for="price-zone">Zone:</label>
+                                <select id="price-zone" required>
+                                    <option value="green">Green</option>
+                                    <option value="amber">Amber</option>
+                                    <option value="red">Red</option>
+                                    <option value="transit">Transit</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="price-value">Price (€ per day/flat):</label>
+                                <input type="number" id="price-value" step="0.01" placeholder="e.g., 2.50" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="coverage-level">Coverage Level (if applicable):</label>
+                                <select id="coverage-level" required>
+                                    <option value="base">Base/Zone Cost</option>
+                                    <option value="medical-50">Medical $50k Factor</option> {/* Clarified */}
+                                    <option value="accident-50">Accident $50k Factor</option> {/* Clarified */}
+                                    {/* Add other tiers as needed */}
+                                </select>
+                             </div>
+                             <div class="form-actions text-left"> {/* Align button left */}
+                                <button type="submit" class="btn btn-primary"> {/* Changed to primary */}
+                                     <span class="btn-text">Update Pricing</span>
+                                     <span class="loading-spinner" style="display: none;"></span>
+                                </button>
+                             </div>
+                             <div class="status-message" id="update-pricing-status"></div> {/* Status message placeholder */}
+                        </form>
+                    </div> {/* End widget-content */}
+                 </div> {/* End admin-widget */}
+             </div> {/* End admin-grid */}
         </section>
     </main>
 
-    <footer>
+    <footer class="footer"> {/* Changed footer class for clarity */}
         <div class="container">
             <p>© 2024 Compass Point Assist | Travel Risk Management</p>
         </div>

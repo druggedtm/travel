@@ -82,563 +82,414 @@ a:hover { color: var(--secondary-color); text-decoration: underline; }
     padding-left: calc(var(--spacing-unit) * 1.5); padding-right: calc(var(--spacing-unit) * 1.5);
 }
 
-/* === Header === */
+/* === Header (Unchanged) === */
 header {
     background: var(--primary-color);
     color: var(--light-color);
-    /* Removed padding here, moved to container for better control */
     box-shadow: var(--box-shadow);
     position: sticky;
     top: 0;
     z-index: 1000;
 }
-
 header .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center; /* Key for vertical alignment */
-    flex-wrap: wrap;
-    /* Added explicit padding for consistent header height */
-    padding-top: calc(var(--spacing-unit) * 0.75);
-    padding-bottom: calc(var(--spacing-unit) * 0.75);
-    /* You might add a min-height if needed, but padding is usually better */
-    /* min-height: 70px; */
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;
+    padding-top: calc(var(--spacing-unit) * 0.75); padding-bottom: calc(var(--spacing-unit) * 0.75);
 }
-
 header .logo {
-    display: block; /* Treat the link as a block */
-    margin-right: var(--spacing-unit);
-    line-height: 0; /* Important to remove extra space from line height */
-    flex-shrink: 0; /* Prevent logo link from shrinking if space is tight */
+    display: block; margin-right: var(--spacing-unit); line-height: 0; flex-shrink: 0;
 }
-
 header .logo img {
-    max-height: 45px;       /* Control the size */
-    width: auto;            /* Maintain aspect ratio */
-    display: block;         /* Prevent extra space below */
-    vertical-align: middle;
-    background-color: var(--cpa-weiss); /* ADDED: Sets the background to white */
-    padding: 4px;           /* ADDED: Adds a small white border around the logo content */
-    border-radius: 4px;     /* ADDED: Slightly rounds the corners of the white background */
-    box-sizing: border-box; /* ADDED: Ensures padding doesn't increase the max-height */
+    max-height: 45px; width: auto; display: block; vertical-align: middle;
+    background-color: var(--cpa-weiss); padding: 4px; border-radius: 4px; box-sizing: border-box;
 }
-
-
-header nav {
-    /* Ensures nav aligns nicely with the centered logo */
-    margin-left: auto; /* Pushes nav to the right */
-}
-
-header nav ul {
-    list-style: none;
-    display: flex;
-    align-items: center; /* Align nav items vertically */
-    margin: 0;
-    padding: 0;
-}
-
-header nav ul li {
-    margin-left: calc(var(--spacing-unit) * 1.75);
-}
-
+header nav { margin-left: auto; }
+header nav ul { list-style: none; display: flex; align-items: center; margin: 0; padding: 0; }
+header nav ul li { margin-left: calc(var(--spacing-unit) * 1.75); }
 header nav ul li a {
-    color: rgba(252, 252, 252, 0.9); /* Use Weiss with opacity */
-    text-decoration: none;
-    font-weight: var(--font-weight-medium);
-    padding: 0.5rem 0.1rem;
-    position: relative;
-    transition: color var(--transition-speed) var(--transition-timing), opacity var(--transition-speed) var(--transition-timing);
-    display: inline-block; /* Helps with positioning the underline */
+    color: rgba(252, 252, 252, 0.9); text-decoration: none; font-weight: var(--font-weight-medium);
+    padding: 0.5rem 0.1rem; position: relative; transition: color var(--transition-speed) var(--transition-timing), opacity var(--transition-speed) var(--transition-timing);
+    display: inline-block;
 }
-
 header nav ul li a::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: -3px;
-    left: 50%;
-    background-color: var(--accent-color); /* Use Mint */
-    transition: all var(--transition-speed) var(--transition-timing);
-    transform: translateX(-50%);
+    content: ''; position: absolute; width: 0; height: 2px; bottom: -3px; left: 50%;
+    background-color: var(--accent-color); transition: all var(--transition-speed) var(--transition-timing); transform: translateX(-50%);
 }
 header nav ul li a:hover { color: var(--light-color); opacity: 1; }
 header nav ul li a:hover::after { width: 100%; left: 0; transform: translateX(0%);}
 
-
-/* === Main Content & Cards === */
+/* === Main Content & Cards (Unchanged Base Styles) === */
 main.container { padding-top: calc(var(--spacing-unit) * 2.5); padding-bottom: calc(var(--spacing-unit) * 3); }
 
 .card {
     background-color: var(--card-bg); border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow); margin-bottom: calc(var(--spacing-unit) * 2.5); /* Increased space between cards */
-    padding: calc(var(--spacing-unit) * 2); /* Increased padding */
-    border: 1px solid var(--border-color); overflow: hidden;
+    box-shadow: var(--box-shadow); margin-bottom: calc(var(--spacing-unit) * 2.5);
+    padding: calc(var(--spacing-unit) * 2); border: 1px solid var(--border-color); overflow: hidden;
     transition: transform var(--transition-speed) var(--transition-timing), box-shadow var(--transition-speed) var(--transition-timing);
 }
-.card:hover { transform: translateY(-3px); box-shadow: var(--box-shadow-hover); } /* More pronounced hover effect */
+.card:hover { transform: translateY(-3px); box-shadow: var(--box-shadow-hover); }
 
 .card h2 {
-    font-size: 1.75rem; font-weight: var(--font-weight-bold); /* Bold headings */
-    color: var(--heading-color); margin: 0 0 calc(var(--spacing-unit) * 1.5) 0; /* Increased margin */
-    padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);
-    position: relative; text-align: center; /* Center main card titles */
+    font-size: 1.75rem; font-weight: var(--font-weight-bold); color: var(--heading-color);
+    margin: 0 0 calc(var(--spacing-unit) * 1.5) 0; padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color); position: relative; text-align: center;
 }
-/* Heading accent line - adjusted for centered text */
 .card h2::before {
-    content: ''; position: absolute; bottom: -1px; left: 50%;
-    transform: translateX(-50%); /* Center the line */
-    height: 4px; width: 60px; background: var(--primary-color); /* Solid primary */
-    border-radius: 4px;
+    content: ''; position: absolute; bottom: -1px; left: 50%; transform: translateX(-50%);
+    height: 4px; width: 60px; background: var(--primary-color); border-radius: 4px;
 }
-
-.card h3 {
-    font-size: 1.3rem; font-weight: var(--font-weight-bold); /* Bold subheadings */
-    color: var(--primary-color); /* Use primary color for widget/form titles */
-    margin: 0 0 var(--spacing-unit) 0;
+.card h3 { /* Base style for H3 if needed elsewhere */
+    font-size: 1.3rem; font-weight: var(--font-weight-bold); color: var(--primary-color); margin: 0 0 var(--spacing-unit) 0;
 }
 
 hr { border: 0; height: 1px; background-color: var(--border-color); margin: calc(var(--spacing-unit) * 1.5) 0; }
 hr.summary-divider { margin: var(--spacing-unit) 0; }
 
-
-/* === Risk Map Section Styles (NEW / UPDATED) === */
+/* === Risk Map Section (Unchanged) === */
 .risk-map-placeholder {
-    background-color: var(--cpa-grau); /* Use Grau */
-    border: 1px solid var(--border-color);
-    min-height: 400px; /* Adjusted height */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Push legend/note to edges */
-    padding: var(--spacing-unit);
-    margin-bottom: var(--spacing-unit); /* Reduced margin */
-    position: relative;
-    border-radius: var(--border-radius);
-    text-align: center;
+    background-color: var(--cpa-grau); border: 1px solid var(--border-color); min-height: 400px;
+    display: flex; flex-direction: column; justify-content: space-between; padding: var(--spacing-unit);
+    margin-bottom: var(--spacing-unit); position: relative; border-radius: var(--border-radius); text-align: center;
 }
-
 .map-legend {
-    display: flex;
-    gap: var(--spacing-unit);
-    justify-content: center;
-    flex-wrap: wrap;
-    background-color: rgba(255, 255, 255, 0.85);
-    padding: calc(var(--spacing-unit) * 0.5) var(--spacing-unit);
-    border-radius: var(--border-radius);
-    margin-bottom: var(--spacing-unit);
-    align-self: center;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    display: flex; gap: var(--spacing-unit); justify-content: center; flex-wrap: wrap;
+    background-color: rgba(255, 255, 255, 0.85); padding: calc(var(--spacing-unit) * 0.5) var(--spacing-unit);
+    border-radius: var(--border-radius); margin-bottom: var(--spacing-unit); align-self: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
+.legend-item { display: flex; align-items: center; gap: calc(var(--spacing-unit) * 0.4); font-size: 0.85em; color: var(--cpa-dblau); }
+.legend-color { width: 15px; height: 15px; border-radius: 3px; display: inline-block; border: 1px solid rgba(0,0,0,0.2); }
+.legend-green { background-color: var(--green-zone); } .legend-amber { background-color: var(--amber-zone); } .legend-red { background-color: var(--red-zone); }
+.map-loading-message { flex-grow: 1; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-style: italic; padding: var(--spacing-unit); font-size: 1.1em; }
+.map-ukraine-note { font-size: 0.8em; color: var(--cpa-dblau); background: rgba(255, 255, 255, 0.8); padding: calc(var(--spacing-unit) * 0.3) calc(var(--spacing-unit) * 0.5); border-radius: 3px; align-self: flex-end; margin-top: calc(var(--spacing-unit) * 0.5); }
 
-.legend-item {
-    display: flex;
-    align-items: center;
-    gap: calc(var(--spacing-unit) * 0.4);
-    font-size: 0.85em;
-    color: var(--cpa-dblau); /* Use Dblau */
-}
-
-.legend-color {
-    width: 15px;
-    height: 15px;
-    border-radius: 3px;
-    display: inline-block;
-    border: 1px solid rgba(0,0,0,0.2);
-}
-
-.legend-green { background-color: var(--green-zone); }
-.legend-amber { background-color: var(--amber-zone); }
-.legend-red { background-color: var(--red-zone); }
-
-.map-loading-message { /* Style your loading message or map area */
-    flex-grow: 1; /* Allow it to take up space */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-muted);
-    font-style: italic;
-    padding: var(--spacing-unit);
-    font-size: 1.1em;
-}
-
-.map-ukraine-note {
-    font-size: 0.8em;
-    color: var(--cpa-dblau);
-    background: rgba(255, 255, 255, 0.8);
-    padding: calc(var(--spacing-unit) * 0.3) calc(var(--spacing-unit) * 0.5);
-    border-radius: 3px;
-    align-self: flex-end; /* Position note to the bottom right */
-    margin-top: calc(var(--spacing-unit) * 0.5);
-}
-
-/* === Login / Register Section === */
-#login-section h2 { text-align: center; } /* Center the title */
-.login-register-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: calc(var(--spacing-unit) * 2.5); } /* Increased gap */
-.form-box {
-    padding: calc(var(--spacing-unit) * 2); /* Increased padding */
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    background-color: var(--light-color); /* Explicitly white */
-    box-shadow: none; /* Remove extra shadow if inside card */
-}
-.form-box h3 { text-align: center; color: var(--primary-color); margin-bottom: var(--spacing-unit) * 1.5; font-weight: var(--font-weight-bold); } /* Adjusted margin */
+/* === Login / Register Section (Unchanged) === */
+#login-section h2 { text-align: center; }
+.login-register-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: calc(var(--spacing-unit) * 2.5); }
+.form-box { padding: calc(var(--spacing-unit) * 2); border: 1px solid var(--border-color); border-radius: var(--border-radius); background-color: var(--light-color); box-shadow: none; }
+.form-box h3 { text-align: center; color: var(--primary-color); margin-bottom: var(--spacing-unit) * 1.5; font-weight: var(--font-weight-bold); }
 .forgot-password { display: block; text-align: center; font-size: 0.9em; margin-top: var(--spacing-unit) * 1.5; color: var(--secondary-color); text-decoration: none; transition: color var(--transition-speed) var(--transition-timing); }
 .forgot-password:hover { color: var(--primary-color); text-decoration: underline; }
 
-
-/* === Forms General === */
-.form-group { margin-bottom: calc(var(--spacing-unit) * 1.5); } /* Increased margin */
-
-form label {
-    display: block; margin-bottom: 0.5rem; font-weight: var(--font-weight-medium);
-    font-size: 0.95rem; /* Slightly larger label */
-    color: var(--primary-color); /* Primary color for labels */
+/* === Forms General (Unchanged) === */
+.form-group { margin-bottom: calc(var(--spacing-unit) * 1.5); }
+form label { display: block; margin-bottom: 0.5rem; font-weight: var(--font-weight-medium); font-size: 0.95rem; color: var(--primary-color); }
+form input[type="text"], form input[type="email"], form input[type="password"], form input[type="date"], form input[type="number"], form select {
+    display: block; width: 100%; padding: 0.9rem 1.1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius);
+    font-size: 1rem; font-family: var(--font-family-base); transition: border-color var(--transition-speed) var(--transition-timing), box-shadow var(--transition-speed) var(--transition-timing);
+    background-color: var(--cpa-grau); line-height: 1.5; color: var(--dark-color);
 }
-
-form input[type="text"],
-form input[type="email"],
-form input[type="password"],
-form input[type="date"],
-form input[type="number"],
-form select {
-    display: block; width: 100%; padding: 0.9rem 1.1rem; /* Slightly larger padding */
-    border: 1px solid var(--border-color); border-radius: var(--border-radius);
-    font-size: 1rem; font-family: var(--font-family-base);
-    transition: border-color var(--transition-speed) var(--transition-timing), box-shadow var(--transition-speed) var(--transition-timing);
-    background-color: var(--cpa-grau); /* Light grey background */
-    line-height: 1.5;
-    color: var(--dark-color);
-}
-form input:focus, form select:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 4px hsla(220, 53%, 41%, 0.15); /* More prominent focus shadow */
-    outline: none;
-}
+form input:focus, form select:focus { border-color: var(--primary-color); box-shadow: 0 0 0 4px hsla(220, 53%, 41%, 0.15); outline: none; }
 form input::placeholder { color: #888; opacity: 1; font-style: italic; }
 form input[type="date"]:invalid { color: #adb5bd; }
-form input[type="number"] { width: 120px; } /* Specific width for number inputs */
-
-
+form input[type="number"] { width: 120px; }
 form select {
-    appearance: none;
-    background-image: url('data:image/svg+xml;utf8,<svg fill="%231A2C50" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>'); /* Dblau arrow */
-    background-repeat: no-repeat; background-position: right 1rem center; background-size: 1em;
-    padding-right: 2.5rem;
+    appearance: none; background-image: url('data:image/svg+xml;utf8,<svg fill="%231A2C50" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+    background-repeat: no-repeat; background-position: right 1rem center; background-size: 1em; padding-right: 2.5rem;
 }
+.readonly-input { background-color: #e9ecef !important; cursor: not-allowed; }
 
-.readonly-input {
-    background-color: #e9ecef !important; /* Standard disabled look, override specific input styles */
-    cursor: not-allowed;
-}
-
-/* === Plan Builder Specific Styles (NEW / UPDATED) === */
-#plan-section .plan-customizer {
-    background-color: var(--cpa-grau); /* Light grey background */
-    padding: calc(var(--spacing-unit) * 1.75); /* Slightly more padding */
-    border-radius: var(--border-radius);
-    border: 1px solid var(--border-color);
-    margin-top: var(--spacing-unit); /* Add some space below the H2 */
-}
-
-#plan-section .form-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Adjust minmax */
-    gap: var(--spacing-unit) calc(var(--spacing-unit) * 1.5); /* Row gap, Column gap */
-    margin-bottom: var(--spacing-unit) * 1.5;
-}
-/* Override general form-group margin for grids */
+/* === Plan Builder Specifics (Unchanged) === */
+#plan-section .plan-customizer { background-color: var(--cpa-grau); padding: calc(var(--spacing-unit) * 1.75); border-radius: var(--border-radius); border: 1px solid var(--border-color); margin-top: var(--spacing-unit); }
+#plan-section .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--spacing-unit) calc(var(--spacing-unit) * 1.5); margin-bottom: var(--spacing-unit) * 1.5; }
 #plan-section .form-grid .form-group { margin-bottom: 0; }
-
-#plan-section .coverage-options {
-    margin-top: calc(var(--spacing-unit) * 1.5);
-    padding-top: calc(var(--spacing-unit) * 1.5);
-    border-top: 1px dashed var(--border-color); /* Use dashed border */
-}
-
-#plan-section .coverage-options h3 {
-     margin-bottom: var(--spacing-unit);
-     font-size: 1.2em;
-     text-align: left; /* Align sub-heading left */
-     color: var(--primary-color);
-     font-weight: var(--font-weight-medium);
-}
-
-/* NEW Checkbox Group Styling from SOW Mockup */
-#plan-section .checkbox-group {
-    display: flex;
-    align-items: center;
-    gap: calc(var(--spacing-unit) * 0.6);
-    margin-top: var(--spacing-unit);
-    background-color: #fff;
-    padding: var(--spacing-unit);
-    border-radius: var(--border-radius);
-    border: 1px solid var(--border-color);
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-}
-#plan-section .checkbox-group input[type="checkbox"] {
-    width: 1.3em; /* Slightly larger checkbox */
-    height: 1.3em;
-    accent-color: var(--cpa-mint); /* Use Mint */
-    margin: 0;
-    flex-shrink: 0;
-    cursor: pointer;
-}
-#plan-section .checkbox-group label {
-     margin-bottom: 0; /* Override form label margin */
-     font-weight: var(--font-weight-normal);
-     color: var(--text-color);
-     font-size: 1rem;
-     cursor: pointer;
-     flex-grow: 1;
-}
-
-/* NEW Price Summary Styling from SOW Mockup */
-#plan-section .price-summary {
-    margin-top: calc(var(--spacing-unit) * 2);
-    padding: calc(var(--spacing-unit) * 1.5);
-    background-color: var(--cpa-dblau); /* Use Dblau */
-    color: var(--cpa-weiss); /* Use Weiss */
-    border-radius: var(--border-radius);
-    text-align: center;
-}
-
-#plan-section .price-summary h3 {
-    color: var(--cpa-weiss); /* Use Weiss */
-    margin-top: 0;
-    margin-bottom: 0.75rem;
-    font-size: 1.2em;
-    font-weight: var(--font-weight-bold);
-}
-
-#estimated-price {
-    font-size: 2.4em; /* Larger price */
-    font-weight: var(--font-weight-bold);
-    color: var(--cpa-mint); /* Use Mint */
-    margin-bottom: 0.5rem; /* Space below price */
-    line-height: 1.2;
-}
-
-#plan-section .price-note {
-    font-size: 0.9em;
-    margin-top: 0;
-    margin-bottom: var(--spacing-unit); /* Space above button */
-    color: var(--cpa-beige); /* Use Beige */
-    opacity: 0.9;
-}
-
-#plan-section .price-summary .cta-button {
-    margin-top: var(--spacing-unit);
-    /* Styling comes from .btn, .btn-accent, .btn-large */
-}
-
-
+#plan-section .coverage-options { margin-top: calc(var(--spacing-unit) * 1.5); padding-top: calc(var(--spacing-unit) * 1.5); border-top: 1px dashed var(--border-color); }
+#plan-section .coverage-options h3 { margin-bottom: var(--spacing-unit); font-size: 1.2em; text-align: left; color: var(--primary-color); font-weight: var(--font-weight-medium); }
+#plan-section .checkbox-group { display: flex; align-items: center; gap: calc(var(--spacing-unit) * 0.6); margin-top: var(--spacing-unit); background-color: #fff; padding: var(--spacing-unit); border-radius: var(--border-radius); border: 1px solid var(--border-color); box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+#plan-section .checkbox-group input[type="checkbox"] { width: 1.3em; height: 1.3em; accent-color: var(--cpa-mint); margin: 0; flex-shrink: 0; cursor: pointer; }
+#plan-section .checkbox-group label { margin-bottom: 0; font-weight: var(--font-weight-normal); color: var(--text-color); font-size: 1rem; cursor: pointer; flex-grow: 1; }
+#plan-section .price-summary { margin-top: calc(var(--spacing-unit) * 2); padding: calc(var(--spacing-unit) * 1.5); background-color: var(--cpa-dblau); color: var(--cpa-weiss); border-radius: var(--border-radius); text-align: center; }
+#plan-section .price-summary h3 { color: var(--cpa-weiss); margin-top: 0; margin-bottom: 0.75rem; font-size: 1.2em; font-weight: var(--font-weight-bold); }
+#estimated-price { font-size: 2.4em; font-weight: var(--font-weight-bold); color: var(--cpa-mint); margin-bottom: 0.5rem; line-height: 1.2; }
+#plan-section .price-note { font-size: 0.9em; margin-top: 0; margin-bottom: var(--spacing-unit); color: var(--cpa-beige); opacity: 0.9; }
+#plan-section .price-summary .cta-button { margin-top: var(--spacing-unit); }
 .form-actions { margin-top: calc(var(--spacing-unit) * 2); text-align: center; }
 
-
-/* === Buttons === */
-.btn {
-    display: inline-flex; /* Use flexbox for centering content (text+spinner) */
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-family-base);
-    font-weight: var(--font-weight-bold); /* Bold button text */
-    text-align: center; vertical-align: middle; cursor: pointer; user-select: none;
-    background-image: none; border: 1px solid transparent;
-    padding: 0.9rem 2rem; /* Adjusted padding for larger feel */
-    font-size: 1rem;
-    border-radius: var(--border-radius);
-    transition: all var(--transition-speed) var(--transition-timing);
-    text-decoration: none; line-height: 1.5; position: relative;
-    letter-spacing: 0.2px; /* Subtle letter spacing */
-    min-width: 150px; /* Give buttons a minimum width */
-}
+/* === Buttons (Unchanged) === */
+.btn { display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-family-base); font-weight: var(--font-weight-bold); text-align: center; vertical-align: middle; cursor: pointer; user-select: none; background-image: none; border: 1px solid transparent; padding: 0.9rem 2rem; font-size: 1rem; border-radius: var(--border-radius); transition: all var(--transition-speed) var(--transition-timing); text-decoration: none; line-height: 1.5; position: relative; letter-spacing: 0.2px; min-width: 150px; }
 .btn:not(:disabled):not(.disabled) { cursor: pointer; }
-.btn:hover:not(:disabled) { transform: translateY(-3px); box-shadow: var(--box-shadow); } /* Consistent hover effect */
+.btn:hover:not(:disabled) { transform: translateY(-3px); box-shadow: var(--box-shadow); }
 .btn:active:not(:disabled) { transform: translateY(0); box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2); }
 .btn:disabled { opacity: 0.6; cursor: not-allowed; box-shadow: none; transform: none; }
-
 .btn-primary { color: var(--light-color); background-color: var(--primary-color); border-color: var(--primary-color); }
 .btn-primary:hover:not(:disabled) { background-color: #142441; border-color: #142441; color: var(--light-color); }
 .btn-secondary { color: var(--primary-color); background-color: var(--light-color); border-color: var(--border-color); box-shadow: none; }
-.btn-secondary:hover:not(:disabled) { background-color: var(--cpa-grau); border-color: var(--border-color); color: var(--primary-color); box-shadow: none; transform: none; } /* No lift on secondary */
-.btn-success { color: var(--light-color); background-color: var(--success-color); border-color: var(--success-color); } /* Using Mint for success */
+.btn-secondary:hover:not(:disabled) { background-color: var(--cpa-grau); border-color: var(--border-color); color: var(--primary-color); box-shadow: none; transform: none; }
+.btn-success { color: var(--light-color); background-color: var(--success-color); border-color: var(--success-color); }
 .btn-success:hover:not(:disabled) { background-color: var(--success-hover-color); border-color: var(--success-hover-color); color: var(--light-color); }
-.btn-accent { color: var(--cpa-black); background-color: var(--accent-color); border-color: var(--accent-color); font-weight: var(--font-weight-bold); } /* Use Mint */
+.btn-accent { color: var(--cpa-black); background-color: var(--accent-color); border-color: var(--accent-color); font-weight: var(--font-weight-bold); }
 .btn-accent:hover:not(:disabled) { background-color: var(--accent-hover-color); border-color: var(--accent-hover-color); color: var(--cpa-black); }
-
 .btn-large { padding: 1.1rem 2.5rem; font-size: 1.15rem; font-weight: var(--font-weight-bold); }
 .btn-small { padding: 0.5rem 1rem; font-size: 0.875rem; }
 
-/* Loading Spinner */
-.loading-spinner {
-    display: none; /* Initially hidden */
-    width: 1.1em; height: 1.1em; /* Slightly larger spinner */
-    border: 3px solid rgba(255, 255, 255, 0.3); /* Thicker, slightly transparent border */
-    border-radius: 50%;
-    border-top-color: var(--light-color); /* White spinner color for primary/success */
-    animation: spin 0.8s linear infinite;
-    margin-left: 0.8em; /* Increased margin */
-    vertical-align: middle;
-}
-.btn-secondary .loading-spinner { border-color: rgba(26, 44, 80, 0.2); border-top-color: var(--primary-color); } /* Dblau spinner for secondary */
-.btn-accent .loading-spinner { border-color: rgba(18, 13, 26, 0.2); border-top-color: var(--cpa-black); } /* Black spinner for Mint */
-
+/* Loading Spinner (Unchanged) */
+.loading-spinner { display: none; width: 1.1em; height: 1.1em; border: 3px solid rgba(255, 255, 255, 0.3); border-radius: 50%; border-top-color: var(--light-color); animation: spin 0.8s linear infinite; margin-left: 0.8em; vertical-align: middle; }
+.btn-secondary .loading-spinner { border-color: rgba(26, 44, 80, 0.2); border-top-color: var(--primary-color); }
+.btn-accent .loading-spinner { border-color: rgba(18, 13, 26, 0.2); border-top-color: var(--cpa-black); }
 @keyframes spin { to { transform: rotate(360deg); } }
-
-.btn.loading .btn-text { visibility: hidden; opacity: 0; position: absolute; } /* Hide text completely */
-.btn.loading .loading-spinner { display: inline-block; position: static; /* Ensure spinner takes space */ }
-
-
-/* === Admin Section === */
-.admin-card { background-color: var(--body-bg); border: 1px solid var(--border-color); box-shadow: none; } /* Lighter background for admin card */
-.admin-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: calc(var(--spacing-unit) * 2); } /* Adjusted gap */
-.admin-widget { background-color: var(--light-color); padding: calc(var(--spacing-unit) * 1.75); border-radius: var(--border-radius); border: 1px solid var(--border-color); box-shadow: var(--box-shadow); } /* Added subtle shadow to widgets */
-.admin-widget h3 { font-size: 1.2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.8rem; margin-bottom: calc(var(--spacing-unit) * 1.25); color: var(--primary-color); text-align: left; } /* Align widget headers left */
-.admin-widget .form-group { margin-bottom: var(--spacing-unit); }
-.admin-widget .form-actions { margin-top: var(--spacing-unit) * 1.5; } /* Increased margin */
-.admin-widget .form-actions .btn { margin-right: var(--spacing-unit); } /* Space between buttons in admin widget */
-.admin-widget .form-actions .btn:last-child { margin-right: 0; }
+.btn.loading .btn-text { visibility: hidden; opacity: 0; position: absolute; }
+.btn.loading .loading-spinner { display: inline-block; position: static; }
 
 
-.file-upload-label { display: block; margin-bottom: 0.5rem; font-weight: var(--font-weight-medium); font-size: 0.9rem; color: var(--primary-color); } /* Styled like other labels */
-input[type="file"] { display: block; font-size: 0.9rem; color: var(--text-color); width: 100%; padding: 0.5rem 0; }
-input[type="file"]::file-selector-button {
-    font-weight: var(--font-weight-medium);
-    padding: 0.6rem 1.2rem; /* Adjusted padding */
+/* === Admin Section (UPDATED STYLES) === */
+.admin-card {
+    /* Removed card background/border - now applied to widgets */
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0; /* Remove padding from overall section */
+    margin-bottom: calc(var(--spacing-unit) * 2.5);
+}
+.admin-card h2 { /* Style the main "Admin Portal" title */
+    text-align: center;
+    border-bottom: none; /* Remove border */
+    margin-bottom: calc(var(--spacing-unit) * 2); /* Space below title */
+    font-size: 1.8rem; /* Make main title slightly larger */
+    font-weight: var(--font-weight-bold);
+}
+.admin-card h2::before {
+     /* Keep accent line below main title */
+    content: ''; position: absolute; bottom: -5px; /* Adjust position */ left: 50%;
+    transform: translateX(-50%); height: 4px; width: 70px; /* Slightly wider */
+    background: var(--primary-color); border-radius: 4px;
+}
+
+.admin-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Widgets min size */
+    gap: calc(var(--spacing-unit) * 2); /* Gap between widgets */
+}
+
+.admin-widget {
+    background-color: var(--light-color); /* White background for widgets */
+    padding: 0; /* Remove padding here, add to header/content */
     border-radius: var(--border-radius);
     border: 1px solid var(--border-color);
-    background-color: var(--cpa-grau); /* Light grey button */
-    color: var(--primary-color);
-    cursor: pointer; transition: background-color var(--transition-speed) var(--transition-timing);
-    margin-right: var(--spacing-unit); /* Consistent spacing */
+    box-shadow: var(--box-shadow);
+    display: flex; /* Use flexbox for header/content structure */
+    flex-direction: column;
+    overflow: hidden; /* Ensure contents respect border-radius */
+    transition: transform var(--transition-speed) var(--transition-timing), box-shadow var(--transition-speed) var(--transition-timing);
 }
-input[type="file"]::file-selector-button:hover { background-color: #e9ecef; } /* Slightly darker grey */
+.admin-widget:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--box-shadow-hover);
+}
 
-/* Admin Table */
-.table-wrapper { overflow-x: auto; margin-top: calc(var(--spacing-unit) * 1.5); border: 1px solid var(--border-color); border-radius: var(--border-radius); background-color: var(--light-color); }
-#purchases-table { width: 100%; border-collapse: collapse; }
-#purchases-table th, #purchases-table td { border-bottom: 1px solid var(--border-color); padding: 1rem 1.2rem; text-align: left; vertical-align: middle; font-size: 0.95rem; } /* Adjusted padding and font size */
-#purchases-table th { background-color: var(--cpa-grau); font-weight: var(--font-weight-bold); color: var(--primary-color); white-space: nowrap; border-bottom-width: 2px; }
-#purchases-table tbody tr:hover td { background-color: #f1f3f5; } /* Lighter hover */
-#purchases-table tbody td { color: var(--text-color); }
-#purchases-table tbody tr:last-child td { border-bottom: none; }
-#purchases-table .btn-small { padding: 0.3rem 0.75rem; font-size: 0.8rem; }
-
-/* Status Badge Styling for Admin Table */
-.status-completed, .status-pending, .status-failed, .status-unknown {
-    padding: 0.2em 0.6em;
-    border-radius: 0.25rem;
-    font-size: 0.85em;
+.admin-widget h3 { /* Widget titles */
+    font-size: 1.15rem;
     font-weight: var(--font-weight-bold);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    display: inline-block; /* Allows padding and margins */
+    color: var(--primary-color);
+    margin: 0;
+    padding: calc(var(--spacing-unit) * 1) calc(var(--spacing-unit) * 1.5);
+    background-color: var(--cpa-grau); /* Light gray background for header */
+    border-bottom: 1px solid var(--border-color);
+    text-align: left;
 }
 
-.status-completed { background-color: hsla(185, 100%, 35%, 0.15); color: #006f7a; } /* Mint based */
-.status-pending { background-color: hsla(45, 100%, 51%, 0.15); color: #997400; } /* Amber based */
+.admin-widget .widget-content {
+    padding: calc(var(--spacing-unit) * 1.5); /* Padding for widget content area */
+    flex-grow: 1; /* Allow content to fill space */
+}
+
+.admin-widget .form-group {
+    margin-bottom: var(--spacing-unit); /* Consistent spacing */
+}
+
+.admin-widget .form-actions {
+    margin-top: calc(var(--spacing-unit) * 1.5);
+    padding-top: var(--spacing-unit); /* Add space above actions if needed */
+    border-top: 1px solid var(--border-color); /* Separator line above actions */
+}
+.form-actions.text-left { text-align: left; }
+.form-actions.text-right { text-align: right; }
+.admin-widget .form-actions .btn { margin: 0; } /* Remove default margins if needed */
+.admin-widget .form-actions .btn:not(:last-child) { margin-right: var(--spacing-unit); }
+
+
+/* More distinct divider */
+hr.widget-divider {
+    margin: calc(var(--spacing-unit) * 1.5) 0; /* Vertical space */
+    border: 0;
+    border-top: 1px solid #ccc; /* Darker divider */
+}
+
+/* Enhanced File Upload Styling */
+.file-upload-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: var(--font-weight-medium);
+    font-size: 0.9rem;
+    color: var(--primary-color);
+}
+.file-upload-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background-color: var(--cpa-grau);
+    padding: 0.3rem 0.3rem 0.3rem 0.8rem; /* Adjust padding */
+    cursor: pointer; /* Make the whole area clickable */
+}
+input[type="file"]#risk-file-upload {
+    /* Hide the default input visually but keep accessible */
+    position: absolute; left: 0; top: 0; opacity: 0; width: 100%; height: 100%;
+    cursor: pointer; z-index: 1; /* Ensure input is clickable over the text */
+}
+.file-input-button {
+    /* Style the label like a button */
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    background-color: var(--light-color); /* White button */
+    border: 1px solid var(--border-color);
+    border-radius: calc(var(--border-radius) - 2px); /* Slightly smaller radius */
+    color: var(--primary-color);
+    font-weight: var(--font-weight-medium);
+    transition: background-color var(--transition-speed) var(--transition-timing);
+    z-index: 0; /* Behind the actual input */
+    white-space: nowrap;
+    flex-shrink: 0; /* Don't let button shrink */
+    margin-left: auto; /* Push button to the right */
+}
+.file-upload-wrapper:hover .file-input-button {
+    background-color: #eef1f5; /* Hover effect */
+}
+.file-name {
+    /* Display chosen file name */
+    font-size: 0.9em; color: var(--text-muted); white-space: nowrap;
+    overflow: hidden; text-overflow: ellipsis; z-index: 0;
+    margin-right: var(--spacing-unit); /* Space between text and button */
+}
+/* Remove default browser styles for file input button */
+input[type="file"]::-webkit-file-upload-button { display: none; }
+input[type="file"]::file-selector-button { display: none; }
+
+/* Admin Table Enhancements */
+.admin-widget .table-wrapper {
+    margin-top: var(--spacing-unit); /* Space above table */
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background-color: var(--light-color);
+    max-height: 400px; /* Limit height and make scrollable */
+    overflow-y: auto; /* Enable vertical scroll */
+    overflow-x: hidden; /* Hide horizontal scroll if not needed */
+}
+#purchases-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+#purchases-table th, #purchases-table td {
+    padding: calc(var(--spacing-unit) * 0.8) var(--spacing-unit); /* Adjust padding */
+    text-align: left; vertical-align: middle; font-size: 0.9rem;
+    border-bottom: 1px solid var(--border-color);
+    white-space: nowrap; /* Prevent wrapping initially */
+}
+#purchases-table th {
+    background-color: var(--cpa-grau); font-weight: var(--font-weight-bold); color: var(--primary-color);
+    border-bottom-width: 2px; border-color: var(--border-color); position: sticky; top: 0; z-index: 1; /* Sticky header */
+}
+#purchases-table tbody tr:hover { background-color: #f1f3f5; }
+#purchases-table tbody td { color: var(--text-color); white-space: normal; } /* Allow cell content to wrap */
+#purchases-table tbody tr:last-child td { border-bottom: none; }
+#purchases-table .btn-small { padding: 0.4rem 0.8rem; font-size: 0.85rem; }
+
+#purchases-table .no-data-row { /* Styling for the "No purchases yet" row */
+    text-align: center !important; color: var(--text-muted) !important; font-style: italic;
+    padding: calc(var(--spacing-unit) * 2) !important; white-space: normal !important;
+}
+
+
+/* Status Badge Styling for Admin Table (Unchanged) */
+.status-completed, .status-pending, .status-failed, .status-unknown { padding: 0.2em 0.6em; border-radius: 0.25rem; font-size: 0.85em; font-weight: var(--font-weight-bold); text-transform: uppercase; letter-spacing: 0.5px; display: inline-block; }
+.status-completed { background-color: hsla(185, 100%, 35%, 0.15); color: #006f7a; }
+.status-pending { background-color: hsla(45, 100%, 51%, 0.15); color: #997400; }
 .status-failed { background-color: hsla(354, 70%, 54%, 0.1); color: var(--danger-color); }
 .status-unknown { background-color: var(--border-color); color: var(--text-muted); }
 
+/* Status Messages within Widgets (NEW) */
+.status-message {
+    margin-top: var(--spacing-unit);
+    padding: calc(var(--spacing-unit) * 0.75) var(--spacing-unit);
+    border-radius: var(--border-radius);
+    font-size: 0.9em;
+    display: none; /* Hidden by default */
+    text-align: center;
+    animation: fadeIn 0.3s ease-out;
+}
+.status-message.success {
+    background-color: hsla(120, 60%, 90%, 1); /* Light green */
+    border: 1px solid hsla(120, 40%, 70%, 1);
+    color: hsla(120, 50%, 30%, 1);
+    display: block; /* Show when class is added */
+}
+.status-message.error {
+    background-color: hsla(0, 70%, 90%, 1); /* Light red */
+    border: 1px solid hsla(0, 50%, 70%, 1);
+    color: hsla(0, 60%, 40%, 1);
+    display: block; /* Show when class is added */
+}
 
-/* === Footer === */
-footer {
-    text-align: center; margin-top: calc(var(--spacing-unit) * 4); /* More space above footer */
-    padding: calc(var(--spacing-unit) * 2) 0; /* Increased padding */
-    background: var(--cpa-black); color: #a0a0a0;
-    font-size: 0.9rem; border-top: 4px solid var(--primary-color);
+
+/* === Footer (Unchanged) === */
+footer.footer { /* Use specific class */
+    text-align: center; margin-top: calc(var(--spacing-unit) * 4); padding: calc(var(--spacing-unit) * 2) 0;
+    background: var(--cpa-black); color: #a0a0a0; font-size: 0.9rem; border-top: 4px solid var(--primary-color);
 }
 footer p { margin: 0; }
 
-/* === Responsive Design === */
-@media (max-width: 1200px) {
-    .container { max-width: 960px; }
-}
-@media (max-width: 992px) {
-    .container { max-width: 720px; }
-    :root { --font-size-base: 0.95rem; } /* Slightly smaller base font */
-    .card h2 { font-size: 1.6rem; }
-    .card h3 { font-size: 1.2rem; }
-    header nav ul li { margin-left: var(--spacing-unit); }
-}
+/* === Responsive Design (Minor Adjustments for Admin) === */
+@media (max-width: 1200px) { .container { max-width: 960px; } }
+@media (max-width: 992px) { .container { max-width: 720px; } :root { --font-size-base: 0.95rem; } .card h2 { font-size: 1.6rem; } header nav ul li { margin-left: var(--spacing-unit); } }
 
 @media (max-width: 768px) {
     .container { max-width: 540px; }
-    header .container {
-        justify-content: center;
-        text-align: center;
-        flex-direction: column; /* Stack header items */
-        padding-top: var(--spacing-unit); /* Slightly more padding when stacked */
-        padding-bottom: var(--spacing-unit);
-     }
-     header .logo {
-         margin-bottom: 0.75rem;
-         margin-right: 0; /* Remove right margin when stacked */
-     }
-     header .logo img {
-        max-height: 40px; /* Slightly smaller logo on mobile */
-     }
-     header nav {
-         margin-left: 0; /* Reset margin */
-         width: 100%; /* Allow nav to take full width */
-     }
-     header nav ul {
-         justify-content: center;
-         flex-wrap: wrap;
-         margin-top: 0.5rem;
-     }
+    header .container { justify-content: center; text-align: center; flex-direction: column; padding-top: var(--spacing-unit); padding-bottom: var(--spacing-unit); }
+    header .logo { margin-bottom: 0.75rem; margin-right: 0; }
+    header .logo img { max-height: 40px; }
+    header nav { margin-left: 0; width: 100%; }
+    header nav ul { justify-content: center; flex-wrap: wrap; margin-top: 0.5rem; }
 
     .card { padding: calc(var(--spacing-unit) * 1.5); }
-    .card h2 { font-size: 1.4rem; } .card h3 { font-size: 1.1rem; }
-    .risk-map-placeholder { min-height: 300px; } /* Adjust map height */
+    .card h2 { font-size: 1.4rem; }
+    .risk-map-placeholder { min-height: 300px; }
     .form-box { padding: calc(var(--spacing-unit) * 1.5); }
-    #plan-section .form-grid { grid-template-columns: 1fr; } /* Stack plan grid */
+    #plan-section .form-grid { grid-template-columns: 1fr; }
+
+    /* Admin specific responsive */
+    .admin-grid { grid-template-columns: 1fr; } /* Stack widgets */
+    .admin-widget .table-wrapper { max-height: 300px; } /* Reduce scroll height */
 
     /* Mobile Table Styling */
-    .admin-widget .table-wrapper { border: none; background: none; padding: 0; } /* Remove padding */
+    .admin-widget .table-wrapper { border: none; background: none; padding: 0; max-height: none; overflow: visible; } /* Override scroll */
     #purchases-table { border: none; box-shadow: none; border-spacing: 0; }
 	#purchases-table thead { display: none; }
-	#purchases-table tr { display: block; margin-bottom: var(--spacing-unit); border: 1px solid var(--border-color); border-radius: var(--border-radius); padding: 0; background-color: var(--light-color); overflow: hidden; box-shadow: var(--box-shadow); } /* Added card-like style */
-	#purchases-table td { display: block; text-align: right; font-size: 0.9rem; border: none; border-bottom: 1px dotted var(--border-color); padding: 0.8rem var(--spacing-unit); min-height: 2.5em; padding-left: 50%; position: relative; background: transparent; } /* Adjusted padding-left */
+	#purchases-table tr { display: block; margin-bottom: var(--spacing-unit); border: 1px solid var(--border-color); border-radius: var(--border-radius); padding: 0; background-color: var(--light-color); overflow: hidden; box-shadow: var(--box-shadow); }
+	#purchases-table td { display: block; text-align: right; font-size: 0.9rem; border: none; border-bottom: 1px dotted var(--border-color); padding: 0.8rem var(--spacing-unit); min-height: 2.5em; padding-left: 45%; /* Adjust as needed */ position: relative; background: transparent; white-space: normal; }
     #purchases-table td:last-child { border-bottom: none; }
-	#purchases-table td::before { content: attr(data-label); position: absolute; left: var(--spacing-unit); width: calc(50% - var(--spacing-unit) * 1.5); font-weight: var(--font-weight-bold); color: var(--primary-color); text-align: left; padding-right: 0.5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; top: 0.8rem; }
-    #purchases-table .btn-small { width: auto; /* Allow buttons to shrink */ }
+	#purchases-table td::before { content: attr(data-label); position: absolute; left: var(--spacing-unit); width: calc(45% - var(--spacing-unit) * 1.5); /* Adjust */ font-weight: var(--font-weight-bold); color: var(--primary-color); text-align: left; padding-right: 0.5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; top: 0.8rem; }
+    #purchases-table .btn-small { width: auto; }
 }
 
 @media (max-width: 576px) {
-    :root { --font-size-base: 0.9rem; } /* Smaller base font */
+    :root { --font-size-base: 0.9rem; }
     .container { padding-left: var(--spacing-unit); padding-right: var(--spacing-unit); }
-    /* header .logo { font-size: 1.6rem; } /* Logo font size was here, now it's controlled by image height */
-     header .logo img {
-        max-height: 35px; /* Even smaller logo on very small screens */
-     }
-     /* Ensure nav items wrap better if needed */
+    header .logo img { max-height: 35px; }
     header nav ul li { margin: 0.1rem 0.5rem; }
-
-
     .btn { padding: 0.8rem 1.6rem; font-size: 0.95rem; min-width: 120px; }
     .btn-large { padding: 0.9rem 1.8rem; font-size: 1rem; }
-    #plan-section .form-grid { grid-template-columns: 1fr; gap: calc(var(--spacing-unit) * 0.75); } /* Stack and reduce gap */
+    #plan-section .form-grid { gap: calc(var(--spacing-unit) * 0.75); }
     #estimated-price { font-size: 2em; }
     .form-actions { text-align: center; }
-     .admin-widget .form-actions { text-align: center; } /* Center admin buttons too */
-    .admin-widget .form-actions .btn { margin: 0.5rem; } /* Add space around centered buttons */
-    #plan-section .checkbox-group label { font-size: 0.95rem;} /* Slightly smaller checkbox label */
+    .admin-widget .form-actions { text-align: center; border-top: none; padding-top: 0;} /* Center admin buttons on small screens, remove top border */
+    .admin-widget .form-actions .btn { margin: 0.5rem; display: block; width: 100%; } /* Stack buttons */
+    .admin-widget .form-actions .btn:not(:last-child) { margin-right: 0.5rem; } /* Reset margin */
+    #plan-section .checkbox-group label { font-size: 0.95rem;}
 
-    input[type="file"]::file-selector-button { margin-right: 0.5rem; padding: 0.5rem 1rem; font-size: 0.875rem; }
+    .file-upload-wrapper { flex-direction: column; align-items: stretch; padding: 0.8rem; }
+    .file-name { margin-right: 0; margin-bottom: 0.5rem; text-align: center; }
+    .file-input-button { margin-left: 0; text-align: center;}
 }
 
-/* Fade-in animation */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.fade-in {
-    opacity: 0; /* Start invisible */
-}
-
-.fade-in.is-visible {
-    animation: fadeIn 0.8s var(--transition-timing) forwards;
-    animation-delay: var(--delay, 0s); /* Use CSS variable for delay if needed */
-}
+/* Fade-in animation (Unchanged) */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.fade-in { opacity: 0; }
+.fade-in.is-visible { animation: fadeIn 0.8s var(--transition-timing) forwards; animation-delay: var(--delay, 0s); }

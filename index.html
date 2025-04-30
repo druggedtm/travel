@@ -55,9 +55,32 @@
             </div>
 
             <section id="map-section" class="dashboard-section active fade-in">
-                 <h2>Global Risk Map</h2>
-                 <div class="section-content"><div id="map" class="risk-map-placeholder"><div class="map-legend"><div class="legend-item"><span class="legend-color legend-green"></span> Low Risk (Green)</div><div class="legend-item"><span class="legend-color legend-amber"></span> Medium Risk (Amber)</div><div class="legend-item"><span class="legend-color legend-red"></span> High Risk (Red)</div></div><div class="map-loading-message">Interactive Global Risk Map Placeholder</div><p class="map-ukraine-note">Ukraine-specific details available</p></div></div>
-            </section>
+                <h2>Global Risk Map</h2>
+                <div class="section-content">
+                  <div id="map" class="risk-map-placeholder">
+                    <iframe
+                      src="https://map-ashen-two.vercel.app/"
+                      style="width: 100%; height: 600px; border: none;"
+                      loading="lazy"
+                      title="Global Risk Map"
+                    ></iframe>
+              
+                    <div class="map-legend">
+                      <div class="legend-item">
+                        <span class="legend-color legend-green"></span> Low Risk (Green)
+                      </div>
+                      <div class="legend-item">
+                        <span class="legend-color legend-amber"></span> Medium Risk (Amber)
+                      </div>
+                      <div class="legend-item">
+                        <span class="legend-color legend-red"></span> High Risk (Red)
+                      </div>
+                    </div>
+              
+                    <p class="map-ukraine-note">Ukraine-specific details available</p>
+                  </div>
+                </div>
+              </section>
 
             <section id="plan-section" class="dashboard-section card fade-in" data-delay="0.1">
                 <h2>Customize Your Travel Plan</h2>

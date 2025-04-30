@@ -25,13 +25,24 @@
 
         /* Style for phone number input group */
         .phone-input-group { display: flex; gap: 0.5rem; }
-        .phone-input-group select { flex: 0 0 100px; }
-        .phone-input-group input[type="tel"] { flex: 1 1 auto; min-width: 150px; }
+        .phone-input-group select { flex: 0 0 100px; /* Fixed width for country code */ }
+        .phone-input-group input[type="tel"] { flex: 1 1 auto; /* Allow phone number input to grow */ min-width: 150px; }
 
          /* Style adjustments for traveller item row */
-         .traveller-item.form-row { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.75rem; }
-         .form-text.validation-note { font-size: 0.85rem; color: var(--danger-color); margin-top: -0.5rem; margin-bottom: 1rem; padding: 0.5rem; background-color: hsla(354, 70%, 54%, 0.05); border: 1px solid hsla(354, 70%, 54%, 0.2); border-radius: var(--border-radius); }
-
+         .traveller-item.form-row {
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Allow more items per row */
+            gap: 0.75rem; /* Adjust gap */
+         }
+         .form-text.validation-note {
+             font-size: 0.85rem;
+             color: var(--danger-color); /* Use danger color for visibility */
+             margin-top: -0.5rem; /* Adjust spacing */
+             margin-bottom: 1rem;
+             padding: 0.5rem;
+             background-color: hsla(354, 70%, 54%, 0.05); /* Light red background */
+             border: 1px solid hsla(354, 70%, 54%, 0.2);
+             border-radius: var(--border-radius);
+         }
          /* Initially hide the subscription details container */
          #subscription-details-container {
             display: none;
@@ -39,14 +50,10 @@
             padding-top: 1.5rem;
             border-top: 2px solid var(--primary-color); /* Separator */
          }
-         /* Hide quote form parts when subscription shows (optional) */
-         #plan-section.subscription-active .plan-customizer {
-             /* display: none; */ /* Option 1: Hide whole quote form */
-         }
+         /* Hide accept button when subscription shows */
           #plan-section.subscription-active #accept-quote-btn {
-              display: none; /* Hide accept button */
+              display: none;
           }
-
 
     </style>
 </head>
@@ -99,7 +106,7 @@
                 </nav>
             </div>
 
-            <!-- --- Map Section (Unchanged) --- -->
+            <!-- --- Map Section --- -->
             <section id="map-section" class="dashboard-section active fade-in">
                 <h2>Global Risk Map</h2>
                 <div class="section-content">
@@ -115,11 +122,11 @@
                 </div>
             </section>
 
-            <!-- --- Travel Risk Quote Section --- -->
+            <!-- --- Travel Risk Quote Section (Now contains Quote + Subscription) --- -->
             <section id="plan-section" class="dashboard-section card fade-in" data-delay="0.1">
                 <!-- This section now contains BOTH quote and subscription -->
                 <div class="plan-customizer"> <!-- Wrapper for quote part -->
-                    <h2>1. Generate Your Travel Risk Quote</h2> <!-- Updated Heading -->
+                    <h2>1. Generate Your Travel Risk Quote</h2>
                     <div class="section-content">
                         <form id="travel-plan-form">
                             <div class="form-row">
@@ -132,14 +139,12 @@
                                 <div class="form-group"> <label for="days-red">Days in Red Zone(s)</label> <input type="number" id="days-red" name="days-red" min="0" value="0" required> </div>
                                 <div class="form-group"> <label for="days-green">Days in Green Zone(s)</label> <input type="number" id="days-green" name="days-green" min="0" value="0" readonly class="readonly-input"> </div>
                             </div>
-                             <!-- Added Age Field -->
                              <div class="form-row">
                                 <div class="form-group">
                                     <label for="quote-age">Your Age (Primary Traveller)</label>
                                     <input type="number" id="quote-age" name="quote_age" min="0" required placeholder="e.g., 35">
                                 </div>
-                                <div class="form-group"></div> <!-- Empty for alignment -->
-                                <div class="form-group"></div> <!-- Empty for alignment -->
+                                <div class="form-group"></div> <div class="form-group"></div>
                              </div>
                              <div class="coverage-options">
                                 <h3>Standard Coverage</h3>
@@ -158,7 +163,6 @@
                                 <h3>Your Estimated Quote</h3>
                                 <div id="estimated-price">$0.00</div>
                                 <p class="price-note">(Price updates based on your selections)</p>
-                                <!-- MODIFIED BUTTON -->
                                 <div class="form-actions">
                                     <button type="button" id="accept-quote-btn" class="btn btn-accent btn-large">
                                         <span class="btn-text">Accept Quote & Proceed</span>
@@ -166,8 +170,8 @@
                                     </button>
                                 </div>
                             </div>
-                        </form>
-                    </div> <!-- end section-content for quote -->
+                        </form> <!-- End of Quote form -->
+                    </div>
                 </div> <!-- end plan-customizer -->
 
                 <!-- NESTED Subscription Details Container (Initially Hidden) -->
@@ -280,7 +284,7 @@
                                         <div class="form-group checkbox-group" style="margin-bottom: 0;"> <input type="checkbox" id="reg-consent" name="consent" value="true" required> <label for="reg-consent" style="font-weight: normal;">I consent to the use of my provided information by Compass Point Assist or its appointed network medical partners in the event of an emergency. <span style="color:red;">*</span></label> </div>
                                     </div>
                                 </div>
-                            </div> <!-- end admin-grid -->
+                            </div> <!-- end admin-grid for subscription -->
                             <!-- Submit Button for Subscription Form -->
                             <div class="form-actions" style="text-align: center; border-top: none; padding-top: var(--spacing-unit); margin-top: calc(var(--spacing-unit)*1.5);">
                                 <button type="submit" class="btn btn-primary btn-large">
@@ -295,34 +299,43 @@
             </section> <!-- end plan-section -->
 
 
-            <!-- --- Login Section (Unchanged) --- -->
+            <!-- --- Login Section --- -->
             <section id="login-section" class="dashboard-section card fade-in" data-delay="0.2">
-                <h2>Login / Register</h2>
-                <div class="section-content"><div class="login-register-grid"><!-- ... forms ... --></div></div>
+                 <h2>Login / Register</h2>
+                 <div class="section-content"><div class="login-register-grid"><form id="register-form" class="form-box"><h3>Register</h3><div class="form-group"> <label for="reg-email">Your Email:</label> <input type="email" id="reg-email" required placeholder="you@example.com"> </div><div class="form-group"> <label for="reg-password">Choose Password:</label> <input type="password" id="reg-password" required placeholder="••••••••"> </div><div class="form-actions"> <button type="submit" class="btn btn-success"> <span class="btn-text">Register Now</span> <span class="loading-spinner" style="display: none;"></span> </button> </div></form><form id="login-form" class="form-box"><h3>Login</h3><div class="form-group"> <label for="login-email">Your Email:</label> <input type="email" id="login-email" required placeholder="you@example.com"> </div><div class="form-group"> <label for="login-password">Your Password:</label> <input type="password" id="login-password" required placeholder="••••••••"> </div><div class="form-actions"> <button type="submit" class="btn btn-primary"> <span class="btn-text">Login</span> <span class="loading-spinner" style="display: none;"></span> </button> </div><p class="forgot-password-link"><a href="#" class="forgot-password" onclick="alert('Forgot Password action placeholder'); return false;">Forgot Password?</a></p></form></div></div>
             </section>
 
-            <!-- --- Account Section (Unchanged) --- -->
+            <!-- --- Account Section --- -->
             <section id="account-section" class="dashboard-section card fade-in" data-delay="0.3">
                 <h2>My Account</h2>
-                <div class="section-content"><div class="emergency-contact-box"><!-- ... content ... --></div><div class="account-grid"><!-- ... content ... --></div></div>
+                <div class="section-content"><div class="emergency-contact-box"><h4>Emergency Assistance (24/7)</h4><p>For immediate help during a trip:</p><p><strong>Phone:</strong> <a href="tel:+442037907060">+44 (20) 3790 7060</a> (Example)</p><p><strong>Email:</strong> <a href="mailto:assist@example.com">assist@example.com</a> (Example)</p><p class="provider-note">Provided by Global Guardian (Example Partner)</p></div><div class="account-grid"><div class="placeholder-box account-widget"><h4>Active Policy Summary</h4><p>Policy ID: CPA-12345678</p><p>Valid: 2024-09-01 to 2025-08-31</p><p>Status: <span class="status-completed">Active</span></p><button class="btn btn-secondary btn-small" onclick="alert('Viewing Full Policy Details (Simulated)')" style="margin-top: 0.5rem;">View Full Details</button></div><div class="placeholder-box account-widget"><h4>My Profile</h4><p>Manage your contact information and password.</p><button class="btn btn-secondary btn-small" style="margin-top: 0.5rem;">Edit Profile</button></div><div class="placeholder-box account-widget"><h4>Billing & Subscription</h4><p>View payment history and manage subscription.</p><button class="btn btn-secondary btn-small" style="margin-top: 0.5rem;">Manage Billing</button></div></div></div>
             </section>
 
-            <!-- --- Claims Section (Unchanged) --- -->
+            <!-- --- Claims Section --- -->
             <section id="claims-section" class="dashboard-section card fade-in" data-delay="0.4">
                 <h2>Claims Center</h2>
-                <div class="section-content"><!-- ... content ... --></div>
+                <div class="section-content"><p class="section-description">Submit a new claim or view the status of existing claims. For emergencies, please use the 24/7 Assistance line.</p><div class="form-actions" style="margin-bottom: var(--spacing-unit); border-top: none; padding-top: 0;"><button class="btn btn-primary btn-large" onclick="alert('Navigating to New Claim Form (Simulated)')">File a New Claim</button></div><div class="claims-list"><h4>My Claims History</h4><div class="table-wrapper claims-table-wrapper"><table id="claims-table"><thead><tr><th>Claim ID</th><th>Date Submitted</th><th>Incident Type</th><th>Status</th><th>Action</th></tr></thead><tbody><!-- Claims rows will be added by JS --></tbody></table></div></div></div>
             </section>
 
-            <!-- --- Briefs Section (Unchanged) --- -->
+            <!-- --- Briefs Section --- -->
             <section id="briefs-section" class="dashboard-section card fade-in" data-delay="0.5">
                 <h2>Travel Briefs & Country Info</h2>
-                <div class="section-content"><!-- ... content ... --></div>
+                <div class="section-content"><p class="section-description">Access detailed, downloadable pre-travel briefs for specific countries or regions, including risk assessments, cultural notes, and emergency contacts.</p><div class="briefs-search-area"><div class="form-group"><label for="brief-country-search">Search for Country Brief:</label><div class="search-input-group"><input type="text" id="brief-country-search" placeholder="e.g., France"><button class="btn btn-primary"><span class="btn-text">Search</span></button></div></div></div><div class="featured-briefs"><h4>Featured & Recent Briefs</h4><ul class="brief-list"><li><a href="#"><span class="brief-icon pdf">PDF</span> Brief: Germany (August 2024) <span class="brief-risk low">Low Risk</span></a></li><li><a href="#"><span class="brief-icon web">WEB</span> Brief: Ukraine Update (August 2024) <span class="brief-risk high">High Risk</span></a></li><li><a href="#"><span class="brief-icon pdf">PDF</span> Brief: Transit through Europe Guide <span class="brief-risk low">Low Risk</span></a></li><li><a href="#"><span class="brief-icon web">WEB</span> Brief: General Safety Tips <span class="brief-risk info">Info</span></a></li></ul></div></div>
             </section>
 
-            <!-- --- Admin Section (Unchanged) --- -->
+            <!-- --- Admin Section --- -->
             <section id="admin-section" class="dashboard-section admin-dashboard fade-in" data-delay="0.6">
                  <h2>Admin Portal</h2>
-                 <div class="section-content"><div class="admin-grid"><!-- ... widgets ... --></div></div>
+                 <div class="section-content">
+                    <div class="admin-grid">
+                        <div class="admin-widget"><h3>Update Country Risk</h3><div class="widget-content"><form id="update-risk-form"> <div class="form-group"> <label for="admin-country">Country Name:</label> <input type="text" id="admin-country" placeholder="e.g., Germany" required> </div> <div class="form-group"> <label for="admin-risk">Set Risk Level:</label> <select id="admin-risk" required> <option value="Green">Green</option> <option value="Amber">Amber</option> <option value="Red">Red</option> </select> </div> <div class="form-actions"> <button type="submit" class="btn btn-primary"> <span class="btn-text">Update Risk</span> <span class="loading-spinner" style="display: none;"></span> </button> </div> <div class="status-message" id="update-risk-status"></div> </form><hr class="widget-divider"><form id="bulk-upload-form"> <div class="form-group"> <label class="file-upload-label">Or Upload Risk File:</label> <div class="file-upload-wrapper"> <input type="file" id="risk-file-upload" name="risk-file-upload" accept=".csv,.json" required> <label for="risk-file-upload" class="btn btn-secondary file-input-button">Choose file</label> <span class="file-name">No file chosen</span> </div> </div> <div class="form-actions"> <button type="submit" class="btn btn-secondary"> <span class="btn-text">Upload File</span> <span class="loading-spinner" style="display: none;"></span> </button> </div> <div class="status-message" id="bulk-upload-status"></div> </form></div></div>
+                        <div class="admin-widget"><h3>View Purchases</h3><div class="widget-content"><div class="form-actions text-right"> <button id="download-purchases-btn" class="btn btn-secondary btn-small" onclick="alert('Download Purchases CSV (Simulated)')">Download List (CSV)</button> </div><div class="table-wrapper admin-table-wrapper"> <table id="purchases-table"> <thead> <tr> <th>Order ID</th> <th>User Email</th> <th>Country/Zones</th> <th>Dates</th> <th>Total Price</th> <th>Status</th> <th>Action</th> </tr> </thead> <tbody><!-- Purchase rows added by JS --></tbody> </table> </div></div></div>
+                        <div class="admin-widget"><h3>Manage Pricing</h3><div class="widget-content"><form id="update-pricing-form"> <div class="form-group"> <label for="price-zone">Zone:</label> <select id="price-zone" required> <option value="green">Green</option> <option value="amber">Amber</option> <option value="red">Red</option> <option value="transit">Transit</option> </select> </div> <div class="form-group"> <label for="price-value">Price (€ per day/flat):</label> <input type="number" id="price-value" step="0.01" placeholder="e.g., 2.50" required> </div> <div class="form-group"> <label for="coverage-level">Coverage Level (if applicable):</label> <select id="coverage-level" required> <option value="base">Base/Zone Cost</option> <option value="medical-50">Medical $50k Factor</option> <option value="accident-50">Accident $50k Factor</option> </select> </div> <div class="form-actions"> <button type="submit" class="btn btn-primary"> <span class="btn-text">Update Pricing</span> <span class="loading-spinner" style="display: none;"></span> </button> </div> <div class="status-message" id="update-pricing-status"></div> </form></div></div>
+                        <div class="admin-widget"><h3>Claims Management</h3><div class="widget-content widget-summary"><ul class="summary-list"><li><span class="summary-label">New Claims:</span> <span class="summary-value">3</span></li><li><span class="summary-label">Pending Review:</span> <span class="summary-value">8</span></li><li><span class="summary-label">Recently Closed:</span> <span class="summary-value">15</span></li></ul><div class="form-actions" style="border-top: none; padding-top: 0.5rem;"><button class="btn btn-primary" onclick="alert('Navigating to full Claims Management interface (Simulated)')">Manage Claims</button></div></div></div>
+                        <div class="admin-widget"><h3>Benefit Configuration</h3><div class="widget-content widget-summary"><ul class="summary-list"><li><span class="summary-label">Medical Tiers:</span> <span class="summary-value">5 Levels</span></li><li><span class="summary-label">K&R Add-on:</span> <span class="summary-value status-completed" style="padding: 0.1em 0.4em;">Enabled</span></li><li><span class="summary-label">Green Zone Rate:</span> <span class="summary-value">€2.50/day</span></li></ul><div class="form-actions" style="border-top: none; padding-top: 0.5rem;"><button class="btn btn-primary" onclick="alert('Navigating to Benefit Configuration editor (Simulated)')">Edit Configuration</button></div></div></div>
+                        <div class="admin-widget"><h3>Travel Briefs Content</h3><div class="widget-content widget-summary"><ul class="summary-list"><li><span class="summary-label">Total Briefs:</span> <span class="summary-value">18</span></li><li><span class="summary-label">Risk Levels Updated:</span> <span class="summary-value">2024-08-29</span></li><li><span class="summary-label">Last Brief Added:</span> <span class="summary-value">Colombia</span></li></ul><div class="form-actions" style="border-top: none; padding-top: 0.5rem;"><button class="btn btn-primary" onclick="alert('Navigating to Briefs Management editor (Simulated)')">Manage Briefs</button></div></div></div>
+                    </div>
+                 </div>
             </section>
 
         </main>
@@ -334,7 +347,7 @@
         </div>
     </footer>
 
-    <!-- Your script.js will be updated in the next step -->
+    <!-- USE THE script.js PROVIDED IN THE PREVIOUS RESPONSE -->
     <script src="script.js"></script>
 
     <!-- Google Translate Scripts -->

@@ -124,11 +124,11 @@
 
             <!-- --- Travel Risk Quote Section (Now contains Quote + Subscription) --- -->
             <section id="plan-section" class="dashboard-section card fade-in" data-delay="0.1">
-                <!-- This section now contains BOTH quote and subscription -->
-                <div class="plan-customizer"> <!-- Wrapper for quote part -->
+                <!-- Wrapper for quote part -->
+                <div class="plan-customizer">
                     <h2>1. Generate Your Travel Risk Quote</h2>
                     <div class="section-content">
-                        <form id="travel-plan-form">
+                        <form id="travel-plan-form"> <!-- Note: This form doesn't submit, used for layout -->
                             <div class="form-row">
                                 <div class="form-group"> <label for="start-date">Trip Start Date</label> <input type="date" id="start-date" name="start-date" required> </div>
                                 <div class="form-group"> <label for="end-date">Trip End Date</label> <input type="date" id="end-date" name="end-date" required> </div>
@@ -142,7 +142,7 @@
                              <div class="form-row">
                                 <div class="form-group">
                                     <label for="quote-age">Your Age (Primary Traveller)</label>
-                                    <input type="number" id="quote-age" name="quote_age" min="0" required placeholder="e.g., 35">
+                                    <input type="number" id="quote-age" name="quote_age" min="1" max="120" required placeholder="e.g., 35"> <!-- Added min/max -->
                                 </div>
                                 <div class="form-group"></div> <div class="form-group"></div>
                              </div>
@@ -164,13 +164,14 @@
                                 <div id="estimated-price">$0.00</div>
                                 <p class="price-note">(Price updates based on your selections)</p>
                                 <div class="form-actions">
+                                    <!-- Button to trigger JS check and show subscription -->
                                     <button type="button" id="accept-quote-btn" class="btn btn-accent btn-large">
                                         <span class="btn-text">Accept Quote & Proceed</span>
                                         <span class="loading-spinner" style="display: none;"></span>
                                     </button>
                                 </div>
                             </div>
-                        </form> <!-- End of Quote form -->
+                        <!-- </form> End of Quote form -->
                     </div>
                 </div> <!-- end plan-customizer -->
 
@@ -179,7 +180,7 @@
                      <h2>2. Complete Your Subscription Details</h2>
                      <div class="section-content">
                          <p class="section-description">Please provide your details to finalize your travel cover subscription.</p>
-                         <form id="travel-registration-form">
+                         <form id="travel-registration-form"> <!-- This form submits -->
                             <div class="admin-grid">
                                 <!-- Personal Information Widget -->
                                 <div class="admin-widget">
@@ -348,6 +349,7 @@
     </footer>
 
     <!-- USE THE script.js PROVIDED IN THE PREVIOUS RESPONSE -->
+    <!-- Make sure it includes the age check and show/hide logic -->
     <script src="script.js"></script>
 
     <!-- Google Translate Scripts -->

@@ -43,6 +43,8 @@
              border: 1px solid hsla(354, 70%, 54%, 0.2);
              border-radius: var(--border-radius);
          }
+         /* Ensure link styled as button retains block behavior */
+         .form-actions .btn.cta-link { display: inline-flex; } /* Use inline-flex like buttons */
 
     </style>
 </head>
@@ -73,10 +75,8 @@
             <nav class="sidebar-nav">
                  <ul>
                     <li><a href="#map-section" class="sidebar-link active" data-target="map-section">Risk Map</a></li>
-                    <!-- RENAMED LINK -->
                     <li><a href="#plan-section" class="sidebar-link" data-target="plan-section">Quote Generator</a></li>
-                    <!-- RENAMED LINK -->
-                    <li><a href="#travel-registration-section" class="sidebar-link" data-target="travel-registration-section">Travel Cover Subscription</a></li>
+                    <!-- REMOVED Travel Cover Subscription Link -->
                     <li><a href="#account-section" class="sidebar-link" data-target="account-section">My Account</a></li>
                     <li><a href="#claims-section" class="sidebar-link" data-target="claims-section">Claims</a></li>
                     <li><a href="#briefs-section" class="sidebar-link" data-target="briefs-section">Travel Briefs</a></li>
@@ -112,17 +112,25 @@
                 </div>
             </section>
 
-            <!-- --- Quote Generator Section (Formerly Customize Insurance - Unchanged Internally) --- -->
+            <!-- --- Quote Generator Section --- -->
             <section id="plan-section" class="dashboard-section card fade-in" data-delay="0.1">
-                <h2>Quote Generator</h2>
-                 <div class="section-content"><div class="plan-customizer"><form id="travel-plan-form"><div class="form-row"><div class="form-group"> <label for="start-date">Trip Start Date</label> <input type="date" id="start-date" name="start-date" required> </div><div class="form-group"> <label for="end-date">Trip End Date</label> <input type="date" id="end-date" name="end-date" required> </div><div class="form-group"> <label for="total-days">Total Trip Days</label> <input type="number" id="total-days" name="total-days" value="0" readonly class="readonly-input"> </div></div><div class="form-row"><div class="form-group"> <label for="days-amber">Days in Amber Zone(s)</label> <input type="number" id="days-amber" name="days-amber" min="0" value="0" required> </div><div class="form-group"> <label for="days-red">Days in Red Zone(s)</label> <input type="number" id="days-red" name="days-red" min="0" value="0" required> </div><div class="form-group"> <label for="days-green">Days in Green Zone(s)</label> <input type="number" id="days-green" name="days-green" min="0" value="0" readonly class="readonly-input"> </div></div><div class="coverage-options"><h3>Standard Coverage</h3><div class="form-row"><div class="form-group"> <label for="medical-coverage">Emergency Medical Coverage</label> <select id="medical-coverage" name="medical-coverage"> <option value="50000">$50,000</option> <option value="100000">$100,000</option> <option value="150000">$150,000</option> <option value="200000">$200,000</option> <option value="250000">$250,000</option> </select> </div><div class="form-group"> <label for="accident-coverage">Personal Accident Coverage</label> <select id="accident-coverage" name="accident-coverage"> <option value="50000">$50,000</option> <option value="100000">$100,000</option> <option value="150000">$150,000</option> <option value="200000">$200,000</option> <option value="250000">$250,000</option> </select> </div></div><div class="checkbox-group form-group"> <input type="checkbox" id="transit-coverage" name="transit-coverage"> <label for="transit-coverage">Add Optional Transit Coverage (up to 10 days in Europe)?</label> </div></div><div class="optional-addons"><h3>Optional Add-ons</h3><div class="checkbox-group form-group"><input type="checkbox" id="kr-coverage" name="kr-coverage"><label for="kr-coverage">Add Kidnap, Ransom & Crisis Cover?</label></div><div class="checkbox-group form-group"><input type="checkbox" id="evac-coverage" name="evac-coverage"><label for="evac-coverage">Add Political Evacuation & Relocation Cover?</label></div></div><div class="price-summary"><h3>Your Estimated Plan Cost</h3><div id="estimated-price">$0.00</div><p class="price-note">(Price updates based on your selections)</p><div class="form-actions"><button type="button" class="btn btn-accent btn-large cta-button"><span class="btn-text">Proceed to Checkout</span><span class="loading-spinner" style="display: none;"></span></button></div></div></form></div></div>
+                <h2>1. Generate Your Quote</h2> <!-- Updated Heading -->
+                 <div class="section-content"><div class="plan-customizer"><form id="travel-plan-form"><div class="form-row"><div class="form-group"> <label for="start-date">Trip Start Date</label> <input type="date" id="start-date" name="start-date" required> </div><div class="form-group"> <label for="end-date">Trip End Date</label> <input type="date" id="end-date" name="end-date" required> </div><div class="form-group"> <label for="total-days">Total Trip Days</label> <input type="number" id="total-days" name="total-days" value="0" readonly class="readonly-input"> </div></div><div class="form-row"><div class="form-group"> <label for="days-amber">Days in Amber Zone(s)</label> <input type="number" id="days-amber" name="days-amber" min="0" value="0" required> </div><div class="form-group"> <label for="days-red">Days in Red Zone(s)</label> <input type="number" id="days-red" name="days-red" min="0" value="0" required> </div><div class="form-group"> <label for="days-green">Days in Green Zone(s)</label> <input type="number" id="days-green" name="days-green" min="0" value="0" readonly class="readonly-input"> </div></div><div class="coverage-options"><h3>Standard Coverage</h3><div class="form-row"><div class="form-group"> <label for="medical-coverage">Emergency Medical Coverage</label> <select id="medical-coverage" name="medical-coverage"> <option value="50000">$50,000</option> <option value="100000">$100,000</option> <option value="150000">$150,000</option> <option value="200000">$200,000</option> <option value="250000">$250,000</option> </select> </div><div class="form-group"> <label for="accident-coverage">Personal Accident Coverage</label> <select id="accident-coverage" name="accident-coverage"> <option value="50000">$50,000</option> <option value="100000">$100,000</option> <option value="150000">$150,000</option> <option value="200000">$200,000</option> <option value="250000">$250,000</option> </select> </div></div><div class="checkbox-group form-group"> <input type="checkbox" id="transit-coverage" name="transit-coverage"> <label for="transit-coverage">Add Optional Transit Coverage (up to 10 days in Europe)?</label> </div></div><div class="optional-addons"><h3>Optional Add-ons</h3><div class="checkbox-group form-group"><input type="checkbox" id="kr-coverage" name="kr-coverage"><label for="kr-coverage">Add Kidnap, Ransom & Crisis Cover?</label></div><div class="checkbox-group form-group"><input type="checkbox" id="evac-coverage" name="evac-coverage"><label for="evac-coverage">Add Political Evacuation & Relocation Cover?</label></div></div><div class="price-summary"><h3>Your Estimated Plan Cost</h3><div id="estimated-price">$0.00</div><p class="price-note">(Price updates based on your selections)</p>
+                    <!-- MODIFIED BUTTON TO LINK -->
+                    <div class="form-actions">
+                        <a href="#travel-registration-section" data-target="travel-registration-section" class="btn btn-accent btn-large cta-link">
+                            <span class="btn-text">Proceed to Subscription Details</span>
+                            <!-- Removed spinner span as it's less common for simple navigation links -->
+                        </a>
+                    </div>
+                </div></form></div></div>
             </section>
 
-            <!-- --- Travel Cover Subscription Section (Formerly Travel Registration - Updated Internally) --- -->
+            <!-- --- Travel Cover Subscription Section --- -->
             <section id="travel-registration-section" class="dashboard-section fade-in" data-delay="0.15">
-                <h2>Travel Cover Subscription</h2>
+                <h2>2. Complete Your Subscription Details</h2> <!-- Updated Heading -->
                 <div class="section-content">
-                    <p class="section-description">Please provide your details for travel registration and assistance membership.</p>
+                    <p class="section-description">Please provide your details to finalize your travel cover subscription.</p>
                     <form id="travel-registration-form">
                         <div class="admin-grid"> <!-- Reusing admin-grid for layout -->
 
@@ -374,7 +382,7 @@
                         <div class="form-actions" style="text-align: center; border-top: none; padding-top: var(--spacing-unit); margin-top: calc(var(--spacing-unit)*1.5);">
                              <button type="submit" class="btn btn-primary btn-large">
                                 <span class="btn-text">Submit Subscription</span>
-                                <span class="loading-spinner" style="display: none;"></span>
+                                <!-- Spinner span removed as it was part of the button, can be re-added if needed -->
                             </button>
                         </div>
 

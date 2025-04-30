@@ -10,10 +10,7 @@
     <link rel="stylesheet" href="style.css">
     <!-- Added styles -->
     <style>
-        /* Screen-reader only class */
         .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
-
-        /* Google Translate Widget Styling */
         #google_translate_element { display: inline-block; vertical-align: middle; margin-left: 1rem; }
         .goog-te-gadget-simple { background-color: var(--light-color) !important; border: 1px solid var(--border-color) !important; padding: 0.35rem 0.6rem !important; border-radius: var(--border-radius) !important; font-size: 0.9rem !important; cursor: pointer; transition: border-color var(--transition-speed); }
         .goog-te-gadget-simple:hover { border-color: var(--accent-color) !important; }
@@ -22,78 +19,63 @@
         body > div.skiptranslate { display: none !important; visibility: hidden !important; opacity: 0 !important; height: 0 !important; width: 0 !important; margin: 0 !important; padding: 0 !important; }
         iframe#goog-gt-tt, .goog-te-tooltip { display: none !important; visibility: hidden !important; opacity: 0 !important; height: 0 !important; width: 0 !important; }
         body { top: 0px !important; }
-
-        /* Style for phone number input group */
         .phone-input-group { display: flex; gap: 0.5rem; }
-        .phone-input-group select { flex: 0 0 100px; /* Fixed width for country code */ }
-        .phone-input-group input[type="tel"] { flex: 1 1 auto; /* Allow phone number input to grow */ min-width: 150px; }
-
-         /* Style adjustments for traveller item row */
-         .traveller-item.form-row {
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Allow more items per row */
-            gap: 0.75rem; /* Adjust gap */
-         }
-         .form-text.validation-note {
-             font-size: 0.85rem;
-             color: var(--danger-color); /* Use danger color for visibility */
-             margin-top: -0.5rem; /* Adjust spacing */
+        .phone-input-group select { flex: 0 0 100px; }
+        .phone-input-group input[type="tel"] { flex: 1 1 auto; min-width: 150px; }
+        .traveller-item.form-row { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.75rem; }
+        .form-text.validation-note { font-size: 0.85rem; color: var(--danger-color); margin-top: -0.5rem; margin-bottom: 1rem; padding: 0.5rem; background-color: hsla(354, 70%, 54%, 0.05); border: 1px solid hsla(354, 70%, 54%, 0.2); border-radius: var(--border-radius); }
+        /* Hide quote options and subscription details initially */
+        #quote-options-container,
+        #subscription-details-container { display: none; }
+         /* Style for eligibility errors */
+         #eligibility-error-message {
+             display: none; /* Hidden by default */
+             color: var(--danger-color);
+             background-color: hsla(354, 70%, 54%, 0.1);
+             border: 1px solid hsla(354, 70%, 54%, 0.3);
+             padding: 0.75rem 1rem;
+             margin-top: 1rem;
              margin-bottom: 1rem;
-             padding: 0.5rem;
-             background-color: hsla(354, 70%, 54%, 0.05); /* Light red background */
-             border: 1px solid hsla(354, 70%, 54%, 0.2);
              border-radius: var(--border-radius);
+             font-size: 0.9rem;
+             font-weight: var(--font-weight-medium);
          }
-         /* Initially hide the subscription details container */
+         /* Separator line */
+         .form-separator {
+             border: 0;
+             border-top: 2px solid var(--primary-color);
+             margin: 2rem 0 1.5rem 0;
+             opacity: 0.8;
+         }
          #subscription-details-container {
-            display: none;
-            margin-top: 2rem; /* Add space above the subscription form */
-            padding-top: 1.5rem;
-            border-top: 2px solid var(--primary-color); /* Separator */
+             margin-top: 0; /* Remove margin since separator is added */
+             padding-top: 0;
+             border-top: none; /* Remove border since separator is added */
          }
-         /* Hide accept button when subscription shows */
-          #plan-section.subscription-active #accept-quote-btn {
-              display: none;
-          }
-
     </style>
 </head>
 <body>
     <header class="main-header">
         <div class="container header-container">
-            <div class="header-left">
-                 <button id="mobile-menu-toggle" aria-label="Toggle Menu" aria-expanded="false">
-                    <span class="hamburger-icon"></span>
-                </button>
-                 <!-- Google Translate Placeholder -->
-                 <div id="google_translate_element"></div>
-            </div>
-            <div class="header-actions">
-                <a href="#login-section" class="header-link login-link" data-target="login-section">Login</a>
-                <a href="#login-section" class="header-link register-link" data-target="login-section">Register</a>
-            </div>
+             <div class="header-left"> <button id="mobile-menu-toggle" aria-label="Toggle Menu" aria-expanded="false"> <span class="hamburger-icon"></span> </button> <div id="google_translate_element"></div> </div>
+             <div class="header-actions"> <a href="#login-section" class="header-link login-link" data-target="login-section">Login</a> <a href="#login-section" class="header-link register-link" data-target="login-section">Register</a> </div>
         </div>
     </header>
 
     <div class="dashboard-layout">
         <aside class="sidebar">
-             <div class="sidebar-header">
-                 <a href="#" class="sidebar-logo">
-                    <img src="compass-point-assist-logo.png" alt="Compass Point Assist Logo">
-                </a>
-            </div>
-            <nav class="sidebar-nav">
+             <div class="sidebar-header"> <a href="#" class="sidebar-logo"> <img src="compass-point-assist-logo.png" alt="Compass Point Assist Logo"> </a> </div>
+             <nav class="sidebar-nav">
                  <ul>
-                    <li><a href="#map-section" class="sidebar-link active" data-target="map-section">Risk Map</a></li>
-                    <!-- RENAMED LINK -->
-                    <li><a href="#plan-section" class="sidebar-link" data-target="plan-section">Travel Risk Quote</a></li>
-                    <!-- Subscription Link Removed -->
-                    <li><a href="#account-section" class="sidebar-link" data-target="account-section">My Account</a></li>
-                    <li><a href="#claims-section" class="sidebar-link" data-target="claims-section">Claims</a></li>
-                    <li><a href="#briefs-section" class="sidebar-link" data-target="briefs-section">Travel Briefs</a></li>
-                    <li><a href="#admin-section" class="sidebar-link" data-target="admin-section">Admin Portal</a></li>
-                </ul>
-            </nav>
-            <div class="sidebar-footer-graphic"></div>
+                     <li><a href="#map-section" class="sidebar-link active" data-target="map-section">Risk Map</a></li>
+                     <li><a href="#plan-section" class="sidebar-link" data-target="plan-section">Travel Risk Quote</a></li>
+                     <li><a href="#account-section" class="sidebar-link" data-target="account-section">My Account</a></li>
+                     <li><a href="#claims-section" class="sidebar-link" data-target="claims-section">Claims</a></li>
+                     <li><a href="#briefs-section" class="sidebar-link" data-target="briefs-section">Travel Briefs</a></li>
+                     <li><a href="#admin-section" class="sidebar-link" data-target="admin-section">Admin Portal</a></li>
+                 </ul>
+             </nav>
+             <div class="sidebar-footer-graphic"></div>
         </aside>
 
         <main class="content-area">
@@ -106,46 +88,68 @@
                 </nav>
             </div>
 
-            <!-- --- Map Section --- -->
+            <!-- --- Map Section (Unchanged) --- -->
             <section id="map-section" class="dashboard-section active fade-in">
                 <h2>Global Risk Map</h2>
-                <div class="section-content">
-                  <div id="map" class="risk-map-placeholder">
-                    <iframe src="https://map-ashen-two.vercel.app/" style="width: 100%; height: 600px; border: none;" loading="lazy" title="Global Risk Map"></iframe>
-                    <div class="map-legend">
-                      <div class="legend-item"><span class="legend-color legend-green"></span> Low Risk (Green)</div>
-                      <div class="legend-item"><span class="legend-color legend-amber"></span> Medium Risk (Amber)</div>
-                      <div class="legend-item"><span class="legend-color legend-red"></span> High Risk (Red)</div>
-                    </div>
-                    <p class="map-ukraine-note">Ukraine-specific details available</p>
-                  </div>
-                </div>
+                <div class="section-content"> <div id="map" class="risk-map-placeholder"> <iframe src="https://map-ashen-two.vercel.app/" style="width: 100%; height: 600px; border: none;" loading="lazy" title="Global Risk Map"></iframe> <div class="map-legend"> <div class="legend-item"><span class="legend-color legend-green"></span> Low Risk (Green)</div> <div class="legend-item"><span class="legend-color legend-amber"></span> Medium Risk (Amber)</div> <div class="legend-item"><span class="legend-color legend-red"></span> High Risk (Red)</div> </div> <p class="map-ukraine-note">Ukraine-specific details available</p> </div> </div>
             </section>
 
-            <!-- --- Travel Risk Quote Section (Now contains Quote + Subscription) --- -->
+            <!-- --- Travel Risk Quote Section (Restructured) --- -->
             <section id="plan-section" class="dashboard-section card fade-in" data-delay="0.1">
-                <!-- Wrapper for quote part -->
-                <div class="plan-customizer">
-                    <h2>1. Generate Your Travel Risk Quote</h2>
-                    <div class="section-content">
-                        <form id="travel-plan-form"> <!-- Note: This form doesn't submit, used for layout -->
-                            <div class="form-row">
-                                <div class="form-group"> <label for="start-date">Trip Start Date</label> <input type="date" id="start-date" name="start-date" required> </div>
-                                <div class="form-group"> <label for="end-date">Trip End Date</label> <input type="date" id="end-date" name="end-date" required> </div>
-                                <div class="form-group"> <label for="total-days">Total Trip Days</label> <input type="number" id="total-days" name="total-days" value="0" readonly class="readonly-input"> </div>
+                <h2>Travel Risk Quote & Subscription</h2>
+
+                <!-- Part 1: Eligibility Check -->
+                <div id="eligibility-check-container">
+                    <h3>1. Check Eligibility</h3>
+                    <div class="section-content" style="padding-bottom: 0;"> <!-- Reduced bottom padding -->
+                        <p class="section-description" style="text-align: left; margin-bottom: 1rem;">Please provide the following details to check eligibility and view quote options.</p>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="eligibility-dob">Date of Birth (Primary Traveller)</label>
+                                <input type="date" id="eligibility-dob" name="eligibility_dob" required>
                             </div>
+                             <div class="form-group">
+                                <label for="eligibility-passport-expiry">Passport Expiry Date</label>
+                                <input type="date" id="eligibility-passport-expiry" name="eligibility_passport_expiry" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                             <div class="form-group">
+                                <label for="eligibility-start-date">Travel Start Date</label>
+                                <input type="date" id="eligibility-start-date" name="eligibility_start_date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="eligibility-end-date">Travel End Date</label>
+                                <input type="date" id="eligibility-end-date" name="eligibility_end_date" required>
+                                <p class="form-text validation-note" style="margin-top: 0.5rem;">Passport must be valid for at least 90 days after Travel End Date.</p>
+                            </div>
+                        </div>
+                        <!-- Error Message Area -->
+                        <div id="eligibility-error-message"></div>
+                        <!-- Check Button -->
+                        <div class="form-actions" style="border-top: none; padding-top: 0; margin-top: 1rem;">
+                            <button type="button" id="check-eligibility-btn" class="btn btn-primary btn-large">
+                                <span class="btn-text">Check Eligibility & View Quote Options</span>
+                                <span class="loading-spinner" style="display: none;"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div> <!-- End Eligibility Check Container -->
+
+                <!-- Separator Line -->
+                <hr class="form-separator" id="quote-separator" style="display: none;">
+
+                <!-- Part 2: Quote Options (Initially Hidden) -->
+                <div id="quote-options-container">
+                    <h3>2. Generate Your Quote</h3>
+                    <div class="section-content">
+                        <form id="travel-plan-form"> <!-- Still useful for grouping quote inputs -->
                             <div class="form-row">
+                                <div class="form-group"> <label for="total-days">Total Trip Days</label> <input type="number" id="total-days" name="total-days" value="0" readonly class="readonly-input"> </div>
                                 <div class="form-group"> <label for="days-amber">Days in Amber Zone(s)</label> <input type="number" id="days-amber" name="days-amber" min="0" value="0" required> </div>
                                 <div class="form-group"> <label for="days-red">Days in Red Zone(s)</label> <input type="number" id="days-red" name="days-red" min="0" value="0" required> </div>
                                 <div class="form-group"> <label for="days-green">Days in Green Zone(s)</label> <input type="number" id="days-green" name="days-green" min="0" value="0" readonly class="readonly-input"> </div>
                             </div>
-                             <div class="form-row">
-                                <div class="form-group">
-                                    <label for="quote-age">Your Age (Primary Traveller)</label>
-                                    <input type="number" id="quote-age" name="quote_age" min="1" max="120" required placeholder="e.g., 35"> <!-- Added min/max -->
-                                </div>
-                                <div class="form-group"></div> <div class="form-group"></div>
-                             </div>
                              <div class="coverage-options">
                                 <h3>Standard Coverage</h3>
                                 <div class="form-row">
@@ -164,123 +168,119 @@
                                 <div id="estimated-price">$0.00</div>
                                 <p class="price-note">(Price updates based on your selections)</p>
                                 <div class="form-actions">
-                                    <!-- Button to trigger JS check and show subscription -->
                                     <button type="button" id="accept-quote-btn" class="btn btn-accent btn-large">
                                         <span class="btn-text">Accept Quote & Proceed</span>
                                         <span class="loading-spinner" style="display: none;"></span>
                                     </button>
                                 </div>
                             </div>
-                        <!-- </form> End of Quote form -->
+                        </form> <!-- End quote options form grouping -->
                     </div>
-                </div> <!-- end plan-customizer -->
+                </div> <!-- End Quote Options Container -->
 
-                <!-- NESTED Subscription Details Container (Initially Hidden) -->
+                <!-- Separator Line -->
+                 <hr class="form-separator" id="subscription-separator" style="display: none;">
+
+                <!-- Part 3: Subscription Details (Initially Hidden) -->
                 <div id="subscription-details-container">
-                     <h2>2. Complete Your Subscription Details</h2>
+                     <h3>3. Complete Subscription Details</h3>
                      <div class="section-content">
-                         <p class="section-description">Please provide your details to finalize your travel cover subscription.</p>
+                         <p class="section-description" style="text-align: left; margin-bottom: 1rem;">Please provide your final details to purchase the travel cover.</p>
                          <form id="travel-registration-form"> <!-- This form submits -->
                             <div class="admin-grid">
-                                <!-- Personal Information Widget -->
+                                <!-- Personal Info -->
                                 <div class="admin-widget">
-                                    <h3>Personal Information</h3>
+                                    <h4>Personal Information</h4> <!-- Changed to H4 for less emphasis -->
                                     <div class="widget-content">
-                                        <div class="form-row">
-                                            <div class="form-group"> <label for="reg-c-name">Full Name</label> <input type="text" id="reg-c-name" name="c_name" required placeholder="Your full name"> </div>
-                                            <div class="form-group"> <label for="reg-c-birthdate">Date of Birth</label> <input type="date" id="reg-c-birthdate" name="c_birthdate" required> </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group"> <label for="reg-c-email">Email Address</label> <input type="email" id="reg-c-email" name="c_email" required placeholder="you@example.com"> </div>
-                                            <div class="form-group">
-                                                <label for="reg-c-phone">Phone Number</label>
-                                                <div class="phone-input-group">
-                                                    <select id="reg-c-phone-code" name="c_phone_code" required><option value="">Code</option><option value="+1">+1</option><option value="+44">+44</option><option value="+49">+49</option><option value="+91">+91</option></select>
-                                                    <input type="tel" id="reg-c-phone" name="c_phone" required placeholder="Your number">
-                                                </div>
+                                         <!-- Fields: Name, DOB (pre-filled?), Email, Phone, WhatsApp, Address, Country, Nationality, Passport, Org -->
+                                         <div class="form-group"> <label for="reg-c-name">Full Name</label> <input type="text" id="reg-c-name" name="c_name" required> </div>
+                                         <div class="form-group"> <label for="reg-c-dob-display">Date of Birth</label> <input type="text" id="reg-c-dob-display" name="reg-c-dob-display" readonly class="readonly-input"> </div> <!-- Display DOB -->
+                                         <div class="form-group"> <label for="reg-c-email">Email Address</label> <input type="email" id="reg-c-email" name="c_email" required> </div>
+                                          <div class="form-group">
+                                            <label for="reg-c-phone">Phone Number</label>
+                                            <div class="phone-input-group">
+                                                <select id="reg-c-phone-code" name="c_phone_code" required><option value="">Code</option><option value="+1">+1</option><option value="+44">+44</option><option value="+49">+49</option><option value="+91">+91</option></select>
+                                                <input type="tel" id="reg-c-phone" name="c_phone" required placeholder="Your number">
                                             </div>
-                                        </div>
-                                        <div class="form-group">
+                                          </div>
+                                          <div class="form-group">
                                             <label for="reg-c-whats-app">WhatsApp Number</label>
                                             <div class="phone-input-group">
                                                 <select id="reg-c-whatsapp-code" name="c_whatsapp_code" required><option value="">Code</option><option value="+1">+1</option><option value="+44">+44</option><option value="+49">+49</option><option value="+91">+91</option></select>
                                                 <input type="tel" id="reg-c-whats-app" name="c_whats_app" required placeholder="WhatsApp number">
                                             </div>
-                                        </div>
-                                        <div class="form-group"> <label for="reg-c-address">Full Address</label> <input type="text" id="reg-c-address" name="c_address" required placeholder="Street, City, Postal Code"> </div>
-                                        <div class="form-row">
-                                            <div class="form-group"> <label for="reg-c-country">Country of Residence</label> <input type="text" id="reg-c-country" name="c_country" required placeholder="e.g., United Kingdom"> </div>
-                                            <div class="form-group"> <label for="reg-c-nationality">Nationality</label> <input type="text" id="reg-c-nationality" name="c_nationality" required placeholder="e.g., British"> </div>
-                                        </div>
-                                        <div class="form-row">
-                                             <div class="form-group"> <label for="reg-c-passport-no">Passport Number</label> <input type="text" id="reg-c-passport-no" name="c_passport_no" required placeholder="Passport Number"> </div>
-                                             <div class="form-group"> <label for="reg-c-passport-expiry">Passport Expiry Date</label> <input type="date" id="reg-c-passport-expiry" name="c_passport_expiry" required> </div>
-                                        </div>
-                                        <div class="form-group"> <label for="reg-c-organization">Organisation/Company (Optional)</label> <input type="text" id="reg-c-organization" name="c_organization" placeholder="Your company name"> </div>
+                                          </div>
+                                          <div class="form-group"> <label for="reg-c-address">Full Address</label> <input type="text" id="reg-c-address" name="c_address" required> </div>
+                                          <div class="form-row">
+                                                <div class="form-group"> <label for="reg-c-country">Country of Residence</label> <input type="text" id="reg-c-country" name="c_country" required> </div>
+                                                <div class="form-group"> <label for="reg-c-nationality">Nationality</label> <input type="text" id="reg-c-nationality" name="c_nationality" required> </div>
+                                          </div>
+                                           <div class="form-row">
+                                                <div class="form-group"> <label for="reg-c-passport-no">Passport Number</label> <input type="text" id="reg-c-passport-no" name="c_passport_no" required> </div>
+                                                <div class="form-group"> <label for="reg-c-passport-expiry-display">Passport Expiry Date</label> <input type="text" id="reg-c-passport-expiry-display" name="reg-c-passport-expiry-display" readonly class="readonly-input"> </div><!-- Display Expiry -->
+                                           </div>
+                                           <div class="form-group"> <label for="reg-c-organization">Organisation/Company (Optional)</label> <input type="text" id="reg-c-organization" name="c_organization"> </div>
                                     </div>
                                 </div>
-                                <!-- Travel Details Widget -->
+                                <!-- Travel Details -->
                                 <div class="admin-widget">
-                                    <h3>Travel Details</h3>
+                                    <h4>Travel Details</h4>
                                     <div class="widget-content">
                                         <div class="form-row">
-                                            <div class="form-group"> <label for="reg-trip-start-date">Planned Arrival Date</label> <input type="date" id="reg-trip-start-date" name="trip_start_date" required> </div>
-                                            <div class="form-group"> <label for="reg-trip-end-date">Planned Departure Date</label> <input type="date" id="reg-trip-end-date" name="trip_end_date" required>
-                                                 <p class="form-text validation-note"><strong>Important:</strong> All passports must be valid for at least 89 days *after* your planned departure date.</p>
-                                            </div>
+                                            <div class="form-group"> <label for="reg-trip-start-date-display">Travel Start Date</label> <input type="text" id="reg-trip-start-date-display" readonly class="readonly-input"> </div>
+                                            <div class="form-group"> <label for="reg-trip-end-date-display">Travel End Date</label> <input type="text" id="reg-trip-end-date-display" readonly class="readonly-input"> </div>
                                         </div>
-                                        <div class="form-group"> <label for="reg-trip-purpose">Primary Purpose of Stay</label> <select id="reg-trip-purpose" name="trip_purpose" required><option value="">-- Select Purpose --</option><option value="humanitarian">Humanitarian Work</option><option value="journalism">Journalism</option><option value="business">Business</option><option value="personal">Personal</option><option value="other">Other</option></select> </div>
-                                        <div class="form-group"> <label>Primary Cities/Regions of Stay</label> <div id="destinations-list"><div class="destination-item form-row" style="margin-bottom: 0.5rem; align-items: center; gap: 0.5rem;"><div class="form-group" style="margin-bottom: 0; flex-grow: 1;"><label for="reg-dest-name-1" class="sr-only">Destination Name</label><input type="text" id="reg-dest-name-1" name="destinations[0][name]" required placeholder="City/Region Name"></div><div class="form-group" style="margin-bottom: 0; flex-grow: 1;"><label for="reg-dest-stay-1" class="sr-only">Hotel/Accommodation (Optional)</label><input type="text" id="reg-dest-stay-1" name="destinations[0][stay]" placeholder="Hotel/Accomm. (Optional)"></div></div></div> <button type="button" id="add-destination-btn" class="btn btn-secondary btn-small" style="margin-top: 0.5rem;" onclick="alert('Add Destination functionality requires JavaScript.')">Add Destination</button> </div>
-                                        <div class="form-group checkbox-group"> <input type="checkbox" id="reg-is-company-arranged" name="is_company_arranged"> <label for="reg-is-company-arranged">Travel/employment arranged by a Company?</label> </div>
-                                        <div id="company-details" style="display: none;"> <div class="form-group"> <label for="reg-company-name">Company Name (Required if checked)</label> <input type="text" id="reg-company-name" name="company_name" placeholder="Enter arranging company name"> </div> </div>
-                                        <div class="form-group"> <label for="reg-stay-name">Primary Hotel/Accommodation Name (if known)</label> <input type="text" id="reg-stay-name" name="stay_name" placeholder="e.g., Hyatt Kyiv"> </div>
+                                        <div class="form-group"> <label for="reg-trip-purpose">Primary Purpose of Stay</label> <select id="reg-trip-purpose" name="trip_purpose" required><option value="">-- Select --</option><option value="humanitarian">Humanitarian</option><option value="journalism">Journalism</option><option value="business">Business</option><option value="personal">Personal</option><option value="other">Other</option></select> </div>
+                                        <div class="form-group"> <label>Primary Cities/Regions of Stay</label> <div id="destinations-list"><div class="destination-item form-row" style="margin-bottom: 0.5rem; align-items: center; gap: 0.5rem;"><div class="form-group" style="margin-bottom: 0; flex-grow: 1;"><label for="reg-dest-name-1" class="sr-only">Destination Name</label><input type="text" id="reg-dest-name-1" name="destinations[0][name]" required placeholder="City/Region"></div><div class="form-group" style="margin-bottom: 0; flex-grow: 1;"><label for="reg-dest-stay-1" class="sr-only">Hotel/Accomm.</label><input type="text" id="reg-dest-stay-1" name="destinations[0][stay]" placeholder="Hotel/Accomm. (Opt)"></div></div></div> <button type="button" id="add-destination-btn" class="btn btn-secondary btn-small" style="margin-top: 0.5rem;" onclick="alert('Add Destination requires JS.')">Add Destination</button> </div>
+                                        <div class="form-group checkbox-group"> <input type="checkbox" id="reg-is-company-arranged" name="is_company_arranged"> <label for="reg-is-company-arranged">Travel arranged by Company?</label> </div>
+                                        <div id="company-details" style="display: none;"> <div class="form-group"> <label for="reg-company-name">Company Name</label> <input type="text" id="reg-company-name" name="company_name"> </div> </div>
+                                        <div class="form-group"> <label for="reg-stay-name">Primary Hotel Name (if known)</label> <input type="text" id="reg-stay-name" name="stay_name"> </div>
                                     </div>
                                 </div>
-                                <!-- Additional Travellers Widget -->
+                                <!-- Additional Travellers -->
                                 <div class="admin-widget">
-                                    <h3>Additional Travellers</h3>
+                                    <h4>Additional Travellers</h4>
                                     <div class="widget-content">
-                                        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">List all individuals travelling with you.</p>
+                                        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">List others travelling with you.</p>
                                         <div id="travellers-list">
                                             <div class="traveller-item form-row" style="margin-bottom: 0.5rem; align-items: flex-start;">
-                                                <div class="form-group" style="margin-bottom: 0;"> <label for="reg-traveller-name-1">Traveller Name</label> <input type="text" id="reg-traveller-name-1" name="travellers[0][name]" required placeholder="Full Name"> </div>
-                                                <div class="form-group" style="margin-bottom: 0;"> <label for="reg-traveller-bdate-1">Date of Birth</label> <input type="date" id="reg-traveller-bdate-1" name="travellers[0][birthdate]" required> </div>
-                                                <div class="form-group" style="margin-bottom: 0;"> <label for="reg-traveller-passport-no-1">Passport No.</label> <input type="text" id="reg-traveller-passport-no-1" name="travellers[0][passport_no]" required placeholder="Passport No."> </div>
-                                                <div class="form-group" style="margin-bottom: 0;"> <label for="reg-traveller-passport-expiry-1">Passport Expiry</label> <input type="date" id="reg-traveller-passport-expiry-1" name="travellers[0][passport_expiry]" required> </div>
+                                                <div class="form-group"> <label for="reg-traveller-name-1">Name</label> <input type="text" id="reg-traveller-name-1" name="travellers[0][name]" required> </div>
+                                                <div class="form-group"> <label for="reg-traveller-bdate-1">DOB</label> <input type="date" id="reg-traveller-bdate-1" name="travellers[0][birthdate]" required> </div>
+                                                <div class="form-group"> <label for="reg-traveller-passport-no-1">Passport No.</label> <input type="text" id="reg-traveller-passport-no-1" name="travellers[0][passport_no]" required> </div>
+                                                <div class="form-group"> <label for="reg-traveller-passport-expiry-1">Passport Expiry</label> <input type="date" id="reg-traveller-passport-expiry-1" name="travellers[0][passport_expiry]" required> </div>
                                             </div>
                                         </div>
-                                        <button type="button" id="add-traveller-btn" class="btn btn-secondary btn-small" style="margin-top: 0.5rem;" onclick="alert('Add Traveller functionality requires JavaScript.')">Add Traveller</button>
+                                        <button type="button" id="add-traveller-btn" class="btn btn-secondary btn-small" style="margin-top: 0.5rem;" onclick="alert('Add Traveller requires JS.')">Add Traveller</button>
                                     </div>
                                 </div>
-                                <!-- Emergency Contact Widget -->
+                                <!-- Emergency Contact -->
                                 <div class="admin-widget">
-                                    <h3>Emergency Contact</h3>
+                                    <h4>Emergency Contact</h4>
                                     <div class="widget-content">
                                         <div class="form-row">
-                                            <div class="form-group"> <label for="reg-emergency-contact-name">Contact Person's Full Name</label> <input type="text" id="reg-emergency-contact-name" name="emergency_contact_name" required placeholder="Name of contact"> </div>
-                                            <div class="form-group"> <label for="reg-emergency-contact-phone">Contact Person's Phone</label> <input type="tel" id="reg-emergency-contact-phone" name="emergency_contact_phone" required placeholder="+1 987 654 321"> </div>
+                                            <div class="form-group"> <label for="reg-emergency-contact-name">Full Name</label> <input type="text" id="reg-emergency-contact-name" name="emergency_contact_name" required> </div>
+                                            <div class="form-group"> <label for="reg-emergency-contact-phone">Phone</label> <input type="tel" id="reg-emergency-contact-phone" name="emergency_contact_phone" required> </div>
                                         </div>
-                                        <div class="form-group"> <label for="reg-emergency-contact-relation">Relationship to You</label> <input type="text" id="reg-emergency-contact-relation" name="emergency_contact_relation" required placeholder="e.g., Spouse, Parent, Friend"> </div>
+                                        <div class="form-group"> <label for="reg-emergency-contact-relation">Relationship</label> <input type="text" id="reg-emergency-contact-relation" name="emergency_contact_relation" required> </div>
                                     </div>
                                 </div>
-                                <!-- Health Information Widget -->
+                                <!-- Health Info -->
                                 <div class="admin-widget">
-                                    <h3>Health Information (Optional & Confidential)</h3>
+                                    <h4>Health Information (Optional)</h4>
                                     <div class="widget-content">
-                                        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">Providing this helps us assist you better in an emergency.</p>
-                                        <div class="form-group"> <label for="reg-medical-conditions">Pre-existing Medical Conditions</label> <textarea id="reg-medical-conditions" name="medical_conditions" rows="3" placeholder="Optional - List each on a new line, e.g., Asthma"></textarea> </div>
-                                        <div class="form-group"> <label for="reg-current-medications">Current Medications</label> <textarea id="reg-current-medications" name="current_medications" rows="3" placeholder="Optional - List each on a new line, e.g., Metformin"></textarea> </div>
-                                        <div class="form-group"> <label for="reg-allergies">Allergies</label> <textarea id="reg-allergies" name="allergies" rows="3" placeholder="Optional - List each on a new line, e.g., Penicillin"></textarea> </div>
+                                        <div class="form-group"> <label for="reg-medical-conditions">Conditions</label> <textarea id="reg-medical-conditions" name="medical_conditions" rows="2"></textarea> </div>
+                                        <div class="form-group"> <label for="reg-current-medications">Medications</label> <textarea id="reg-current-medications" name="current_medications" rows="2"></textarea> </div>
+                                        <div class="form-group"> <label for="reg-allergies">Allergies</label> <textarea id="reg-allergies" name="allergies" rows="2"></textarea> </div>
                                         <div class="form-row">
-                                            <div class="form-group"> <label for="reg-blood-type">Blood Type (Optional)</label> <input type="text" id="reg-blood-type" name="blood_type" placeholder="e.g., O+, A-"> </div>
+                                            <div class="form-group"> <label for="reg-blood-type">Blood Type</label> <input type="text" id="reg-blood-type" name="blood_type"> </div>
                                             <div class="form-group"></div>
                                         </div>
-                                        <div class="form-group"> <label for="reg-special-assistance">Special Assistance Needs (Optional)</label> <textarea id="reg-special-assistance" name="special_assistance" rows="2" placeholder="e.g., Wheelchair access required"></textarea> </div>
+                                        <div class="form-group"> <label for="reg-special-assistance">Assistance Needs</label> <textarea id="reg-special-assistance" name="special_assistance" rows="1"></textarea> </div>
                                     </div>
                                 </div>
-                                <!-- Consent Widget -->
+                                <!-- Consent -->
                                 <div class="admin-widget">
-                                    <h3>Consent</h3>
+                                    <h4>Consent</h4>
                                     <div class="widget-content">
                                         <div class="form-group checkbox-group" style="margin-bottom: 0;"> <input type="checkbox" id="reg-consent" name="consent" value="true" required> <label for="reg-consent" style="font-weight: normal;">I consent to the use of my provided information by Compass Point Assist or its appointed network medical partners in the event of an emergency. <span style="color:red;">*</span></label> </div>
                                     </div>
@@ -294,11 +294,10 @@
                                 </button>
                             </div>
                         </form> <!-- end travel-registration-form -->
-                     </div> <!-- end section-content for subscription -->
+                     </div>
                 </div> <!-- end subscription-details-container -->
 
             </section> <!-- end plan-section -->
-
 
             <!-- --- Login Section --- -->
             <section id="login-section" class="dashboard-section card fade-in" data-delay="0.2">
@@ -327,35 +326,21 @@
             <!-- --- Admin Section --- -->
             <section id="admin-section" class="dashboard-section admin-dashboard fade-in" data-delay="0.6">
                  <h2>Admin Portal</h2>
-                 <div class="section-content">
-                    <div class="admin-grid">
-                        <div class="admin-widget"><h3>Update Country Risk</h3><div class="widget-content"><form id="update-risk-form"> <div class="form-group"> <label for="admin-country">Country Name:</label> <input type="text" id="admin-country" placeholder="e.g., Germany" required> </div> <div class="form-group"> <label for="admin-risk">Set Risk Level:</label> <select id="admin-risk" required> <option value="Green">Green</option> <option value="Amber">Amber</option> <option value="Red">Red</option> </select> </div> <div class="form-actions"> <button type="submit" class="btn btn-primary"> <span class="btn-text">Update Risk</span> <span class="loading-spinner" style="display: none;"></span> </button> </div> <div class="status-message" id="update-risk-status"></div> </form><hr class="widget-divider"><form id="bulk-upload-form"> <div class="form-group"> <label class="file-upload-label">Or Upload Risk File:</label> <div class="file-upload-wrapper"> <input type="file" id="risk-file-upload" name="risk-file-upload" accept=".csv,.json" required> <label for="risk-file-upload" class="btn btn-secondary file-input-button">Choose file</label> <span class="file-name">No file chosen</span> </div> </div> <div class="form-actions"> <button type="submit" class="btn btn-secondary"> <span class="btn-text">Upload File</span> <span class="loading-spinner" style="display: none;"></span> </button> </div> <div class="status-message" id="bulk-upload-status"></div> </form></div></div>
-                        <div class="admin-widget"><h3>View Purchases</h3><div class="widget-content"><div class="form-actions text-right"> <button id="download-purchases-btn" class="btn btn-secondary btn-small" onclick="alert('Download Purchases CSV (Simulated)')">Download List (CSV)</button> </div><div class="table-wrapper admin-table-wrapper"> <table id="purchases-table"> <thead> <tr> <th>Order ID</th> <th>User Email</th> <th>Country/Zones</th> <th>Dates</th> <th>Total Price</th> <th>Status</th> <th>Action</th> </tr> </thead> <tbody><!-- Purchase rows added by JS --></tbody> </table> </div></div></div>
-                        <div class="admin-widget"><h3>Manage Pricing</h3><div class="widget-content"><form id="update-pricing-form"> <div class="form-group"> <label for="price-zone">Zone:</label> <select id="price-zone" required> <option value="green">Green</option> <option value="amber">Amber</option> <option value="red">Red</option> <option value="transit">Transit</option> </select> </div> <div class="form-group"> <label for="price-value">Price (€ per day/flat):</label> <input type="number" id="price-value" step="0.01" placeholder="e.g., 2.50" required> </div> <div class="form-group"> <label for="coverage-level">Coverage Level (if applicable):</label> <select id="coverage-level" required> <option value="base">Base/Zone Cost</option> <option value="medical-50">Medical $50k Factor</option> <option value="accident-50">Accident $50k Factor</option> </select> </div> <div class="form-actions"> <button type="submit" class="btn btn-primary"> <span class="btn-text">Update Pricing</span> <span class="loading-spinner" style="display: none;"></span> </button> </div> <div class="status-message" id="update-pricing-status"></div> </form></div></div>
-                        <div class="admin-widget"><h3>Claims Management</h3><div class="widget-content widget-summary"><ul class="summary-list"><li><span class="summary-label">New Claims:</span> <span class="summary-value">3</span></li><li><span class="summary-label">Pending Review:</span> <span class="summary-value">8</span></li><li><span class="summary-label">Recently Closed:</span> <span class="summary-value">15</span></li></ul><div class="form-actions" style="border-top: none; padding-top: 0.5rem;"><button class="btn btn-primary" onclick="alert('Navigating to full Claims Management interface (Simulated)')">Manage Claims</button></div></div></div>
-                        <div class="admin-widget"><h3>Benefit Configuration</h3><div class="widget-content widget-summary"><ul class="summary-list"><li><span class="summary-label">Medical Tiers:</span> <span class="summary-value">5 Levels</span></li><li><span class="summary-label">K&R Add-on:</span> <span class="summary-value status-completed" style="padding: 0.1em 0.4em;">Enabled</span></li><li><span class="summary-label">Green Zone Rate:</span> <span class="summary-value">€2.50/day</span></li></ul><div class="form-actions" style="border-top: none; padding-top: 0.5rem;"><button class="btn btn-primary" onclick="alert('Navigating to Benefit Configuration editor (Simulated)')">Edit Configuration</button></div></div></div>
-                        <div class="admin-widget"><h3>Travel Briefs Content</h3><div class="widget-content widget-summary"><ul class="summary-list"><li><span class="summary-label">Total Briefs:</span> <span class="summary-value">18</span></li><li><span class="summary-label">Risk Levels Updated:</span> <span class="summary-value">2024-08-29</span></li><li><span class="summary-label">Last Brief Added:</span> <span class="summary-value">Colombia</span></li></ul><div class="form-actions" style="border-top: none; padding-top: 0.5rem;"><button class="btn btn-primary" onclick="alert('Navigating to Briefs Management editor (Simulated)')">Manage Briefs</button></div></div></div>
-                    </div>
-                 </div>
+                 <div class="section-content"> <div class="admin-grid"> <!-- Admin widgets go here --> </div> </div>
             </section>
 
         </main>
     </div>
 
     <footer class="footer">
-        <div class="container">
-            <p>© 2024 Compass Point Assist | Travel Risk Management Tool</p>
-        </div>
+        <div class="container"> <p>© 2024 Compass Point Assist | Travel Risk Management Tool</p> </div>
     </footer>
 
-    <!-- USE THE script.js PROVIDED IN THE PREVIOUS RESPONSE -->
-    <!-- Make sure it includes the age check and show/hide logic -->
+    <!-- Script file to be updated next -->
     <script src="script.js"></script>
 
     <!-- Google Translate Scripts -->
-    <script type="text/javascript">
-        function googleTranslateElementInit() { new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,de', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, autoDisplay: false }, 'google_translate_element'); }
-    </script>
+    <script type="text/javascript"> function googleTranslateElementInit() { new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,de', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, autoDisplay: false }, 'google_translate_element'); } </script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 </body>

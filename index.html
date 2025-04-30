@@ -35,7 +35,7 @@
                 <ul>
                     <li><a href="#map-section" class="sidebar-link active" data-target="map-section">Risk Map</a></li>
                     <li><a href="#plan-section" class="sidebar-link" data-target="plan-section">Customize Insurance</a></li>
-                    {/* <!-- NEW LINK ADDED HERE --> */}
+                    <!-- NEW LINK ADDED HERE -->
                     <li><a href="#travel-registration-section" class="sidebar-link" data-target="travel-registration-section">Travel Registration</a></li>
                     <li><a href="#account-section" class="sidebar-link" data-target="account-section">My Account</a></li>
                     <li><a href="#claims-section" class="sidebar-link" data-target="claims-section">Claims</a></li>
@@ -56,7 +56,7 @@
                 </nav>
             </div>
 
-            {/* --- Existing Sections (Unchanged Content) --- */}
+            <!-- --- Existing Sections (Unchanged Content) --- -->
 
             <section id="map-section" class="dashboard-section active fade-in">
                 <h2>Global Risk Map</h2>
@@ -87,12 +87,12 @@
               </section>
 
             <section id="plan-section" class="dashboard-section card fade-in" data-delay="0.1">
-                {/* Changed H2 slightly for clarity */}
+                <!-- Changed H2 slightly for clarity -->
                 <h2>Customize Your Insurance Plan</h2>
                  <div class="section-content"><div class="plan-customizer"><form id="travel-plan-form"><div class="form-row"><div class="form-group"> <label for="start-date">Trip Start Date</label> <input type="date" id="start-date" name="start-date" required> </div><div class="form-group"> <label for="end-date">Trip End Date</label> <input type="date" id="end-date" name="end-date" required> </div><div class="form-group"> <label for="total-days">Total Trip Days</label> <input type="number" id="total-days" name="total-days" value="0" readonly class="readonly-input"> </div></div><div class="form-row"><div class="form-group"> <label for="days-amber">Days in Amber Zone(s)</label> <input type="number" id="days-amber" name="days-amber" min="0" value="0" required> </div><div class="form-group"> <label for="days-red">Days in Red Zone(s)</label> <input type="number" id="days-red" name="days-red" min="0" value="0" required> </div><div class="form-group"> <label for="days-green">Days in Green Zone(s)</label> <input type="number" id="days-green" name="days-green" min="0" value="0" readonly class="readonly-input"> </div></div><div class="coverage-options"><h3>Standard Coverage</h3><div class="form-row"><div class="form-group"> <label for="medical-coverage">Emergency Medical Coverage</label> <select id="medical-coverage" name="medical-coverage"> <option value="50000">$50,000</option> <option value="100000">$100,000</option> <option value="150000">$150,000</option> <option value="200000">$200,000</option> <option value="250000">$250,000</option> </select> </div><div class="form-group"> <label for="accident-coverage">Personal Accident Coverage</label> <select id="accident-coverage" name="accident-coverage"> <option value="50000">$50,000</option> <option value="100000">$100,000</option> <option value="150000">$150,000</option> <option value="200000">$200,000</option> <option value="250000">$250,000</option> </select> </div></div><div class="checkbox-group form-group"> <input type="checkbox" id="transit-coverage" name="transit-coverage"> <label for="transit-coverage">Add Optional Transit Coverage (up to 10 days in Europe)?</label> </div></div><div class="optional-addons"><h3>Optional Add-ons</h3><div class="checkbox-group form-group"><input type="checkbox" id="kr-coverage" name="kr-coverage"><label for="kr-coverage">Add Kidnap, Ransom & Crisis Cover?</label></div><div class="checkbox-group form-group"><input type="checkbox" id="evac-coverage" name="evac-coverage"><label for="evac-coverage">Add Political Evacuation & Relocation Cover?</label></div></div><div class="price-summary"><h3>Your Estimated Plan Cost</h3><div id="estimated-price">$0.00</div><p class="price-note">(Price updates based on your selections)</p><div class="form-actions"><button type="button" class="btn btn-accent btn-large cta-button"><span class="btn-text">Proceed to Checkout</span><span class="loading-spinner" style="display: none;"></span></button></div></div></form></div></div>
             </section>
 
-            {/* --- NEW SECTION ADDED BELOW --- */}
+            <!-- --- NEW SECTION ADDED BELOW --- -->
 
             <section id="travel-registration-section" class="dashboard-section card fade-in" data-delay="0.15">
                 <h2>Travel Registration Form</h2>
@@ -133,7 +133,7 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="reg-c-country">Country of Residence</label>
-                                    {/* Ideally, replace this with a <select> dropdown populated dynamically */}
+                                    <!-- Ideally, replace this with a <select> dropdown populated dynamically -->
                                     <input type="text" id="reg-c-country" name="c_country" required placeholder="e.g., United Kingdom">
                                 </div>
                                 <div class="form-group">
@@ -171,7 +171,7 @@
                                 </select>
                             </div>
 
-                            {/* Destinations - Simple initial structure */}
+                            <!-- Destinations - Simple initial structure -->
                             <div class="form-group">
                                 <label>Primary Cities/Regions of Stay</label>
                                 <div id="destinations-list">
@@ -184,10 +184,10 @@
                                             <label for="reg-dest-stay-1" class="sr-only">Hotel/Accommodation (Optional)</label>
                                             <input type="text" id="reg-dest-stay-1" name="destinations[0][stay]" placeholder="Hotel/Accommodation (Optional)">
                                         </div>
-                                        {/* Placeholder for remove button if needed */}
+                                        <!-- Placeholder for remove button if needed -->
                                     </div>
                                 </div>
-                                {/* Button to add more - requires JS */}
+                                <!-- Button to add more - requires JS -->
                                 <button type="button" id="add-destination-btn" class="btn btn-secondary btn-small" style="margin-top: 0.5rem;" onclick="alert('Add Destination functionality requires JavaScript.')">Add Another Destination</button>
                             </div>
 
@@ -195,7 +195,7 @@
                                 <input type="checkbox" id="reg-is-company-arranged" name="is_company_arranged">
                                 <label for="reg-is-company-arranged">Is this travel/employment arranged by a Company?</label>
                             </div>
-                            {/* Conditional Field - requires JS to show/hide */}
+                            <!-- Conditional Field - requires JS to show/hide -->
                             <div id="company-details" style="display: none;">
                                 <div class="form-group">
                                     <label for="reg-company-name">Company Name (Required if checked above)</label>
@@ -222,10 +222,10 @@
                                         <label for="reg-traveller-bdate-1" class="sr-only">Traveller Date of Birth</label>
                                         <input type="date" id="reg-traveller-bdate-1" name="travellers[0][birthdate]" required>
                                     </div>
-                                     {/* Placeholder for remove button */}
+                                     <!-- Placeholder for remove button -->
                                 </div>
                              </div>
-                             {/* Button to add more - requires JS */}
+                             <!-- Button to add more - requires JS -->
                              <button type="button" id="add-traveller-btn" class="btn btn-secondary btn-small" style="margin-top: 0.5rem;" onclick="alert('Add Traveller functionality requires JavaScript.')">Add Another Traveller</button>
                         </fieldset>
 
@@ -268,7 +268,7 @@
                                     <input type="text" id="reg-blood-type" name="blood_type" placeholder="e.g., O+, A-">
                                 </div>
                                 <div class="form-group">
-                                    {/* Empty group for alignment, or add another field if needed */}
+                                    <!-- Empty group for alignment, or add another field if needed -->
                                 </div>
                              </div>
                              <div class="form-group">
@@ -296,7 +296,7 @@
                 </div>
             </section>
 
-            {/* --- Remaining Existing Sections (Unchanged Content) --- */}
+            <!-- --- Remaining Existing Sections (Unchanged Content) --- -->
 
             <section id="login-section" class="dashboard-section card fade-in" data-delay="0.2">
                  <h2>Login / Register</h2>
@@ -378,7 +378,7 @@
         </div>
     </footer>
 
-    {/* <!-- Script remains UNCHANGED --> */}
+    <!-- Script remains UNCHANGED -->
     <script src="script.js"></script>
 </body>
 </html>

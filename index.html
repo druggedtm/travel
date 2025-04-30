@@ -11,6 +11,34 @@
     <!-- Added temporary style for sr-only -->
     <style>
         .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+        /* Basic styling for the translate element wrapper */
+        #google_translate_element {
+            display: inline-block; /* Align with other header items */
+            vertical-align: middle;
+            margin-left: 1rem; /* Add some space */
+        }
+        /* Target Google's default styling - may need adjustments */
+        .goog-te-gadget-simple {
+            background-color: transparent !important;
+            border: 1px solid var(--border-color) !important;
+            padding: 0.35rem 0.6rem !important;
+            border-radius: var(--border-radius) !important;
+            font-size: 0.9rem !important;
+            cursor: pointer;
+        }
+        .goog-te-gadget-simple span {
+             color: var(--primary-color) !important; /* Match header link color */
+        }
+        .goog-te-menu-value span:first-child {
+             color: var(--primary-color) !important; /* Text color */
+             font-weight: var(--font-weight-medium);
+        }
+        .goog-te-gadget-icon { /* Hide default Google icon */
+            display: none !important;
+        }
+        body > .skiptranslate { display: none !important; } /* Hide Google top bar */
+        #goog-gt-tt { display: none !important; } /* Hide Google tooltip */
+
     </style>
 </head>
 <body>
@@ -20,8 +48,11 @@
                  <button id="mobile-menu-toggle" aria-label="Toggle Menu" aria-expanded="false">
                     <span class="hamburger-icon"></span>
                 </button>
+                 <!-- Language Selector Placeholder ADDED HERE -->
+                 <div id="google_translate_element"></div>
             </div>
             <div class="header-actions">
+                 <!-- Original header actions -->
                 <a href="#login-section" class="header-link login-link" data-target="login-section">Login</a>
                 <a href="#login-section" class="header-link register-link" data-target="login-section">Register</a>
             </div>
@@ -36,7 +67,7 @@
                 </a>
             </div>
             <nav class="sidebar-nav">
-                <ul>
+                 <ul>
                     <li><a href="#map-section" class="sidebar-link active" data-target="map-section">Risk Map</a></li>
                     <li><a href="#plan-section" class="sidebar-link" data-target="plan-section">Customize Insurance</a></li>
                     <li><a href="#travel-registration-section" class="sidebar-link" data-target="travel-registration-section">Travel Registration</a></li>
@@ -59,7 +90,7 @@
                 </nav>
             </div>
 
-            <!-- --- Existing Map Section --- -->
+            <!-- --- Map Section --- -->
             <section id="map-section" class="dashboard-section active fade-in">
                 <h2>Global Risk Map</h2>
                 <div class="section-content">
@@ -80,13 +111,13 @@
                 </div>
             </section>
 
-            <!-- --- Existing Insurance Plan Section --- -->
+            <!-- --- Insurance Plan Section --- -->
             <section id="plan-section" class="dashboard-section card fade-in" data-delay="0.1">
                 <h2>Customize Your Insurance Plan</h2>
                  <div class="section-content"><div class="plan-customizer"><form id="travel-plan-form"><div class="form-row"><div class="form-group"> <label for="start-date">Trip Start Date</label> <input type="date" id="start-date" name="start-date" required> </div><div class="form-group"> <label for="end-date">Trip End Date</label> <input type="date" id="end-date" name="end-date" required> </div><div class="form-group"> <label for="total-days">Total Trip Days</label> <input type="number" id="total-days" name="total-days" value="0" readonly class="readonly-input"> </div></div><div class="form-row"><div class="form-group"> <label for="days-amber">Days in Amber Zone(s)</label> <input type="number" id="days-amber" name="days-amber" min="0" value="0" required> </div><div class="form-group"> <label for="days-red">Days in Red Zone(s)</label> <input type="number" id="days-red" name="days-red" min="0" value="0" required> </div><div class="form-group"> <label for="days-green">Days in Green Zone(s)</label> <input type="number" id="days-green" name="days-green" min="0" value="0" readonly class="readonly-input"> </div></div><div class="coverage-options"><h3>Standard Coverage</h3><div class="form-row"><div class="form-group"> <label for="medical-coverage">Emergency Medical Coverage</label> <select id="medical-coverage" name="medical-coverage"> <option value="50000">$50,000</option> <option value="100000">$100,000</option> <option value="150000">$150,000</option> <option value="200000">$200,000</option> <option value="250000">$250,000</option> </select> </div><div class="form-group"> <label for="accident-coverage">Personal Accident Coverage</label> <select id="accident-coverage" name="accident-coverage"> <option value="50000">$50,000</option> <option value="100000">$100,000</option> <option value="150000">$150,000</option> <option value="200000">$200,000</option> <option value="250000">$250,000</option> </select> </div></div><div class="checkbox-group form-group"> <input type="checkbox" id="transit-coverage" name="transit-coverage"> <label for="transit-coverage">Add Optional Transit Coverage (up to 10 days in Europe)?</label> </div></div><div class="optional-addons"><h3>Optional Add-ons</h3><div class="checkbox-group form-group"><input type="checkbox" id="kr-coverage" name="kr-coverage"><label for="kr-coverage">Add Kidnap, Ransom & Crisis Cover?</label></div><div class="checkbox-group form-group"><input type="checkbox" id="evac-coverage" name="evac-coverage"><label for="evac-coverage">Add Political Evacuation & Relocation Cover?</label></div></div><div class="price-summary"><h3>Your Estimated Plan Cost</h3><div id="estimated-price">$0.00</div><p class="price-note">(Price updates based on your selections)</p><div class="form-actions"><button type="button" class="btn btn-accent btn-large cta-button"><span class="btn-text">Proceed to Checkout</span><span class="loading-spinner" style="display: none;"></span></button></div></div></form></div></div>
             </section>
 
-            <!-- --- NEWLY STYLED TRAVEL REGISTRATION SECTION --- -->
+            <!-- --- Travel Registration Section --- -->
             <section id="travel-registration-section" class="dashboard-section fade-in" data-delay="0.15">
                 <h2>Travel Registration Form</h2>
                 <div class="section-content">
@@ -304,27 +335,31 @@
                 </div> <!-- end section-content -->
             </section>
 
-            <!-- --- Remaining Existing Sections --- -->
+            <!-- --- Login Section --- -->
             <section id="login-section" class="dashboard-section card fade-in" data-delay="0.2">
                  <h2>Login / Register</h2>
                  <div class="section-content"><div class="login-register-grid"><form id="register-form" class="form-box"><h3>Register</h3><div class="form-group"> <label for="reg-email">Your Email:</label> <input type="email" id="reg-email" required placeholder="you@example.com"> </div><div class="form-group"> <label for="reg-password">Choose Password:</label> <input type="password" id="reg-password" required placeholder="••••••••"> </div><div class="form-actions"> <button type="submit" class="btn btn-success"> <span class="btn-text">Register Now</span> <span class="loading-spinner" style="display: none;"></span> </button> </div></form><form id="login-form" class="form-box"><h3>Login</h3><div class="form-group"> <label for="login-email">Your Email:</label> <input type="email" id="login-email" required placeholder="you@example.com"> </div><div class="form-group"> <label for="login-password">Your Password:</label> <input type="password" id="login-password" required placeholder="••••••••"> </div><div class="form-actions"> <button type="submit" class="btn btn-primary"> <span class="btn-text">Login</span> <span class="loading-spinner" style="display: none;"></span> </button> </div><p class="forgot-password-link"><a href="#" class="forgot-password" onclick="alert('Forgot Password action placeholder'); return false;">Forgot Password?</a></p></form></div></div>
             </section>
 
+            <!-- --- Account Section --- -->
             <section id="account-section" class="dashboard-section card fade-in" data-delay="0.3">
                 <h2>My Account</h2>
                 <div class="section-content"><div class="emergency-contact-box"><h4>Emergency Assistance (24/7)</h4><p>For immediate help during a trip:</p><p><strong>Phone:</strong> <a href="tel:+442037907060">+44 (20) 3790 7060</a> (Example)</p><p><strong>Email:</strong> <a href="mailto:assist@example.com">assist@example.com</a> (Example)</p><p class="provider-note">Provided by Global Guardian (Example Partner)</p></div><div class="account-grid"><div class="placeholder-box account-widget"><h4>Active Policy Summary</h4><p>Policy ID: CPA-12345678</p><p>Valid: 2024-09-01 to 2025-08-31</p><p>Status: <span class="status-completed">Active</span></p><button class="btn btn-secondary btn-small" onclick="alert('Viewing Full Policy Details (Simulated)')" style="margin-top: 0.5rem;">View Full Details</button></div><div class="placeholder-box account-widget"><h4>My Profile</h4><p>Manage your contact information and password.</p><button class="btn btn-secondary btn-small" style="margin-top: 0.5rem;">Edit Profile</button></div><div class="placeholder-box account-widget"><h4>Billing & Subscription</h4><p>View payment history and manage subscription.</p><button class="btn btn-secondary btn-small" style="margin-top: 0.5rem;">Manage Billing</button></div></div></div>
             </section>
 
+            <!-- --- Claims Section --- -->
             <section id="claims-section" class="dashboard-section card fade-in" data-delay="0.4">
                 <h2>Claims Center</h2>
                 <div class="section-content"><p class="section-description">Submit a new claim or view the status of existing claims. For emergencies, please use the 24/7 Assistance line.</p><div class="form-actions" style="margin-bottom: var(--spacing-unit); border-top: none; padding-top: 0;"><button class="btn btn-primary btn-large" onclick="alert('Navigating to New Claim Form (Simulated)')">File a New Claim</button></div><div class="claims-list"><h4>My Claims History</h4><div class="table-wrapper claims-table-wrapper"><table id="claims-table"><thead><tr><th>Claim ID</th><th>Date Submitted</th><th>Incident Type</th><th>Status</th><th>Action</th></tr></thead><tbody><tr><td data-label="Claim ID">CLM-98765</td><td data-label="Date Submitted">2024-07-15</td><td data-label="Incident Type">Medical Expense</td><td data-label="Status"><span class="status-pending">Pending Review</span></td><td data-label="Action"><button class="btn btn-secondary btn-small" onclick="alert('Viewing Claim CLM-98765 (Simulated)')">View</button></td></tr><tr><td data-label="Claim ID">CLM-98701</td><td data-label="Date Submitted">2024-05-02</td><td data-label="Incident Type">Lost Baggage</td><td data-label="Status"><span class="status-completed">Closed - Paid</span></td><td data-label="Action"><button class="btn btn-secondary btn-small" onclick="alert('Viewing Claim CLM-98701 (Simulated)')">View</button></td></tr></tbody></table></div></div></div>
             </section>
 
+            <!-- --- Briefs Section --- -->
             <section id="briefs-section" class="dashboard-section card fade-in" data-delay="0.5">
                 <h2>Travel Briefs & Country Info</h2>
                 <div class="section-content"><p class="section-description">Access detailed, downloadable pre-travel briefs for specific countries or regions, including risk assessments, cultural notes, and emergency contacts.</p><div class="briefs-search-area"><div class="form-group"><label for="brief-country-search">Search for Country Brief:</label><div class="search-input-group"><input type="text" id="brief-country-search" placeholder="e.g., France"><button class="btn btn-primary"><span class="btn-text">Search</span></button></div></div></div><div class="featured-briefs"><h4>Featured & Recent Briefs</h4><ul class="brief-list"><li><a href="#"><span class="brief-icon pdf">PDF</span> Brief: Germany (August 2024) <span class="brief-risk low">Low Risk</span></a></li><li><a href="#"><span class="brief-icon web">WEB</span> Brief: Ukraine Update (August 2024) <span class="brief-risk high">High Risk</span></a></li><li><a href="#"><span class="brief-icon pdf">PDF</span> Brief: Transit through Europe Guide <span class="brief-risk low">Low Risk</span></a></li><li><a href="#"><span class="brief-icon web">WEB</span> Brief: General Safety Tips <span class="brief-risk info">Info</span></a></li></ul></div></div>
             </section>
 
+            <!-- --- Admin Section --- -->
             <section id="admin-section" class="dashboard-section admin-dashboard fade-in" data-delay="0.6">
                  <h2>Admin Portal</h2>
                  <div class="section-content">
@@ -350,5 +385,19 @@
 
     <!-- Script remains UNCHANGED -->
     <script src="script.js"></script>
+
+    <!-- Google Translate Scripts -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+          new google.translate.TranslateElement({
+              pageLanguage: 'en', // Set the default language of your page
+              includedLanguages: 'en,de', // Specify languages to include (English, German)
+              layout: google.translate.TranslateElement.InlineLayout.SIMPLE, // Use the simple dropdown layout
+              autoDisplay: false // Prevent the top banner from showing automatically
+            }, 'google_translate_element'); // ID of the placeholder div
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 </body>
 </html>

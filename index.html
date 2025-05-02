@@ -143,11 +143,12 @@
              <nav class="sidebar-nav">
                  <ul>
                      <!-- *** MODIFIED: Renamed first map link and made it active by default *** -->
-                     <li><a href="#map-section" class="sidebar-link active" data-target="map-section">Risk Map 1</a></li>
+                     <!-- <li><a href="#map-section" class="sidebar-link active" data-target="map-section">Risk Map 1</a></li> -->
                      <!-- *** ADDED: New sidebar link for the second map *** -->
-                     <li><a href="#map-section2" class="sidebar-link" data-target="map-section2">Risk Map 2</a></li>
-                     <!-- *** ADDED: New sidebar link for the Ukraine map *** -->
                      <li><a href="#map-section-ukraine" class="sidebar-link" data-target="map-section-ukraine">Ukraine Map</a></li>
+
+                     <li><a href="#map-section2" class="sidebar-link" data-target="map-section2">Global Risk Map</a></li>
+                     <!-- *** ADDED: New sidebar link for the Ukraine map *** -->
                      <li><a href="#plan-section" class="sidebar-link" data-target="plan-section">Travel Risk Quote</a></li>
                      <li><a href="#account-section" class="sidebar-link" data-target="account-section">My Account</a></li>
                      <li><a href="#claims-section" class="sidebar-link" data-target="claims-section">Claims</a></li>
@@ -175,8 +176,8 @@
 
             <!-- === Map Section 1 === -->
             <!-- *** MODIFIED: Added "active fade-in" to make this the default visible map, updated H2 *** -->
-            <section id="map-section" class="dashboard-section active fade-in">
-                <h2>Global Risk Map 1</h2> <!-- *** MODIFIED H2 *** -->
+            <!-- <section id="map-section" class="dashboard-section active fade-in">
+                <h2>Global Risk Map 1</h2> 
                 <div class="section-content">
                   <div id="map" class="risk-map-placeholder">
                     <iframe src="https://www.google.com/maps/d/embed?mid=1S4cDLsBgtimaEBuIhSMr04y2xtVm0vo&ehbc=2E312F&noprof=1" loading="lazy" ></iframe>
@@ -188,7 +189,7 @@
                     <p class="map-ukraine-note">Ukraine-specific details available</p>
                   </div>
                 </div>
-            </section>
+            </section> -->
             <!-- === END Map Section 1 === -->
 
             <!-- *** ADDED: New Map Section 2 (Design matched to Map 1) *** -->
@@ -239,7 +240,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group"><label for="eligibility-start-date">Travel Start Date</label><input type="date" id="eligibility-start-date" required></div>
-                            <div class="form-group"><label for="eligibility-end-date">Travel End Date</label><input type="date" id="eligibility-end-date" required><p class="form-text validation-note" style="margin-top: 0.5rem;">Passport must be valid 90+ days after Travel End Date.</p></div>
+                            <div class="form-group"><label for="eligibility-end-date">Travel End Date</label><input type="date" id="eligibility-end-date" required></div>
                         </div>
                         <div id="eligibility-error-message"></div>
                         <div class="form-actions" style="border-top: none; padding-top: 0; margin-top: 1rem;"><button type="button" id="check-eligibility-btn" class="btn btn-primary btn-large"><span class="btn-text">Check Eligibility</span><span class="loading-spinner"></span></button></div>
@@ -253,7 +254,7 @@
                         <form id="travel-plan-form">
                             <div class="form-row"><div class="form-group"><label for="total-days">Total Trip Days</label><input type="number" id="total-days" readonly class="readonly-input"></div><div class="form-group"><label for="days-amber">Days Amber</label><input type="number" id="days-amber" min="0" value="0" required></div><div class="form-group"><label for="days-red">Days Red</label><input type="number" id="days-red" min="0" value="0" required></div><div class="form-group"><label for="days-green">Days Green</label><input type="number" id="days-green" min="0" value="0" readonly class="readonly-input"></div></div>
                             <div class="coverage-options"><h4>Standard Coverage</h4><div class="form-row"><div class="form-group"><label for="medical-coverage">Medical</label><select id="medical-coverage"><option value="50000">$50k</option><option value="100000">$100k</option><option value="150000">$150k</option><option value="200000">$200k</option><option value="250000">$250k</option></select></div><div class="form-group"><label for="accident-coverage">Accident</label><select id="accident-coverage"><option value="50000">$50k</option><option value="100000">$100k</option><option value="150000">$150k</option><option value="200000">$200k</option><option value="250000">$250k</option></select></div></div><div class="checkbox-group form-group"><input type="checkbox" id="transit-coverage"><label for="transit-coverage">Add Transit?</label></div></div>
-                            <div class="optional-addons"><h4>Optional Add-ons</h4><div class="checkbox-group form-group"><input type="checkbox" id="kr-coverage"><label for="kr-coverage">Add K&R?</label></div><div class="checkbox-group form-group"><input type="checkbox" id="evac-coverage"><label for="evac-coverage">Add Evac?</label></div></div>
+                            <div class="optional-addons"><h4>Optional Add-ons</h4><div class="checkbox-group form-group"><input type="checkbox" id="kr-coverage"><label for="kr-coverage">Add add-on</label></div><div class="checkbox-group form-group"><input type="checkbox" id="evac-coverage"><label for="evac-coverage">Add Evac?</label></div></div>
                             <div class="price-summary"><h4>Estimated Quote</h4><div id="estimated-price">$0.00</div><p class="price-note">(Updates)</p><div class="form-actions"><button type="button" id="accept-quote-btn" class="btn btn-accent btn-large"><span class="btn-text">Accept & Proceed</span><span class="loading-spinner"></span></button></div></div>
                         </form>
                     </div>

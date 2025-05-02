@@ -76,54 +76,6 @@
          }
          /* Hide accept button when subscription shows */
           #plan-section.subscription-active #accept-quote-btn { display: none; }
-
-         /* Ensure risk map placeholders and legends have consistent styling */
-         .risk-map-placeholder {
-             position: relative; /* Needed for absolute positioning of legend if desired */
-             margin-bottom: 1rem; /* Space below map */
-         }
-         .risk-map-placeholder iframe {
-             display: block; /* Remove extra space below iframe */
-             width: 100%;
-             height: 600px; /* Consistent height */
-             border: none;
-         }
-        .map-legend {
-            display: flex;
-            flex-wrap: wrap; /* Allow wrapping on small screens */
-            justify-content: center; /* Center legend items */
-            gap: 1rem; /* Space between items */
-            padding: 0.75rem;
-            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
-            border-radius: var(--border-radius);
-            margin-top: 0.5rem; /* Space above legend */
-            border: 1px solid var(--border-color);
-        }
-        .legend-item {
-            display: flex;
-            align-items: center;
-            font-size: 0.9rem;
-            color: var(--primary-color);
-        }
-        .legend-color {
-            display: inline-block;
-            width: 18px;
-            height: 18px;
-            margin-right: 0.5rem;
-            border-radius: 3px;
-            border: 1px solid rgba(0, 0, 0, 0.2);
-        }
-        .legend-green { background-color: var(--success-color); }
-        .legend-amber { background-color: var(--warning-color); }
-        .legend-red { background-color: var(--danger-color); }
-
-        .map-ukraine-note {
-            text-align: center;
-            margin-top: 0.5rem;
-            font-size: 0.9rem;
-            color: var(--secondary-color);
-            font-style: italic;
-        }
     </style>
 </head>
 <body>
@@ -146,8 +98,6 @@
                      <li><a href="#map-section" class="sidebar-link active" data-target="map-section">Risk Map 1</a></li>
                      <!-- *** ADDED: New sidebar link for the second map *** -->
                      <li><a href="#map-section2" class="sidebar-link" data-target="map-section2">Risk Map 2</a></li>
-                     <!-- *** ADDED: New sidebar link for the Ukraine map *** -->
-                     <li><a href="#map-section-ukraine" class="sidebar-link" data-target="map-section-ukraine">Ukraine Map</a></li>
                      <li><a href="#plan-section" class="sidebar-link" data-target="plan-section">Travel Risk Quote</a></li>
                      <li><a href="#account-section" class="sidebar-link" data-target="account-section">My Account</a></li>
                      <li><a href="#claims-section" class="sidebar-link" data-target="claims-section">Claims</a></li>
@@ -179,7 +129,7 @@
                 <h2>Global Risk Map 1</h2> <!-- *** MODIFIED H2 *** -->
                 <div class="section-content">
                   <div id="map" class="risk-map-placeholder">
-                    <iframe src="https://www.google.com/maps/d/embed?mid=1S4cDLsBgtimaEBuIhSMr04y2xtVm0vo&ehbc=2E312F&noprof=1" loading="lazy" ></iframe>
+                    <iframe src="https://www.google.com/maps/d/embed?mid=1S4cDLsBgtimaEBuIhSMr04y2xtVm0vo&ehbc=2E312F&noprof=1" style="width: 100%; height: 600px; border: none;" loading="lazy" ></iframe>
                     <div class="map-legend">
                       <div class="legend-item"><span class="legend-color legend-green"></span> Low Risk (Green)</div>
                       <div class="legend-item"><span class="legend-color legend-amber"></span> Medium Risk (Amber)</div>
@@ -191,39 +141,23 @@
             </section>
             <!-- === END Map Section 1 === -->
 
-            <!-- *** ADDED: New Map Section 2 (Design matched to Map 1) *** -->
+            <!-- *** ADDED: New Map Section 2 *** -->
+            <!-- *** NOTE: Removed "active fade-in" initially; JS should add these when selected *** -->
             <section id="map-section2" class="dashboard-section">
-                <h2>Global Risk Map 2</h2>
+                <h2>Global Risk Map 2</h2> <!-- *** MODIFIED H2 *** -->
                 <div class="section-content">
-                    <div id="map2" class="risk-map-placeholder">
-                        <iframe src="https://map-ashen-two.vercel.app/" loading="lazy" title="Global Risk Map 2"></iframe>
-                        <div class="map-legend"> <!-- Identical Legend Structure -->
+                    <div id="map2" class="risk-map-placeholder"> <!-- *** Consider giving this map container a unique ID like map2 if needed by JS *** -->
+                        <iframe src="https://map-ashen-two.vercel.app/" style="width: 100%; height: 600px; border: none;" loading="lazy" title="Global Risk Map 2"></iframe> <!-- *** Updated title *** -->
+                        <div class="map-legend">
                             <div class="legend-item"><span class="legend-color legend-green"></span> Low Risk (Green)</div>
                             <div class="legend-item"><span class="legend-color legend-amber"></span> Medium Risk (Amber)</div>
                             <div class="legend-item"><span class="legend-color legend-red"></span> High Risk (Red)</div>
                         </div>
-                        <p class="map-ukraine-note">Ukraine-specific details available</p> <!-- Identical Note -->
+                        <p class="map-ukraine-note">Ukraine-specific details available</p>
                     </div>
                 </div>
             </section>
             <!-- === END Map Section 2 === -->
-
-            <!-- *** ADDED: New Ukraine Map Section (Design matched to Map 1) *** -->
-            <section id="map-section-ukraine" class="dashboard-section">
-                <h2>Ukraine Map</h2>
-                <div class="section-content">
-                    <div id="map-ukraine" class="risk-map-placeholder">
-                        <iframe src="https://ukraine-map.vercel.app/" loading="lazy" title="Ukraine Conflict Map"></iframe>
-                        <div class="map-legend"> <!-- Identical Legend Structure -->
-                           <div class="legend-item"><span class="legend-color legend-green"></span> Low Risk (Green)</div>
-                           <div class="legend-item"><span class="legend-color legend-amber"></span> Medium Risk (Amber)</div>
-                           <div class="legend-item"><span class="legend-color legend-red"></span> High Risk (Red)</div>
-                        </div>
-                        <p class="map-ukraine-note">Ukraine-specific details available</p> <!-- Identical Note -->
-                    </div>
-                </div>
-            </section>
-            <!-- === END Ukraine Map Section === -->
 
             <!-- === Travel Risk Quote Section === -->
             <section id="plan-section" class="dashboard-section card fade-in" data-delay="0.1">
